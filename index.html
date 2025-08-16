@@ -5,32 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Criptomoedas e Ativos Digitais</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- AOS CSS -->
   <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
-  <!-- Font Awesome -->
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-  <!-- Countdown CSS -->
   <style>
-    .countdown {
-      font-size: 2.5rem;
-      font-weight: bold;
-      color: #dc2626;
-      letter-spacing: 1px;
-    }
-    .benefit-icon {
-      width: 70px;
-      height: 70px;
-      margin-bottom: 16px;
-      transition: transform 0.5s;
-    }
-    .benefit-icon:hover {
-      transform: scale(1.2) rotate(10deg);
-    }
-    .hero-overlay {
-      background: rgba(0,0,0,0.3);
-      position: absolute;
-      inset: 0;
-    }
+    .countdown { font-size: 2.5rem; font-weight: bold; color: #dc2626; letter-spacing: 1px; }
+    .benefit-icon { width: 70px; height: 70px; margin-bottom: 16px; transition: transform 0.5s; }
+    .benefit-icon:hover { transform: scale(1.2) rotate(10deg); }
+    .hero-overlay { background: rgba(0,0,0,0.3); position: absolute; inset: 0; }
   </style>
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans">
@@ -76,7 +57,7 @@
     </div>
   </section>
 
-  <!-- Oferta -->
+  <!-- Oferta Principal -->
   <section class="max-w-6xl mx-auto px-6 py-32 text-center bg-gradient-to-r from-purple-50 to-blue-50 rounded-3xl shadow-3xl relative overflow-hidden" data-aos="zoom-in">
     <h2 class="text-5xl font-extrabold mb-6 text-blue-700">Oferta Exclusiva</h2>
     <p class="text-xl md:text-2xl text-gray-700 mb-6">Garanta seu acesso agora ao curso completo e ao Ebook exclusivo, com insights de especialistas do setor.</p>
@@ -85,6 +66,25 @@
       <div class="countdown" id="countdown">00:00:00</div>
     </div>
     <a href="https://pay.tutora.co.mz/checkout/pay/6328cbd18f510ea626c7" target="_blank" class="px-16 py-6 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 transform hover:scale-110 text-white font-bold rounded-3xl shadow-2xl transition duration-500">Comprar Agora</a>
+  </section>
+
+  <!-- Oferta VIP (Upsell) com Bônus e Garantia -->
+  <section class="max-w-6xl mx-auto px-6 py-32 text-center bg-gradient-to-r from-yellow-50 to-orange-50 rounded-3xl shadow-3xl relative overflow-hidden mt-20" data-aos="zoom-in">
+    <h2 class="text-5xl font-extrabold mb-6 text-orange-600">Oferta VIP Exclusiva + Bônus</h2>
+    <p class="text-xl md:text-2xl text-gray-700 mb-6">Aproveite nosso pacote avançado com ferramentas práticas, análises detalhadas e sinais exclusivos de trading em criptomoedas.</p>
+    <ul class="text-left md:text-center text-gray-700 mb-6 space-y-2 md:space-y-0 md:flex md:justify-center md:gap-10">
+      <li>📊 Sinais de trading diários exclusivos</li>
+      <li>📝 Planilhas e simuladores de investimentos</li>
+      <li>📚 Guias avançados de análise de mercado</li>
+      <li>🎁 Bônus especial: Checklist de estratégias vencedoras</li>
+      <li>🛡️ Garantia de satisfação 7 dias</li>
+    </ul>
+    <div class="flex justify-center items-center gap-6 mb-6">
+      <p class="text-6xl font-extrabold text-orange-500">99MT</p>
+      <div class="countdown" id="countdown-vip">00:00:00</div>
+    </div>
+    <a href="https://pay.tutora.co.mz/checkout/pay/6328cbd18f510ea626c7?utm_source=main&utm_medium=product&utm_campaign=upsell1" target="_blank" class="px-16 py-6 bg-gradient-to-r from-orange-500 to-red-500 hover:from-red-600 hover:to-orange-600 transform hover:scale-110 text-white font-bold rounded-3xl shadow-2xl transition duration-500">Adicionar ao meu pacote VIP</a>
+    <p class="mt-6 text-gray-600 font-semibold">Estoque limitado e oferta válida apenas por 72 horas!</p>
   </section>
 
   <!-- Rodapé -->
@@ -98,28 +98,28 @@
     <p class="text-sm mt-2">Política de Privacidade | Termos de Uso</p>
   </footer>
 
-  <!-- AOS JS -->
   <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
   <script>
     AOS.init({ duration: 1200, once: true });
 
-    // Contador regressivo
-    const countdownElement = document.getElementById('countdown');
-    const countdownDate = new Date();
-    countdownDate.setHours(countdownDate.getHours() + 24);
-
-    function updateCountdown() {
-      const now = new Date().getTime();
-      const distance = countdownDate - now;
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-      countdownElement.innerHTML = `${hours.toString().padStart(2,'0')}:${minutes.toString().padStart(2,'0')}:${seconds.toString().padStart(2,'0')}`;
-      if (distance < 0) { clearInterval(timer); countdownElement.innerHTML = 'Oferta Expirada'; }
+    // Contador regressivo oferta principal (24h)
+    function startCountdown(id, hours) {
+      const countdownElement = document.getElementById(id);
+      const countdownDate = new Date();
+      countdownDate.setHours(countdownDate.getHours() + hours);
+      const timer = setInterval(function() {
+        const now = new Date().getTime();
+        const distance = countdownDate - now;
+        const h = Math.floor((distance % (1000*60*60*24))/(1000*60*60));
+        const m = Math.floor((distance % (1000*60*60))/(1000*60));
+        const s = Math.floor((distance % (1000*60))/1000);
+        countdownElement.innerHTML = `${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
+        if(distance < 0){ clearInterval(timer); countdownElement.innerHTML='Oferta Expirada'; }
+      },1000);
     }
 
-    const timer = setInterval(updateCountdown, 1000);
-    updateCountdown();
+    startCountdown('countdown',24);
+    startCountdown('countdown-vip',72);
   </script>
 
 </body>
