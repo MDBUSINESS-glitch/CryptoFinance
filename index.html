@@ -1,97 +1,124 @@
-<!-- ================= VIP SECTION ================= -->
-<section id="vip" class="py-16 bg-gray-900 text-white relative overflow-hidden">
-  <div class="container mx-auto text-center px-6 lg:px-20 relative z-10">
-    <!-- Título -->
-    <h2 class="text-3xl lg:text-5xl font-extrabold mb-8">💎 Torne-se um Membro VIP</h2>
-    <p class="text-lg lg:text-xl mb-12 text-gray-300">
-      Receba conteúdos exclusivos, dicas práticas e materiais avançados para acelerar sua jornada em criptomoedas e ativos digitais.
-    </p>
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Página VIP - Oferta Exclusiva</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-white">
 
-    <!-- Benefícios -->
-    <div class="grid md:grid-cols-3 gap-8 mb-12">
-      <div class="bg-gray-800 p-6 rounded-2xl shadow-lg hover:shadow-xl transition">
-        <h3 class="text-xl font-semibold mb-3">📈 Estratégias Avançadas</h3>
-        <p class="text-gray-400">Aprenda técnicas usadas por traders profissionais.</p>
-      </div>
-      <div class="bg-gray-800 p-6 rounded-2xl shadow-lg hover:shadow-xl transition">
-        <h3 class="text-xl font-semibold mb-3">📊 Análises Semanais</h3>
-        <p class="text-gray-400">Receba insights de mercado exclusivos para VIPs.</p>
-      </div>
-      <div class="bg-gray-800 p-6 rounded-2xl shadow-lg hover:shadow-xl transition">
-        <h3 class="text-xl font-semibold mb-3">🎁 Materiais Bônus</h3>
-        <p class="text-gray-400">E-books, planilhas e recursos práticos.</p>
-      </div>
-    </div>
+  <!-- ================= VIP SECTION ================= -->
+  <section id="vip" class="py-16 relative overflow-hidden">
+    <div class="container mx-auto text-center px-6 lg:px-20 relative z-10">
+      <!-- Título -->
+      <h2 class="text-3xl lg:text-5xl font-extrabold mb-8">💎 Torne-se um Membro VIP</h2>
+      <p class="text-lg lg:text-xl mb-12 text-gray-300">
+        Receba conteúdos exclusivos, dicas práticas e materiais avançados para acelerar sua jornada em criptomoedas e ativos digitais.
+      </p>
 
-    <!-- Formulário -->
-    <div class="max-w-lg mx-auto bg-gray-800 p-8 rounded-2xl shadow-lg">
-      <h3 class="text-2xl font-bold mb-4">Inscreva-se Agora 🚀</h3>
-      <form class="space-y-4">
-        <input type="text" placeholder="Seu Nome" class="w-full p-3 rounded-lg border border-gray-600 bg-gray-900 text-white focus:outline-none">
-        <input type="email" placeholder="Seu Email" class="w-full p-3 rounded-lg border border-gray-600 bg-gray-900 text-white focus:outline-none">
-        <button type="submit" class="w-full py-3 bg-yellow-500 text-gray-900 font-bold rounded-lg hover:bg-yellow-400 transition">
-          Garantir Meu Acesso VIP
-        </button>
-      </form>
-    </div>
-  </div>
-
-  <!-- ================= COMPLEMENTAR: OFERTA VIP EXCLUSIVA ================= -->
-  <div class="vip-section relative z-10 mt-20">
-    <div class="container mx-auto px-6 lg:px-20 text-center">
-      <h2 class="text-3xl lg:text-5xl font-extrabold mb-4">🔥 Oferta VIP Exclusiva</h2>
-      <p class="text-lg lg:text-xl mb-8 text-gray-300">Garanta agora sua inscrição e desbloqueie bônus incríveis!</p>
-
-      <!-- Countdown -->
-      <div class="countdown flex justify-center space-x-4 mb-8">
-        <div><span id="days" class="text-4xl font-bold">00</span><p>Dias</p></div>
-        <div><span id="hours" class="text-4xl font-bold">00</span><p>Horas</p></div>
-        <div><span id="minutes" class="text-4xl font-bold">00</span><p>Min</p></div>
-        <div><span id="seconds" class="text-4xl font-bold">00</span><p>Seg</p></div>
+      <!-- Benefícios -->
+      <div class="grid md:grid-cols-3 gap-8 mb-12">
+        <div class="bg-gray-800 p-6 rounded-2xl shadow-lg hover:shadow-xl transition">
+          <h3 class="text-xl font-semibold mb-3">📈 Estratégias Avançadas</h3>
+          <p class="text-gray-400">Aprenda técnicas usadas por traders profissionais.</p>
+        </div>
+        <div class="bg-gray-800 p-6 rounded-2xl shadow-lg hover:shadow-xl transition">
+          <h3 class="text-xl font-semibold mb-3">📊 Análises Semanais</h3>
+          <p class="text-gray-400">Receba insights de mercado exclusivos para VIPs.</p>
+        </div>
+        <div class="bg-gray-800 p-6 rounded-2xl shadow-lg hover:shadow-xl transition">
+          <h3 class="text-xl font-semibold mb-3">🎁 Materiais Bônus</h3>
+          <p class="text-gray-400">E-books, planilhas e recursos práticos.</p>
+        </div>
       </div>
 
-      <!-- Botão CTA -->
-      <a href="#formulario-vip" class="px-8 py-4 bg-yellow-500 text-gray-900 font-bold rounded-lg hover:bg-yellow-400 transition inline-block">
-        Quero Ser VIP 🚀
-      </a>
-
-      <!-- Quiz -->
-      <div class="quiz mt-12 max-w-lg mx-auto bg-gray-800 p-6 rounded-2xl">
-        <h3 class="text-xl font-semibold mb-4">📌 Descubra seu Perfil de Investidor</h3>
-        <p class="mb-4 text-gray-400">Responda ao quiz e receba um bônus personalizado.</p>
-        <button onclick="startQuiz()" class="px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-400 transition">Iniciar Quiz</button>
+      <!-- Formulário -->
+      <div id="formulario-vip" class="max-w-lg mx-auto bg-gray-800 p-8 rounded-2xl shadow-lg">
+        <h3 class="text-2xl font-bold mb-4">Inscreva-se Agora 🚀</h3>
+        <form class="space-y-4">
+          <input type="text" placeholder="Seu Nome" class="w-full p-3 rounded-lg border border-gray-600 bg-gray-900 text-white focus:outline-none">
+          <input type="email" placeholder="Seu Email" class="w-full p-3 rounded-lg border border-gray-600 bg-gray-900 text-white focus:outline-none">
+          <button type="submit" class="w-full py-3 bg-yellow-500 text-gray-900 font-bold rounded-lg hover:bg-yellow-400 transition">
+            Garantir Meu Acesso VIP
+          </button>
+        </form>
       </div>
     </div>
-  </div>
-</section>
 
-<!-- ================= SCRIPTS VIP ================= -->
-<script>
-  // === Countdown Timer ===
-  const endDate = new Date();
-  endDate.setDate(endDate.getDate() + 3);
-  function updateCountdown() {
-    const now = new Date().getTime();
-    const distance = endDate - now;
-    if (distance <= 0) return;
-    document.getElementById("days").textContent = Math.floor(distance / (1000*60*60*24));
-    document.getElementById("hours").textContent = Math.floor((distance % (1000*60*60*24))/(1000*60*60));
-    document.getElementById("minutes").textContent = Math.floor((distance % (1000*60*60))/(1000*60));
-    document.getElementById("seconds").textContent = Math.floor((distance % (1000*60))/1000);
-  }
-  setInterval(updateCountdown, 1000);
+    <!-- ================= COMPLEMENTAR: OFERTA VIP EXCLUSIVA ================= -->
+    <div class="relative z-10 mt-20 bg-gray-800 py-16 rounded-2xl shadow-xl mx-6 lg:mx-20">
+      <div class="container mx-auto px-6 lg:px-20 text-center">
+        <h2 class="text-3xl lg:text-5xl font-extrabold mb-4 text-yellow-400">🔥 Oferta VIP Exclusiva</h2>
+        <p class="text-lg lg:text-xl mb-8 text-gray-300">Garanta agora sua inscrição e desbloqueie bônus incríveis!</p>
 
-  // === Quiz Placeholder ===
-  function startQuiz() {
-    alert("Quiz VIP em construção. Em breve você terá acesso ao seu perfil de investidor! 🎯");
-  }
+        <!-- Countdown -->
+        <div class="grid grid-cols-4 gap-4 justify-center mb-8 max-w-lg mx-auto">
+          <div class="bg-gray-900 p-4 rounded-lg">
+            <span id="days" class="text-4xl font-bold text-yellow-400">00</span>
+            <p class="text-sm">Dias</p>
+          </div>
+          <div class="bg-gray-900 p-4 rounded-lg">
+            <span id="hours" class="text-4xl font-bold text-yellow-400">00</span>
+            <p class="text-sm">Horas</p>
+          </div>
+          <div class="bg-gray-900 p-4 rounded-lg">
+            <span id="minutes" class="text-4xl font-bold text-yellow-400">00</span>
+            <p class="text-sm">Min</p>
+          </div>
+          <div class="bg-gray-900 p-4 rounded-lg">
+            <span id="seconds" class="text-4xl font-bold text-yellow-400">00</span>
+            <p class="text-sm">Seg</p>
+          </div>
+        </div>
 
-  // === Popup Exit Intent ===
-  let popupShown = false;
-  document.addEventListener("mouseleave", (e) => {
-    if (!popupShown) {
-      popupShown = true;
-      alert("⚡ Espere! Antes de sair, aproveite sua Oferta VIP Exclusiva!");
+        <!-- Botão CTA -->
+        <a href="#formulario-vip" class="px-8 py-4 bg-yellow-500 text-gray-900 font-bold rounded-lg hover:bg-yellow-400 transition inline-block">
+          Quero Ser VIP 🚀
+        </a>
+
+        <!-- Quiz -->
+        <div class="mt-12 max-w-lg mx-auto bg-gray-900 p-6 rounded-2xl">
+          <h3 class="text-xl font-semibold mb-4">📌 Descubra seu Perfil de Investidor</h3>
+          <p class="mb-4 text-gray-400">Responda ao quiz e receba um bônus personalizado.</p>
+          <button onclick="startQuiz()" class="px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-400 transition">
+            Iniciar Quiz
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SCRIPTS VIP ================= -->
+  <script>
+    // === Countdown Timer ===
+    const endDate = new Date();
+    endDate.setDate(endDate.getDate() + 3); // 3 dias
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = endDate - now;
+      if (distance <= 0) return;
+      document.getElementById("days").textContent = Math.floor(distance / (1000*60*60*24));
+      document.getElementById("hours").textContent = Math.floor((distance % (1000*60*60*24))/(1000*60*60));
+      document.getElementById("minutes").textContent = Math.floor((distance % (1000*60*60))/(1000*60));
+      document.getElementById("seconds").textContent = Math.floor((distance % (1000*60))/1000);
     }
-  });
-</script>
+    setInterval(updateCountdown, 1000);
+
+    // === Quiz Placeholder ===
+    function startQuiz() {
+      alert("Quiz VIP em construção. Em breve você terá acesso ao seu perfil de investidor! 🎯");
+    }
+
+    // === Popup Exit Intent ===
+    let popupShown = false;
+    document.addEventListener("mouseleave", () => {
+      if (!popupShown) {
+        popupShown = true;
+        alert("⚡ Espere! Antes de sair, aproveite sua Oferta VIP Exclusiva!");
+      }
+    });
+  </script>
+
+</body>
+</html>
