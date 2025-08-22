@@ -143,27 +143,8 @@
       {q:"Prefere operações?",o:["Day Trade","Swing Trade","Buy & Hold"],c:0},
       {q:"Quanto tempo tem para se dedicar por semana?",o:["< 5h","5h-10h","+10h"],c:0},
       {q:"Qual seu orçamento inicial?",o:["< 100MT","100-500MT","+500MT"],c:0},
-      {q:"Tem interesse em mentoria personalizada?",o:["Sim","Não"],c:0}
-    ];
-    let qi=0,score=0;
-    function openQuiz(){document.getElementById('quizModal').style.display='flex';showQ();}
-    function showQ(){if(qi<quizQuestions.length){const q=quizQuestions[qi];
-      document.getElementById('quizContainer').innerHTML=`<p>${q.q}</p>`+
-        q.o.map((opt,i)=>`<button onclick=ans(${i})>${opt}</button>`).join("");
-    }else{
-      document.getElementById('quizContainer').innerHTML=`<p>Obrigado! Seu perfil indica que o <b>Pacote VIP</b> é ideal para você 🚀</p><a href='https://pay.tutora.co.mz/checkout/pay/6328cbd18f510ea626c7?utm_source=quiz&utm_medium=vip&utm_campaign=criptomoedas' class='cta-btn'>Ativar VIP por 50MT</a>`;
-    }}
-    function ans(i){qi++;showQ();}
-    window.onclick=function(e){if(e.target==document.getElementById('quizModal'))document.getElementById('quizModal').style.display='none';}
-  </script>
-
-  <!-- Tracking (Exemplo Google Analytics GA4) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXX"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-XXXXXXX');
-  </script>
-</body>
-</html>
+      {q:"Tem interesse em mentoria personalizada?",o:["Sim","Não"],c:0},
+      {q:"Qual seu nível de conhecimento em análise técnica?",o:["Básico","Intermediário","Avançado"],c:0},
+      {q:"Prefere estratégias de curto ou longo prazo
+::contentReference[oaicite:0]{index=0}
+ 
