@@ -1,474 +1,109 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CryptoFinance Pro - Plataforma Avançada de Criptomoedas e Finanças</title>
-    <meta name="description" content="Plataforma moderna e avançada para investimentos em criptomoedas, análises de mercado, ferramentas financeiras e educação em blockchain.">
-    <meta name="keywords" content="criptomoedas, bitcoin, ethereum, investimentos, finanças, blockchain, trading, análises">
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    
-    <!-- CSS -->
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/components.css">
-    <link rel="stylesheet" href="css/animations.css">
-    
-    <!-- Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- AOS Animation Library -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Criptomoedas e Ativos Digitais</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <!-- Header -->
-    <header class="header">
-        <nav class="navbar">
-            <div class="container">
-                <div class="nav-brand">
-                    <a href="#home" class="logo">
-                        <i class="fas fa-coins"></i>
-                        <span>CryptoFinance Pro</span>
-                    </a>
-                </div>
-                
-                <!-- Desktop Navigation -->
-                <ul class="nav-menu">
-                    <li><a href="#home" class="nav-link">Início</a></li>
-                    <li class="nav-dropdown">
-                        <a href="#noticias" class="nav-link">Notícias <i class="fas fa-chevron-down"></i></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#noticias-mercado">Mercado</a></li>
-                            <li><a href="#noticias-regulacao">Regulação</a></li>
-                            <li><a href="#noticias-tecnologia">Tecnologia</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-dropdown">
-                        <a href="#analises" class="nav-link">Análises <i class="fas fa-chevron-down"></i></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#analises-tecnicas">Técnicas</a></li>
-                            <li><a href="#analises-fundamentais">Fundamentais</a></li>
-                            <li><a href="#analises-sentimento">Sentimento</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-dropdown">
-                        <a href="#guias" class="nav-link">Guias <i class="fas fa-chevron-down"></i></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#guias-iniciantes">Iniciantes</a></li>
-                            <li><a href="#guias-avancados">Avançados</a></li>
-                            <li><a href="#guias-seguranca">Segurança</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-dropdown">
-                        <a href="#ferramentas" class="nav-link">Ferramentas <i class="fas fa-chevron-down"></i></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#calculadoras">Calculadoras</a></li>
-                            <li><a href="#conversores">Conversores</a></li>
-                            <li><a href="#graficos">Gráficos</a></li>
-                            <li><a href="#alertas">Alertas</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-dropdown">
-                        <a href="#investimentos" class="nav-link">Investimentos <i class="fas fa-chevron-down"></i></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#portfolios">Portfólios</a></li>
-                            <li><a href="#estrategias">Estratégias</a></li>
-                            <li><a href="#etfs">ETFs</a></li>
-                        </ul>
-                    </li>
-                </ul>
-                
-                <!-- Search Bar -->
-                <div class="search-container">
-                    <input type="text" class="search-input" placeholder="Pesquisar...">
-                    <button class="search-btn">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </div>
-                
-                <!-- Mobile Menu Toggle -->
-                <button class="mobile-menu-toggle">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
-            </div>
-        </nav>
-        
-        <!-- Breadcrumbs -->
-        <div class="breadcrumbs">
-            <div class="container">
-                <nav class="breadcrumb-nav">
-                    <a href="#home">Início</a>
-                    <span class="breadcrumb-separator">/</span>
-                    <span class="breadcrumb-current">Dashboard</span>
-                </nav>
-            </div>
-        </div>
-    </header>
+<body class="bg-gray-100 text-gray-800 font-sans">
 
-    <!-- Hero Section -->
-    <section id="home" class="hero-section">
-        <div class="hero-background">
-            <div class="hero-overlay"></div>
-            <div class="hero-particles"></div>
-        </div>
-        
-        <div class="container">
-            <div class="hero-content" data-aos="fade-up">
-                <h1 class="hero-title">
-                    O Futuro das <span class="gradient-text">Criptomoedas</span> 
-                    Começa Aqui
-                </h1>
-                <p class="hero-subtitle">
-                    Plataforma completa com análises avançadas, ferramentas profissionais 
-                    e insights exclusivos para maximizar seus investimentos em criptomoedas.
-                </p>
-                
-                <div class="hero-stats">
-                    <div class="stat-item" data-aos="fade-up" data-aos-delay="100">
-                        <div class="stat-number">500K+</div>
-                        <div class="stat-label">Usuários Ativos</div>
-                    </div>
-                    <div class="stat-item" data-aos="fade-up" data-aos-delay="200">
-                        <div class="stat-number">$2.5B+</div>
-                        <div class="stat-label">Volume Analisado</div>
-                    </div>
-                    <div class="stat-item" data-aos="fade-up" data-aos-delay="300">
-                        <div class="stat-number">1000+</div>
-                        <div class="stat-label">Criptomoedas</div>
-                    </div>
-                </div>
-                
-                <div class="hero-actions" data-aos="fade-up" data-aos-delay="400">
-                    <a href="#ferramentas" class="btn btn-primary btn-large">
-                        <i class="fas fa-rocket"></i>
-                        Começar Agora
-                    </a>
-                    <a href="#sobre" class="btn btn-outline btn-large">
-                        <i class="fas fa-play"></i>
-                        Ver Demo
-                    </a>
-                </div>
-                
-                <div class="crypto-showcase" data-aos="fade-up" data-aos-delay="500">
-                    <div class="crypto-item">
-                        <img src="https://cryptologos.cc/logos/bitcoin-btc-logo.png" alt="Bitcoin">
-                        <span>Bitcoin</span>
-                        <span class="price">$124,514</span>
-                        <span class="change positive">+2.4%</span>
-                    </div>
-                    <div class="crypto-item">
-                        <img src="https://cryptologos.cc/logos/ethereum-eth-logo.png" alt="Ethereum">
-                        <span>Ethereum</span>
-                        <span class="price">$3,847</span>
-                        <span class="change positive">+1.8%</span>
-                    </div>
-                    <div class="crypto-item">
-                        <img src="https://cryptologos.cc/logos/cardano-ada-logo.png" alt="Cardano">
-                        <span>Cardano</span>
-                        <span class="price">$1.23</span>
-                        <span class="change negative">-0.5%</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+  <!-- Navbar -->
+  <header class="bg-indigo-600 text-white shadow-md">
+    <div class="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
+      <h1 class="text-xl font-bold">Criptomoedas & Ativos Digitais</h1>
+      <nav class="space-x-6">
+        <a href="#sobre" class="hover:text-gray-200">Sobre</a>
+        <a href="#beneficios" class="hover:text-gray-200">Benefícios</a>
+        <a href="#altcoins" class="hover:text-gray-200">Altcoins</a>
+        <a href="#contato" class="hover:text-gray-200">Contato</a>
+      </nav>
+    </div>
+  </header>
 
-    <!-- Market Overview -->
-    <section class="market-overview section">
-        <div class="container">
-            <div class="section-header" data-aos="fade-up">
-                <h2>Visão Geral do Mercado</h2>
-                <p>Acompanhe as principais métricas e tendências do mercado de criptomoedas em tempo real</p>
-            </div>
-            
-            <div class="market-grid">
-                <div class="market-card" data-aos="fade-up" data-aos-delay="100">
-                    <div class="market-card-header">
-                        <h3>Capitalização Total</h3>
-                        <i class="fas fa-chart-pie"></i>
-                    </div>
-                    <div class="market-value">$2.8T</div>
-                    <div class="market-change positive">+3.2% (24h)</div>
-                </div>
-                
-                <div class="market-card" data-aos="fade-up" data-aos-delay="200">
-                    <div class="market-card-header">
-                        <h3>Volume 24h</h3>
-                        <i class="fas fa-exchange-alt"></i>
-                    </div>
-                    <div class="market-value">$156B</div>
-                    <div class="market-change positive">+8.7% (24h)</div>
-                </div>
-                
-                <div class="market-card" data-aos="fade-up" data-aos-delay="300">
-                    <div class="market-card-header">
-                        <h3>Dominância BTC</h3>
-                        <i class="fab fa-bitcoin"></i>
-                    </div>
-                    <div class="market-value">58.3%</div>
-                    <div class="market-change negative">-0.8% (24h)</div>
-                </div>
-                
-                <div class="market-card" data-aos="fade-up" data-aos-delay="400">
-                    <div class="market-card-header">
-                        <h3>Fear & Greed</h3>
-                        <i class="fas fa-thermometer-half"></i>
-                    </div>
-                    <div class="market-value">72</div>
-                    <div class="market-status greed">Ganância</div>
-                </div>
-            </div>
-        </div>
-    </section>
+  <!-- Hero Section -->
+  <section class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-20">
+    <div class="max-w-4xl mx-auto text-center px-6">
+      <h2 class="text-4xl font-bold mb-6">Descubra o Mundo das Criptomoedas</h2>
+      <p class="text-lg mb-8">Aprenda sobre Bitcoin, Ethereum, Altcoins e o universo dos ativos digitais. Torne-se um investidor preparado para o futuro.</p>
+      <a href="#sobre" class="bg-white text-indigo-700 font-semibold px-6 py-3 rounded-full shadow hover:bg-gray-100 transition">Começar Agora</a>
+    </div>
+  </section>
 
-    <!-- News Section -->
-    <section id="noticias" class="news-section section section-alt">
-        <div class="container">
-            <div class="section-header" data-aos="fade-up">
-                <h2>Últimas Notícias</h2>
-                <p>Mantenha-se atualizado com as principais notícias do mundo das criptomoedas</p>
-            </div>
-            
-            <div class="news-grid">
-                <article class="news-card featured" data-aos="fade-up" data-aos-delay="100">
-                    <div class="news-image">
-                        <img src="images/crypto_image_1.jpg" alt="Bitcoin ultrapassa US$ 124 mil">
-                        <div class="news-category">Destaque</div>
-                    </div>
-                    <div class="news-content">
-                        <h3>Bitcoin ultrapassa US$ 124 mil em alta histórica</h3>
-                        <p>Criptomoeda líder atinge novo recorde impulsionada por adoção institucional e aprovação de ETFs...</p>
-                        <div class="news-meta">
-                            <span class="news-date">
-                                <i class="fas fa-calendar"></i>
-                                16 Ago 2025
-                            </span>
-                            <span class="news-author">
-                                <i class="fas fa-user"></i>
-                                João Silva
-                            </span>
-                            <span class="news-time">
-                                <i class="fas fa-clock"></i>
-                                5 min
-                            </span>
-                        </div>
-                        <a href="#" class="news-link">Leia mais <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </article>
-                
-                <article class="news-card" data-aos="fade-up" data-aos-delay="200">
-                    <div class="news-image">
-                        <img src="images/crypto_image_2.jpg" alt="Regulamentação de Criptomoedas">
-                        <div class="news-category">Regulação</div>
-                    </div>
-                    <div class="news-content">
-                        <h3>Nova regulamentação de criptomoedas no Brasil</h3>
-                        <p>Banco Central define novas diretrizes para exchanges e custódia de ativos digitais...</p>
-                        <div class="news-meta">
-                            <span class="news-date">
-                                <i class="fas fa-calendar"></i>
-                                15 Ago 2025
-                            </span>
-                            <span class="news-time">
-                                <i class="fas fa-clock"></i>
-                                3 min
-                            </span>
-                        </div>
-                        <a href="#" class="news-link">Leia mais <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </article>
-                
-                <article class="news-card" data-aos="fade-up" data-aos-delay="300">
-                    <div class="news-image">
-                        <img src="images/crypto_image_3.jpg" alt="Ethereum 2.0">
-                        <div class="news-category">Tecnologia</div>
-                    </div>
-                    <div class="news-content">
-                        <h3>Ethereum implementa nova atualização</h3>
-                        <p>Rede Ethereum reduz taxas de transação em 40% com nova implementação...</p>
-                        <div class="news-meta">
-                            <span class="news-date">
-                                <i class="fas fa-calendar"></i>
-                                14 Ago 2025
-                            </span>
-                            <span class="news-time">
-                                <i class="fas fa-clock"></i>
-                                4 min
-                            </span>
-                        </div>
-                        <a href="#" class="news-link">Leia mais <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </article>
-            </div>
-            
-            <div class="news-actions" data-aos="fade-up" data-aos-delay="400">
-                <a href="#todas-noticias" class="btn btn-outline">Ver Todas as Notícias</a>
-                <a href="#newsletter" class="btn btn-secondary">
-                    <i class="fas fa-envelope"></i>
-                    Assinar Newsletter
-                </a>
-            </div>
-        </div>
-    </section>
+  <!-- Sobre -->
+  <section id="sobre" class="py-16 bg-white">
+    <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+      <img src="https://cdn-icons-png.flaticon.com/512/825/825500.png" alt="Bitcoin" class="w-72 mx-auto">
+      <div>
+        <h3 class="text-3xl font-bold mb-4">O que são Criptomoedas?</h3>
+        <p class="text-gray-700 leading-relaxed">Criptomoedas são moedas digitais descentralizadas que utilizam a tecnologia blockchain para registrar transações de forma segura e transparente. Elas oferecem independência de bancos tradicionais e novas formas de investimento.</p>
+      </div>
+    </div>
+  </section>
 
-    <!-- Tools Section -->
-    <section id="ferramentas" class="tools-section section">
-        <div class="container">
-            <div class="section-header" data-aos="fade-up">
-                <h2>Ferramentas Profissionais</h2>
-                <p>Acesse ferramentas avançadas para análise, conversão e monitoramento de criptomoedas</p>
-            </div>
-            
-            <div class="tools-grid">
-                <div class="tool-card" data-aos="fade-up" data-aos-delay="100">
-                    <div class="tool-icon">
-                        <i class="fas fa-calculator"></i>
-                    </div>
-                    <h3>Calculadora de Investimentos</h3>
-                    <p>Calcule retornos, juros compostos e simule diferentes cenários de investimento</p>
-                    <div class="tool-features">
-                        <span>ROI</span>
-                        <span>Juros Compostos</span>
-                        <span>DCA</span>
-                    </div>
-                    <a href="#calculadora" class="tool-link">Usar Ferramenta</a>
-                </div>
-                
-                <div class="tool-card" data-aos="fade-up" data-aos-delay="200">
-                    <div class="tool-icon">
-                        <i class="fas fa-exchange-alt"></i>
-                    </div>
-                    <h3>Conversor de Criptomoedas</h3>
-                    <p>Converta entre mais de 1000 criptomoedas e moedas fiduciárias em tempo real</p>
-                    <div class="tool-features">
-                        <span>1000+ Moedas</span>
-                        <span>Tempo Real</span>
-                        <span>Histórico</span>
-                    </div>
-                    <a href="#conversor" class="tool-link">Usar Ferramenta</a>
-                </div>
-                
-                <div class="tool-card" data-aos="fade-up" data-aos-delay="300">
-                    <div class="tool-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <h3>Gráficos Avançados</h3>
-                    <p>Análise técnica profissional com indicadores e ferramentas de desenho</p>
-                    <div class="tool-features">
-                        <span>50+ Indicadores</span>
-                        <span>Múltiplos Timeframes</span>
-                        <span>Alertas</span>
-                    </div>
-                    <a href="#graficos" class="tool-link">Usar Ferramenta</a>
-                </div>
-                
-                <div class="tool-card" data-aos="fade-up" data-aos-delay="400">
-                    <div class="tool-icon">
-                        <i class="fas fa-bell"></i>
-                    </div>
-                    <h3>Alertas Inteligentes</h3>
-                    <p>Receba notificações personalizadas sobre preços, volume e indicadores</p>
-                    <div class="tool-features">
-                        <span>Email/SMS</span>
-                        <span>Push</span>
-                        <span>Webhook</span>
-                    </div>
-                    <a href="#alertas" class="tool-link">Usar Ferramenta</a>
-                </div>
-            </div>
+  <!-- Benefícios -->
+  <section id="beneficios" class="py-16 bg-gray-50">
+    <div class="max-w-6xl mx-auto px-6 text-center">
+      <h3 class="text-3xl font-bold mb-12">Benefícios de Investir em Criptomoedas</h3>
+      <div class="grid md:grid-cols-3 gap-10">
+        <div class="bg-white shadow-md p-6 rounded-2xl">
+          <h4 class="text-xl font-semibold mb-2">Alta Rentabilidade</h4>
+          <p>Possibilidade de grandes retornos com valorização de ativos digitais.</p>
         </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <div class="footer-brand">
-                        <a href="#home" class="logo">
-                            <i class="fas fa-coins"></i>
-                            <span>CryptoFinance Pro</span>
-                        </a>
-                        <p>Sua plataforma completa para investimentos em criptomoedas e análises de mercado.</p>
-                        <div class="social-links">
-                            <a href="#"><i class="fab fa-twitter"></i></a>
-                            <a href="#"><i class="fab fa-linkedin"></i></a>
-                            <a href="#"><i class="fab fa-telegram"></i></a>
-                            <a href="#"><i class="fab fa-discord"></i></a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="footer-section">
-                    <h4>Plataforma</h4>
-                    <ul>
-                        <li><a href="#noticias">Notícias</a></li>
-                        <li><a href="#analises">Análises</a></li>
-                        <li><a href="#ferramentas">Ferramentas</a></li>
-                        <li><a href="#investimentos">Investimentos</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-section">
-                    <h4>Recursos</h4>
-                    <ul>
-                        <li><a href="#guias">Guias</a></li>
-                        <li><a href="#api">API</a></li>
-                        <li><a href="#blog">Blog</a></li>
-                        <li><a href="#webinars">Webinars</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-section">
-                    <h4>Suporte</h4>
-                    <ul>
-                        <li><a href="#faq">FAQ</a></li>
-                        <li><a href="#contato">Contato</a></li>
-                        <li><a href="#comunidade">Comunidade</a></li>
-                        <li><a href="#status">Status</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-section">
-                    <h4>Legal</h4>
-                    <ul>
-                        <li><a href="#privacidade">Privacidade</a></li>
-                        <li><a href="#termos">Termos de Uso</a></li>
-                        <li><a href="#cookies">Cookies</a></li>
-                        <li><a href="#compliance">Compliance</a></li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="footer-bottom">
-                <div class="footer-bottom-content">
-                    <p>&copy; 2025 CryptoFinance Pro. Todos os direitos reservados.</p>
-                    <div class="footer-badges">
-                        <img src="https://img.shields.io/badge/SSL-Secured-green" alt="SSL Secured">
-                        <img src="https://img.shields.io/badge/GDPR-Compliant-blue" alt="GDPR Compliant">
-                        <img src="https://img.shields.io/badge/ISO-27001-orange" alt="ISO 27001">
-                    </div>
-                </div>
-            </div>
+        <div class="bg-white shadow-md p-6 rounded-2xl">
+          <h4 class="text-xl font-semibold mb-2">Diversificação</h4>
+          <p>Adicione criptomoedas ao seu portfólio para equilibrar riscos.</p>
         </div>
-    </footer>
+        <div class="bg-white shadow-md p-6 rounded-2xl">
+          <h4 class="text-xl font-semibold mb-2">Inovação</h4>
+          <p>Participe do futuro financeiro com tecnologias disruptivas.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <!-- Scripts -->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="js/main.js"></script>
-    <script src="js/charts.js"></script>
-    <script src="js/tools.js"></script>
+  <!-- Altcoins -->
+  <section id="altcoins" class="py-16 bg-white">
+    <div class="max-w-6xl mx-auto px-6">
+      <h3 class="text-3xl font-bold mb-12 text-center">Principais Altcoins</h3>
+      <div class="grid md:grid-cols-3 gap-10 text-center">
+        <div class="p-6 bg-gray-50 rounded-2xl shadow hover:shadow-lg transition">
+          <img src="https://cryptologos.cc/logos/ethereum-eth-logo.png" alt="Ethereum" class="w-20 mx-auto mb-4">
+          <h4 class="text-xl font-semibold mb-2">Ethereum (ETH)</h4>
+          <p>Blockchain para contratos inteligentes e aplicações descentralizadas.</p>
+        </div>
+        <div class="p-6 bg-gray-50 rounded-2xl shadow hover:shadow-lg transition">
+          <img src="https://cryptologos.cc/logos/solana-sol-logo.png" alt="Solana" class="w-20 mx-auto mb-4">
+          <h4 class="text-xl font-semibold mb-2">Solana (SOL)</h4>
+          <p>Rede ultrarrápida para DeFi, NFTs e Web3 com baixas taxas.</p>
+        </div>
+        <div class="p-6 bg-gray-50 rounded-2xl shadow hover:shadow-lg transition">
+          <img src="https://cryptologos.cc/logos/cardano-ada-logo.png" alt="Cardano" class="w-20 mx-auto mb-4">
+          <h4 class="text-xl font-semibold mb-2">Cardano (ADA)</h4>
+          <p>Blockchain sustentável e escalável para o futuro da finança digital.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contato -->
+  <section id="contato" class="py-16 bg-gray-50">
+    <div class="max-w-3xl mx-auto px-6 text-center">
+      <h3 class="text-3xl font-bold mb-6">Entre em Contato</h3>
+      <p class="mb-8">Quer aprender mais ou receber dicas exclusivas sobre investimentos em criptomoedas?</p>
+      <form class="grid gap-4">
+        <input type="text" placeholder="Seu Nome" class="p-3 rounded-lg border border-gray-300 focus:ring focus:ring-indigo-300">
+        <input type="email" placeholder="Seu Email" class="p-3 rounded-lg border border-gray-300 focus:ring focus:ring-indigo-300">
+        <textarea placeholder="Sua Mensagem" rows="4" class="p-3 rounded-lg border border-gray-300 focus:ring focus:ring-indigo-300"></textarea>
+        <button class="bg-indigo-600 text-white py-3 rounded-lg shadow hover:bg-indigo-700 transition">Enviar</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Rodapé -->
+  <footer class="bg-indigo-600 text-white text-center py-6">
+    <p>&copy; 2025 Criptomoedas & Ativos Digitais. Todos os direitos reservados.</p>
+  </footer>
+
 </body>
 </html>
-
