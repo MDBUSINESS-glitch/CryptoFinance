@@ -1,301 +1,169 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>CryptoFinance Pro — O Futuro das Criptomoedas</title>
-  <meta name="description" content="Plataforma com análises, estratégias e ferramentas profissionais para dominar criptomoedas. Versão premium com design avançado e CTAs otimizados." />
-  <meta name="theme-color" content="#0D0D0D"/>
-
-  <!-- Tailwind -->
-  <script src="https://cdn.tailwindcss.com"></script>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CryptoFinance Pro - O Futuro das Criptomoedas</title>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
   <style>
-    :root{
-      --gold:#FFD700;
-      --gold-2:#FFAA00;
-      --royal:#0055FF;
-      --neon:#7B2FF7;
-      --bg1:#0D0D0D;
-      --bg2:#1A1A1A;
-    }
-    html{scroll-behavior:smooth}
-    body{background:linear-gradient(135deg,var(--bg1),var(--bg2))}
-    /* glass + border animada */
-    .glass{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);backdrop-filter:blur(10px)}
-    .agb{position:relative;border-radius:1rem}
-    .agb::before{content:"";position:absolute;inset:-2px;border-radius:inherit;background:conic-gradient(from 90deg,#0055FF,#7B2FF7,#FFD700,#0055FF);animation:spin 6s linear infinite;z-index:0}
-    .agb>*{position:relative;z-index:1}
-    @keyframes spin{to{transform:rotate(1turn)}}
-    /* pulse halo */
-    .pulse{position:relative}
-    .pulse::after{content:"";position:absolute;inset:-8px;border-radius:9999px;background:radial-gradient(circle,rgba(255,215,0,.35),transparent 60%);animation:pulseRing 2.2s ease-out infinite;z-index:-1}
-    @keyframes pulseRing{0%{opacity:.7;transform:scale(.9)}70%{opacity:0;transform:scale(1.2)}100%{opacity:0;transform:scale(1.25)}}
+    *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;}
+    body{background:linear-gradient(135deg,#0D0D0D,#1A1A1A);color:#fff;line-height:1.6;}
+    a{text-decoration:none;}
 
-    /* selos */
-    .selo{display:inline-flex;align-items:center;gap:.5rem;border-radius:9999px;padding:.5rem 1rem;font-weight:700}
-    .selo--gold{background:linear-gradient(90deg,var(--gold),var(--gold-2));color:#111;box-shadow:0 0 16px rgba(255,215,0,.45)}
-    .selo--glass{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.18)}
-    .selo-glow{box-shadow:0 0 20px rgba(123,47,247,.35), inset 0 0 0 1px rgba(255,255,255,.15)}
-    .floaty{animation:floaty 6s ease-in-out infinite}
-    @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+    /* Navbar */
+    nav{position:fixed;top:0;left:0;width:100%;background:#0D0D0D;display:flex;justify-content:space-between;align-items:center;padding:1rem 2rem;z-index:1000;}
+    nav .logo{font-size:1.5rem;font-weight:700;color:#FFD700;}
+    nav ul{list-style:none;display:flex;gap:1.5rem;}
+    nav ul li a{color:#fff;font-weight:600;transition:.3s;}
+    nav ul li a:hover{color:#FFD700;}
 
-    /* sticky CTA & back-to-top */
-    .sticky-cta{position:sticky;bottom:0;backdrop-filter:blur(8px)}
-    #toTop{opacity:0;pointer-events:none;transition:opacity .3s ease}
-    #toTop.show{opacity:1;pointer-events:auto}
+    /* Hero */
+    .hero{padding:8rem 2rem 5rem;text-align:center;background:linear-gradient(90deg,#0055FF,#7B2FF7);}
+    .hero h1{font-size:2.8rem;margin-bottom:1rem;}
+    .hero p{font-size:1.2rem;margin-bottom:2rem;}
+    .cta-btn{display:inline-block;padding:1rem 2rem;background:linear-gradient(90deg,#FFD700,#FFAA00);color:#000;border-radius:50px;font-weight:700;transition:.3s;animation:pulse 2s infinite;}
+    .cta-btn:hover{background:linear-gradient(90deg,#7B2FF7,#0055FF);color:#fff;}
+    @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,215,0,0.6);}70%{box-shadow:0 0 0 20px rgba(255,215,0,0);}100%{box-shadow:0 0 0 0 rgba(255,215,0,0);}}
+
+    section{padding:4rem 2rem;max-width:1100px;margin:auto;}
+    h2{text-align:center;color:#FFD700;margin-bottom:2rem;font-size:2rem;}
+
+    /* Benefícios */
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.5rem;}
+    .card{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:15px;padding:2rem;text-align:center;transition:.3s;}
+    .card:hover{transform:translateY(-5px);border-color:#FFD700;}
+    .card i{font-size:2rem;color:#FFD700;margin-bottom:.8rem;}
+
+    /* VIP Oferta */
+    .vip{text-align:center;margin-top:3rem;}
+    .vip h3{color:#FFD700;font-size:1.8rem;margin-bottom:1rem;}
+    .vip p{margin-bottom:1rem;}
+
+    /* FAQ */
+    .faq-item{background:rgba(255,255,255,0.05);padding:1rem 1.5rem;border-radius:10px;margin-bottom:1rem;}
+    .faq-item h4{color:#FFD700;margin-bottom:.5rem;}
+
+    .badges{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;margin-top:2rem;}
+    .badges span{background:rgba(255,255,255,0.1);border:1px solid #FFD700;padding:.7rem 1.2rem;border-radius:30px;font-weight:600;}
+
+    footer{text-align:center;padding:2rem;background:#111;color:#aaa;font-size:.9rem;}
+
+    /* Modal Quiz */
+    .modal{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);display:none;justify-content:center;align-items:center;z-index:2000;}
+    .modal-content{background:#1A1A1A;padding:2rem;border-radius:15px;max-width:600px;width:100%;}
+    .modal-content h3{margin-bottom:1rem;color:#FFD700;}
+    .modal-content button{display:block;margin:.5rem 0;width:100%;padding:.8rem;border:none;border-radius:10px;cursor:pointer;background:#FFD700;color:#000;font-weight:600;transition:.3s;}
+    .modal-content button:hover{background:#FFAA00;}
   </style>
 </head>
-<body class="text-white antialiased">
+<body>
+  <!-- Navbar -->
+  <nav>
+    <div class="logo">CryptoFinance Pro</div>
+    <ul>
+      <li><a href="#beneficios">Benefícios</a></li>
+      <li><a href="#servicos">Serviços</a></li>
+      <li><a href="#vip">VIP</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+  </nav>
 
-  <!-- HEADER -->
-  <header class="sticky top-0 z-40">
-    <nav class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4">
-      <div class="glass agb flex items-center justify-between rounded-2xl px-4 py-3">
-        <a href="#hero" class="flex items-center gap-3 font-black tracking-tight">
-          <span class="inline-flex h-8 w-8 rounded-xl bg-gradient-to-br from-[var(--royal)] to-[var(--neon)]"></span>
-          <span>CryptoFinance <span class="text-transparent bg-clip-text bg-gradient-to-r from-[var(--royal)] to-[var(--neon)]">Pro</span></span>
-        </a>
-        <div class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-200">
-          <a href="#beneficios" class="hover:text-[var(--gold)]">Benefícios</a>
-          <a href="#oferta50" class="hover:text-[var(--gold)]">Oferta 50MT</a>
-          <a href="#vip" class="hover:text-[var(--gold)]">VIP + Bônus</a>
-          <a href="#faq" class="hover:text-[var(--gold)]">FAQ</a>
-        </div>
-        <a href="#oferta50" class="pulse hidden md:inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[var(--gold)] to-[var(--gold-2)] text-black px-5 py-2.5 text-sm font-extrabold">
-          Começar por 50MT
-        </a>
-      </div>
-    </nav>
-  </header>
+  <!-- Hero -->
+  <div class="hero">
+    <h1>O Futuro das Criptomoedas Começa Aqui 🚀</h1>
+    <p>Plataforma completa com análises, estratégias e ferramentas profissionais.</p>
+    <a href="#vip" class="cta-btn">Quero Começar Agora</a>
+  </div>
 
-  <!-- HERO -->
-  <section id="hero" class="pt-16 pb-10">
-    <div class="mx-auto max-w-7xl px-6 text-center">
-      <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight">
-        🚀 CryptoFinance Pro
-      </h1>
-      <p class="mt-4 text-lg md:text-2xl text-slate-300 max-w-3xl mx-auto">
-        Análises avançadas, estratégias de trading e ferramentas profissionais para acelerar seus resultados no mercado cripto.
-      </p>
-
-      <!-- Selos principais -->
-      <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
-        <span class="selo selo--gold floaty">🔒 Pagamento 100% Seguro</span>
-        <span class="selo selo--glass selo-glow floaty">⚡ Acesso Imediato</span>
-        <span class="selo selo--glass floaty">🛡️ Garantia 7 Dias</span>
-      </div>
-
-      <div class="mt-10 flex items-center justify-center gap-4">
-        <a href="https://pay.tutora.co.mz/checkout/pay/6328cbd18f510ea626c7?utm_source=hero&utm_medium=cta&utm_campaign=premium"
-           target="_blank"
-           class="pulse inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-[var(--royal)] to-[var(--neon)] px-8 py-4 text-lg font-extrabold hover:scale-105 transition">
-          💥 Quero Começar Agora
-        </a>
-        <a href="#beneficios" class="inline-flex items-center gap-2 rounded-full px-6 py-4 font-semibold glass hover:scale-105 transition">
-          Ver Benefícios
-        </a>
-      </div>
+  <!-- Benefícios -->
+  <section id="beneficios">
+    <h2>Benefícios Incríveis</h2>
+    <div class="grid">
+      <div class="card"><i class="ri-bar-chart-box-line"></i><h3>Análises Avançadas</h3><p>Receba relatórios detalhados e insights exclusivos.</p></div>
+      <div class="card"><i class="ri-stock-line"></i><h3>Estratégias de Trading</h3><p>Métodos testados usados por traders de elite.</p></div>
+      <div class="card"><i class="ri-team-line"></i><h3>Grupo VIP</h3><p>Acesso a uma comunidade de investidores séria e ativa.</p></div>
+      <div class="card"><i class="ri-book-2-line"></i><h3>Conteúdo Premium</h3><p>Guias, ebooks e materiais atualizados semanalmente.</p></div>
     </div>
   </section>
 
-  <!-- BENEFÍCIOS -->
-  <section id="beneficios" class="py-16">
-    <div class="mx-auto max-w-7xl px-6">
-      <h2 class="text-3xl md:text-5xl font-extrabold text-center mb-12">Benefícios Incríveis</h2>
-
-      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <article class="glass agb rounded-2xl p-6 hover:-translate-y-1 transition">
-          <h3 class="text-lg font-bold mb-2">📈 Sinais de Trading Diários</h3>
-          <p class="text-slate-300">Setups claros, SL/TP e notas de contexto para decisões objetivas.</p>
-        </article>
-        <article class="glass agb rounded-2xl p-6 hover:-translate-y-1 transition">
-          <h3 class="text-lg font-bold mb-2">📚 Guias & Estratégias</h3>
-          <p class="text-slate-300">Materiais práticos: swing, day trade, HODL e gestão de carteira.</p>
-        </article>
-        <article class="glass agb rounded-2xl p-6 hover:-translate-y-1 transition">
-          <h3 class="text-lg font-bold mb-2">⚙️ Ferramentas Profissionais</h3>
-          <p class="text-slate-300">Planilhas, simuladores e templates prontos para acelerar análises.</p>
-        </article>
-        <article class="glass agb rounded-2xl p-6 hover:-translate-y-1 transition">
-          <h3 class="text-lg font-bold mb-2">🎁 Bônus Exclusivos</h3>
-          <p class="text-slate-300">E-books, checklists e conteúdos extras de alto impacto.</p>
-        </article>
-      </div>
+  <!-- Serviços -->
+  <section id="servicos">
+    <h2>Serviços da Oferta VIP</h2>
+    <div class="grid">
+      <div class="card">📊 Relatórios Premium Semanais</div>
+      <div class="card">📈 Sinais de Trading Diários</div>
+      <div class="card">🎥 Aulas ao Vivo</div>
+      <div class="card">📂 Planilhas Exclusivas</div>
+      <div class="card">💬 Suporte Personalizado</div>
     </div>
   </section>
 
-  <!-- OFERTA 50MT -->
-  <section id="oferta50" class="py-10">
-    <div class="mx-auto max-w-7xl px-6 text-center">
-      <div class="glass agb rounded-2xl p-8">
-        <h3 class="text-2xl md:text-3xl font-extrabold">Oferta Exclusiva — 50MT</h3>
-        <p class="mt-2 text-slate-300">Acesso imediato ao conteúdo essencial + bônus de arranque.</p>
-
-        <!-- Selos de confiança reforço -->
-        <div class="mt-4 flex flex-wrap items-center justify-center gap-2">
-          <span class="selo selo--gold">🔒 Seguro</span>
-          <span class="selo selo--glass">⚡ Imediato</span>
-          <span class="selo selo--glass">💳 Várias formas de pagamento</span>
-        </div>
-
-        <div class="mt-6">
-          <a href="https://pay.tutora.co.mz/checkout/pay/6328cbd18f510ea626c7?utm_source=site&utm_medium=button&utm_campaign=offer50"
-             target="_blank"
-             class="pulse inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-emerald-500 to-[var(--royal)] px-10 py-5 text-lg font-extrabold hover:scale-110 transition">
-            🚀 Adquirir Agora por 50MT
-            <span class="ml-2 inline-flex items-center gap-2 text-xs font-semibold bg-white/20 rounded-full px-3 py-1">
-              ⏳ <span id="mini-timer">06:00:00</span>
-            </span>
-          </a>
-        </div>
-
-        <p class="mt-3 text-sm text-slate-400">Oferta relâmpago — válido enquanto o contador estiver ativo.</p>
-      </div>
+  <!-- Oferta VIP -->
+  <section id="vip">
+    <div class="vip">
+      <h3>Oferta VIP Exclusiva + Bônus</h3>
+      <p>Garanta acesso completo por apenas <strong>50 MT</strong>.</p>
+      <a href="https://pay.tutora.co.mz/checkout/pay/6328cbd18f510ea626c7?utm_source=site&utm_medium=vip&utm_campaign=criptomoedas" class="cta-btn">Quero Ser VIP Agora</a>
+      <br><br>
+      <a href="#" class="cta-btn" onclick="openQuiz()">Responder Quiz 🎯</a>
     </div>
   </section>
 
-  <!-- VIP + BÔNUS -->
-  <section id="vip" class="py-16">
-    <div class="mx-auto max-w-7xl px-6">
-      <div class="text-center max-w-3xl mx-auto">
-        <h2 class="text-3xl md:text-5xl font-extrabold">🎯 Oferta VIP Exclusiva + Bônus</h2>
-        <p class="mt-3 text-lg text-slate-300">Tudo para operar com confiança: sinais, ferramentas, suporte e conteúdo premium.</p>
-      </div>
-
-      <div class="mt-10 grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div class="glass agb rounded-2xl p-6"><h3 class="font-bold mb-1">📊 Sinais Diários (VIP)</h3><p class="text-slate-300">Entradas/saídas, SL/TP e racional do trade.</p></div>
-        <div class="glass agb rounded-2xl p-6"><h3 class="font-bold mb-1">📝 Planilhas & Simuladores Pro</h3><p class="text-slate-300">Risco, position sizing, diário de trade e simulação.</p></div>
-        <div class="glass agb rounded-2xl p-6"><h3 class="font-bold mb-1">📚 Guias & E-books Avançados</h3><p class="text-slate-300">Setups, padrões, leitura de fluxo e checklist.</p></div>
-        <div class="glass agb rounded-2xl p-6"><h3 class="font-bold mb-1">💬 Grupo VIP no WhatsApp</h3><p class="text-slate-300">Comunidade, alertas e cenários atualizados.</p></div>
-        <div class="glass agb rounded-2xl p-6"><h3 class="font-bold mb-1">🎓 Suporte & Mentoria</h3><p class="text-slate-300">Dúvidas respondidas e feedback contínuo.</p></div>
-        <div class="glass agb rounded-2xl p-6"><h3 class="font-bold mb-1">🛡️ Garantia de 7 Dias</h3><p class="text-slate-300">Teste sem risco e cancele se não for pra você.</p></div>
-      </div>
-
-      <div class="mt-12 glass agb rounded-2xl p-8 text-center">
-        <p class="text-sm tracking-wide text-slate-400">Oferta Limitada</p>
-        <div class="mt-1 text-5xl font-extrabold">899MT</div>
-        <p class="text-slate-300">Preço exclusivo durante <span id="vip-timer" class="font-semibold">72:00:00</span></p>
-
-        <!-- Selos reforço -->
-        <div class="mt-4 flex flex-wrap items-center justify-center gap-2">
-          <span class="selo selo--gold">🔒 Pagamento 100% Seguro</span>
-          <span class="selo selo--glass">⚡ Acesso Imediato</span>
-          <span class="selo selo--glass">📈 Atualizações Inclusas</span>
-        </div>
-
-        <div class="mt-6 flex flex-col sm:flex-row items-center justify-center gap-3">
-          <a href="#faq" class="inline-flex items-center gap-2 rounded-full px-6 py-3 glass font-semibold hover:scale-105 transition">🧠 Ver Perguntas Frequentes</a>
-          <a href="https://pay.tutora.co.mz/checkout/pay/6328cbd18f510ea626c7?utm_source=site&utm_medium=vip&utm_campaign=criptomoedas"
-             target="_blank"
-             class="pulse inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-[var(--neon)] to-[var(--royal)] px-8 py-4 text-lg font-extrabold hover:scale-105 transition">
-            🚀 Entrar no Pacote VIP
-          </a>
-        </div>
-      </div>
-    </div>
+  <!-- FAQ -->
+  <section id="faq">
+    <h2>Perguntas Frequentes</h2>
+    <div class="faq-item"><h4>📌 Quanto tempo tenho acesso?</h4><p>O acesso é vitalício e com todas as atualizações inclusas.</p></div>
+    <div class="faq-item"><h4>📌 E se eu não gostar?</h4><p>Você tem 7 dias de garantia para reembolso.</p></div>
+    <div class="faq-item"><h4>📌 O pagamento é seguro?</h4><p>Sim, todo processo é criptografado e confiável.</p></div>
   </section>
 
-  <!-- FAQ + GARANTIA -->
-  <section id="faq" class="py-16">
-    <div class="mx-auto max-w-7xl px-6">
-      <h2 class="text-3xl md:text-5xl font-extrabold text-center">Perguntas Frequentes</h2>
-      <div class="mt-10 grid md:grid-cols-2 gap-6">
-        <div class="glass rounded-2xl p-6 border-l-4 border-[var(--gold)]">
-          <h3 class="font-bold">Quanto tempo tenho acesso ao conteúdo VIP?</h3>
-          <p class="text-slate-300 mt-1">Acesso vitalício ao conteúdo disponibilizado, sem mensalidades ocultas.</p>
-        </div>
-        <div class="glass rounded-2xl p-6 border-l-4 border-[var(--gold)]">
-          <h3 class="font-bold">E se eu não gostar do conteúdo?</h3>
-          <p class="text-slate-300 mt-1">Garantia incondicional de 7 dias: devolvemos o seu dinheiro, sem burocracia.</p>
-        </div>
-        <div class="glass rounded-2xl p-6 border-l-4 border-[var(--gold)]">
-          <h3 class="font-bold">O pagamento é seguro?</h3>
-          <p class="text-slate-300 mt-1">Sim. Plataforma com criptografia e conformidade. Seus dados estão protegidos.</p>
-        </div>
-        <div class="glass rounded-2xl p-6 border-l-4 border-[var(--gold)]">
-          <h3 class="font-bold">Como recebo o acesso?</h3>
-          <p class="text-slate-300 mt-1">O acesso é automático após a confirmação de pagamento — você recebe instruções por e-mail.</p>
-        </div>
-      </div>
+  <div class="badges">
+    <span>🔒 Pagamento 100% Seguro</span>
+    <span>⚡ Acesso Imediato</span>
+    <span>✔ Garantia 7 Dias</span>
+  </div>
 
-      <div class="mt-10 text-center">
-        <span class="selo selo--gold pulse">✅ Garantia 7 Dias</span>
-      </div>
+  <!-- Quiz Modal -->
+  <div class="modal" id="quizModal">
+    <div class="modal-content">
+      <h3>Quiz Cripto - Conheça Seu Perfil</h3>
+      <div id="quizContainer"></div>
     </div>
-  </section>
+  </div>
 
-  <!-- FOOTER -->
-  <footer class="relative bg-black/40 text-slate-300 pt-12 pb-24">
-    <div class="mx-auto max-w-7xl px-6 grid md:grid-cols-3 gap-8">
-      <div>
-        <h3 class="font-bold text-white">CryptoFinance Pro</h3>
-        <p class="text-slate-400 mt-2">© 2025. Todos os direitos reservados.</p>
-      </div>
-      <div>
-        <h4 class="font-semibold text-white">Atalhos</h4>
-        <ul class="mt-3 space-y-1 text-slate-400">
-          <li><a href="#beneficios" class="hover:text-white">Benefícios</a></li>
-          <li><a href="#oferta50" class="hover:text-white">Oferta 50MT</a></li>
-          <li><a href="#vip" class="hover:text-white">VIP + Bônus</a></li>
-          <li><a href="#faq" class="hover:text-white">FAQ</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4 class="font-semibold text-white">Confiança</h4>
-        <div class="mt-3 flex flex-wrap gap-2">
-          <span class="selo selo--gold">🔒 Seguro</span>
-          <span class="selo selo--glass">⚡ Imediato</span>
-          <span class="selo selo--glass">🛡️ 7 Dias</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Sticky CTA (mobile) -->
-    <div class="sticky-cta glass border-t border-white/10 mt-10">
-      <div class="mx-auto max-w-7xl px-6 py-3 flex items-center justify-between">
-        <span class="text-sm">Comece agora por <strong class="text-[var(--gold)]">50MT</strong></span>
-        <a href="https://pay.tutora.co.mz/checkout/pay/6328cbd18f510ea626c7?utm_source=sticky&utm_medium=cta&utm_campaign=offer50"
-           target="_blank"
-           class="pulse inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-emerald-500 to-[var(--royal)] text-white px-5 py-2.5 text-sm font-bold">
-          Comprar
-        </a>
-      </div>
-    </div>
+  <footer>
+    <p>&copy; 2025 CryptoFinance Pro - Todos os direitos reservados.</p>
   </footer>
-
-  <!-- Back to Top -->
-  <button id="toTop" aria-label="Voltar ao topo"
-          class="fixed bottom-6 right-6 rounded-full bg-white text-black p-3 shadow-lg">↑</button>
 
   <!-- Scripts -->
   <script>
-    // Back to top toggle
-    const toTop = document.getElementById('toTop');
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 500) toTop.classList.add('show');
-      else toTop.classList.remove('show');
-    });
-    toTop.addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
+    const quizQuestions=[
+      {q:"Qual seu nível de experiência com criptomoedas?",o:["Iniciante","Intermediário","Avançado"],c:0},
+      {q:"Qual seu principal objetivo?",o:["Renda extra","Investimento longo prazo","Diversificação"],c:0},
+      {q:"Prefere operações?",o:["Day Trade","Swing Trade","Buy & Hold"],c:0},
+      {q:"Quanto tempo tem para se dedicar por semana?",o:["< 5h","5h-10h","+10h"],c:0},
+      {q:"Qual seu orçamento inicial?",o:["< 100MT","100-500MT","+500MT"],c:0},
+      {q:"Tem interesse em mentoria personalizada?",o:["Sim","Não"],c:0}
+    ];
+    let qi=0,score=0;
+    function openQuiz(){document.getElementById('quizModal').style.display='flex';showQ();}
+    function showQ(){if(qi<quizQuestions.length){const q=quizQuestions[qi];
+      document.getElementById('quizContainer').innerHTML=`<p>${q.q}</p>`+
+        q.o.map((opt,i)=>`<button onclick=ans(${i})>${opt}</button>`).join("");
+    }else{
+      document.getElementById('quizContainer').innerHTML=`<p>Obrigado! Seu perfil indica que o <b>Pacote VIP</b> é ideal para você 🚀</p><a href='https://pay.tutora.co.mz/checkout/pay/6328cbd18f510ea626c7?utm_source=quiz&utm_medium=vip&utm_campaign=criptomoedas' class='cta-btn'>Ativar VIP por 50MT</a>`;
+    }}
+    function ans(i){qi++;showQ();}
+    window.onclick=function(e){if(e.target==document.getElementById('quizModal'))document.getElementById('quizModal').style.display='none';}
+  </script>
 
-    // Countdown helper
-    function startCountdown(el, hours){
-      const end = new Date(); end.setHours(end.getHours()+hours);
-      const t = setInterval(()=>{
-        const dist = end - Date.now();
-        if(dist <= 0){ clearInterval(t); el.textContent = '00:00:00'; return; }
-        const h = Math.floor((dist%(1000*60*60*24))/(1000*60*60));
-        const m = Math.floor((dist%(1000*60*60))/(1000*60));
-        const s = Math.floor((dist%(1000*60))/1000);
-        el.textContent = `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
-      },1000);
-    }
-    // Mini timer (50MT) -> 6h
-    const miniTimer = document.getElementById('mini-timer');
-    if(miniTimer) startCountdown(miniTimer, 6);
-    // VIP timer -> 72h
-    const vipTimer = document.getElementById('vip-timer');
-    if(vipTimer) startCountdown(vipTimer, 72);
+  <!-- Tracking (Exemplo Google Analytics GA4) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXX');
   </script>
 </body>
 </html>
