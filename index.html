@@ -69,24 +69,864 @@
     <a href="https://pay.tutora.co.mz/checkout/pay/6328cbd18f510ea626c7" target="_blank" class="px-16 py-6 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 transform hover:scale-110 text-white font-bold rounded-3xl shadow-2xl transition duration-500">Comprar Agora</a>
   </section>
 
-  <!-- Oferta VIP (Upsell) com Bônus e Garantia -->
-  <section class="max-w-6xl mx-auto px-6 py-32 text-center bg-gradient-to-r from-yellow-50 to-orange-50 rounded-3xl shadow-3xl relative overflow-hidden mt-20" data-aos="zoom-in">
-    <h2 class="text-5xl font-extrabold mb-6 text-orange-600">Oferta VIP Exclusiva + Bônus</h2>
-    <p class="text-xl md:text-2xl text-gray-700 mb-6">Aproveite nosso pacote avançado com ferramentas práticas, análises detalhadas e sinais exclusivos de trading em criptomoedas.</p>
-    <ul class="text-left md:text-center text-gray-700 mb-6 space-y-2 md:space-y-0 md:flex md:justify-center md:gap-10">
-      <li>📊 Sinais de trading diários exclusivos</li>
-      <li>📝 Planilhas e simuladores de investimentos</li>
-      <li>📚 Guias avançados de análise de mercado</li>
-      <li>🎁 Bônus especial: Checklist de estratégias vencedoras</li>
-      <li>🛡️ Garantia de satisfação 7 dias</li>
-    </ul>
-    <div class="flex justify-center items-center gap-6 mb-6">
-      <p class="text-6xl font-extrabold text-orange-500">99MT</p>
-      <div class="countdown" id="countdown-vip">00:00:00</div>
+  <!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oferta VIP Exclusiva + Bônus - Criptomoedas</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .vip-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .vip-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="crypto-pattern" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="%23f39c12" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23crypto-pattern)"/></svg>');
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .content-wrapper {
+            position: relative;
+            z-index: 2;
+        }
+
+        .vip-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .vip-title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #2c3e50, #f39c12);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+            animation: titleGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes titleGlow {
+            0% { filter: brightness(1); }
+            100% { filter: brightness(1.2); }
+        }
+
+        .vip-subtitle {
+            font-size: 1.2rem;
+            color: #555;
+            margin-bottom: 30px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.6s ease;
+            opacity: 0;
+        }
+
+        .feature-card:hover::before {
+            animation: shimmer 1.5s ease-in-out;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); opacity: 0; }
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .feature-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .pricing-section {
+            text-align: center;
+            margin: 40px 0;
+            padding: 30px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border-radius: 15px;
+            color: white;
+        }
+
+        .price {
+            font-size: 3rem;
+            font-weight: bold;
+            margin: 20px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .countdown-item {
+            background: rgba(255,255,255,0.2);
+            padding: 15px;
+            border-radius: 10px;
+            min-width: 80px;
+        }
+
+        .countdown-number {
+            font-size: 2rem;
+            font-weight: bold;
+            display: block;
+        }
+
+        .countdown-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .form-container {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 40px;
+            border-radius: 20px;
+            margin: 30px 0;
+            color: white;
+        }
+
+        .form-title {
+            font-size: 1.8rem;
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-label {
+            margin-bottom: 8px;
+            font-weight: bold;
+            font-size: 0.95rem;
+        }
+
+        .form-input, .form-select {
+            padding: 12px 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            background: rgba(255,255,255,0.9);
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            background: white;
+            transform: scale(1.02);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            accent-color: #f39c12;
+        }
+
+        .submit-btn {
+            background: linear-gradient(45deg, #f39c12, #e67e22);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(243, 156, 18, 0.4);
+            background: linear-gradient(45deg, #e67e22, #d35400);
+        }
+
+        .quiz-btn {
+            background: linear-gradient(45deg, #3498db, #2980b9);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 20px auto;
+            display: block;
+        }
+
+        .quiz-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(52, 152, 219, 0.4);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            background: white;
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 600px;
+            position: relative;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            position: absolute;
+            right: 20px;
+            top: 15px;
+        }
+
+        .close:hover {
+            color: #000;
+        }
+
+        .quiz-question {
+            margin: 20px 0;
+        }
+
+        .quiz-options {
+            display: grid;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .quiz-option {
+            padding: 12px;
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quiz-option:hover {
+            background: #e3f2fd;
+            border-color: #2196f3;
+        }
+
+        .quiz-option.selected {
+            background: #2196f3;
+            color: white;
+            border-color: #1976d2;
+        }
+
+        .quiz-result {
+            text-align: center;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+
+        .result-excellent {
+            background: linear-gradient(135deg, #4caf50, #45a049);
+            color: white;
+        }
+
+        .result-good {
+            background: linear-gradient(135deg, #ff9800, #f57c00);
+            color: white;
+        }
+
+        .result-beginner {
+            background: linear-gradient(135deg, #2196f3, #1976d2);
+            color: white;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .vip-section {
+                padding: 20px;
+                margin: 10px;
+            }
+
+            .vip-title {
+                font-size: 2rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .countdown {
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+
+            .countdown-item {
+                min-width: 60px;
+                padding: 10px;
+            }
+
+            .countdown-number {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Floating elements animation */
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Pulse animation for important elements */
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="vip-section">
+        <div class="content-wrapper">
+            <div class="vip-header">
+                <h1 class="vip-title">🎯 Oferta VIP Exclusiva + Bônus</h1>
+                <p class="vip-subtitle">Aproveite nosso pacote avançado com ferramentas práticas, análises detalhadas e sinais exclusivos de trading em criptomoedas.</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card floating">
+                    <span class="feature-icon">📊</span>
+                    <div class="feature-title">Sinais de Trading Diários Exclusivos</div>
+                    <p>Receba sinais precisos e atualizados diariamente para maximizar seus lucros no mercado de criptomoedas.</p>
+                </div>
+
+                <div class="feature-card floating" style="animation-delay: 0.2s;">
+                    <span class="feature-icon">📝</span>
+                    <div class="feature-title">Planilhas e Simuladores de Investimentos</div>
+                    <p>Ferramentas práticas para calcular riscos, simular investimentos e gerenciar seu portfólio com eficiência.</p>
+                </div>
+
+                <div class="feature-card floating" style="animation-delay: 0.4s;">
+                    <span class="feature-icon">📚</span>
+                    <div class="feature-title">Guias Avançados de Análise de Mercado</div>
+                    <p>Aprenda técnicas profissionais de análise técnica e fundamentalista para tomar decisões informadas.</p>
+                </div>
+
+                <div class="feature-card floating" style="animation-delay: 0.6s;">
+                    <span class="feature-icon">🎁</span>
+                    <div class="feature-title">Bônus Especial: Checklist de Estratégias Vencedoras</div>
+                    <p>Um guia passo a passo com as estratégias mais eficazes utilizadas por traders profissionais.</p>
+                </div>
+
+                <div class="feature-card floating" style="animation-delay: 0.8s;">
+                    <span class="feature-icon">🛡️</span>
+                    <div class="feature-title">Garantia de Satisfação 7 Dias</div>
+                    <p>Experimente sem riscos! Se não ficar satisfeito, devolvemos 100% do seu investimento.</p>
+                </div>
+            </div>
+
+            <div class="pricing-section pulse">
+                <h3>Oferta Limitada - Apenas por 72 horas!</h3>
+                <div class="price">99MT</div>
+                <div class="countdown" id="countdown">
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="hours">23</span>
+                        <span class="countdown-label">Horas</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="minutes">59</span>
+                        <span class="countdown-label">Minutos</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="seconds">58</span>
+                        <span class="countdown-label">Segundos</span>
+                    </div>
+                </div>
+                <p><strong>Estoque limitado!</strong> Apenas 50 vagas disponíveis.</p>
+            </div>
+
+            <button class="quiz-btn" onclick="openQuiz()">
+                🧠 Teste Seu Conhecimento em Criptomoedas Primeiro
+            </button>
+
+            <div class="form-container">
+                <h2 class="form-title">📋 Inscreva-se na Oferta VIP</h2>
+                <form id="vipForm">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label" for="fullName">Nome Completo *</label>
+                            <input type="text" id="fullName" name="fullName" class="form-input" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="email">E-mail *</label>
+                            <input type="email" id="email" name="email" class="form-input" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="phone">Telefone *</label>
+                            <input type="tel" id="phone" name="phone" class="form-input" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="experience">Nível de Experiência em Trading *</label>
+                            <select id="experience" name="experience" class="form-select" required>
+                                <option value="">Selecione seu nível</option>
+                                <option value="iniciante">Iniciante</option>
+                                <option value="intermediario">Intermediário</option>
+                                <option value="avancado">Avançado</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="cryptoInterest">Interesse em Criptomoedas *</label>
+                            <select id="cryptoInterest" name="cryptoInterest" class="form-select" required>
+                                <option value="">Selecione seu interesse</option>
+                                <option value="bitcoin">Bitcoin (BTC)</option>
+                                <option value="ethereum">Ethereum (ETH)</option>
+                                <option value="altcoins">Altcoins</option>
+                                <option value="todos">Todos os tipos</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="investmentVolume">Volume de Investimento Desejado *</label>
+                            <select id="investmentVolume" name="investmentVolume" class="form-select" required>
+                                <option value="">Selecione o volume</option>
+                                <option value="ate-1000">Até 1.000 MT</option>
+                                <option value="1000-5000">1.000 - 5.000 MT</option>
+                                <option value="5000-10000">5.000 - 10.000 MT</option>
+                                <option value="acima-10000">Acima de 10.000 MT</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="terms" name="terms" required>
+                        <label for="terms">Aceito os termos e condições e autorizo o contato via WhatsApp/E-mail *</label>
+                    </div>
+
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="newsletter" name="newsletter">
+                        <label for="newsletter">Quero receber dicas e análises gratuitas por e-mail</label>
+                    </div>
+
+                    <button type="submit" class="submit-btn">
+                        🚀 Adicionar ao Meu Pacote VIP Agora
+                    </button>
+                </form>
+            </div>
+        </div>
     </div>
-    <a href="https://pay.tutora.co.mz/checkout/pay/6328cbd18f510ea626c7?utm_source=main&utm_medium=product&utm_campaign=upsell1" target="_blank" class="px-16 py-6 bg-gradient-to-r from-orange-500 to-red-500 hover:from-red-600 hover:to-orange-600 transform hover:scale-110 text-white font-bold rounded-3xl shadow-2xl transition duration-500">Adicionar ao meu pacote VIP</a>
-    <p class="mt-6 text-gray-600 font-semibold">Estoque limitado e oferta válida apenas por 72 horas!</p>
-  </section>
+
+    <!-- Quiz Modal -->
+    <div id="quizModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeQuiz()">&times;</span>
+            <h2>🧠 Quiz: Teste Seu Conhecimento em Criptomoedas</h2>
+            <div id="quizContent">
+                <!-- Quiz questions will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Exit Intent Popup -->
+    <div id="exitPopup" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeExitPopup()">&times;</span>
+            <h2>🎯 Espere! Não Perca Esta Oportunidade Única!</h2>
+            <p style="text-align: center; font-size: 1.1rem; margin: 20px 0;">
+                Você está prestes a perder a chance de transformar seus investimentos em criptomoedas!
+            </p>
+            <div style="background: linear-gradient(135deg, #e74c3c, #c0392b); color: white; padding: 20px; border-radius: 10px; text-align: center; margin: 20px 0;">
+                <h3>🔥 OFERTA ESPECIAL DE ÚLTIMA HORA!</h3>
+                <p>Desconto adicional de 20% - Apenas para quem está saindo agora!</p>
+                <div style="font-size: 2rem; font-weight: bold; margin: 10px 0;">79MT</div>
+                <p style="text-decoration: line-through; opacity: 0.7;">De 99MT</p>
+            </div>
+            <button onclick="acceptSpecialOffer()" style="background: linear-gradient(45deg, #27ae60, #2ecc71); color: white; padding: 15px 30px; border: none; border-radius: 25px; font-size: 1.1rem; cursor: pointer; width: 100%; margin: 10px 0;">
+                🎁 Quero Aproveitar Esta Oferta Especial
+            </button>
+            <button onclick="closeExitPopup()" style="background: #95a5a6; color: white; padding: 10px 20px; border: none; border-radius: 15px; cursor: pointer; width: 100%;">
+                Não, obrigado
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Countdown Timer
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const endTime = now + (23 * 60 * 60 * 1000) + (59 * 60 * 1000) + (58 * 1000); // 23:59:58 from now
+            
+            const timer = setInterval(function() {
+                const now = new Date().getTime();
+                const distance = endTime - now;
+                
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                
+                document.getElementById("hours").innerHTML = hours.toString().padStart(2, '0');
+                document.getElementById("minutes").innerHTML = minutes.toString().padStart(2, '0');
+                document.getElementById("seconds").innerHTML = seconds.toString().padStart(2, '0');
+                
+                if (distance < 0) {
+                    clearInterval(timer);
+                    document.getElementById("countdown").innerHTML = "OFERTA EXPIRADA";
+                }
+            }, 1000);
+        }
+
+        // Quiz functionality
+        const quizQuestions = [
+            {
+                question: "O que é Bitcoin?",
+                options: [
+                    "Uma empresa de tecnologia",
+                    "A primeira criptomoeda descentralizada",
+                    "Um banco digital",
+                    "Uma rede social"
+                ],
+                correct: 1
+            },
+            {
+                question: "O que significa 'HODL' no mundo das criptomoedas?",
+                options: [
+                    "Hold On for Dear Life",
+                    "High Order Digital Ledger",
+                    "Hash Output Data Link",
+                    "Hybrid Online Digital Loan"
+                ],
+                correct: 0
+            },
+            {
+                question: "Qual é a tecnologia por trás das criptomoedas?",
+                options: [
+                    "Inteligência Artificial",
+                    "Blockchain",
+                    "Cloud Computing",
+                    "Internet das Coisas"
+                ],
+                correct: 1
+            },
+            {
+                question: "O que é uma 'wallet' de criptomoedas?",
+                options: [
+                    "Um site de notícias",
+                    "Uma carteira digital para armazenar criptomoedas",
+                    "Um tipo de criptomoeda",
+                    "Uma plataforma de trading"
+                ],
+                correct: 1
+            },
+            {
+                question: "O que significa 'volatilidade' no mercado de criptomoedas?",
+                options: [
+                    "A velocidade das transações",
+                    "O número de usuários",
+                    "A variação de preços",
+                    "A segurança da rede"
+                ],
+                correct: 2
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let userAnswers = [];
+
+        function openQuiz() {
+            document.getElementById('quizModal').style.display = 'block';
+            currentQuestion = 0;
+            score = 0;
+            userAnswers = [];
+            showQuestion();
+        }
+
+        function closeQuiz() {
+            document.getElementById('quizModal').style.display = 'none';
+        }
+
+        function showQuestion() {
+            if (currentQuestion < quizQuestions.length) {
+                const question = quizQuestions[currentQuestion];
+                const quizContent = document.getElementById('quizContent');
+                
+                quizContent.innerHTML = `
+                    <div class="quiz-question">
+                        <h3>Pergunta ${currentQuestion + 1} de ${quizQuestions.length}</h3>
+                        <p style="font-size: 1.1rem; margin: 15px 0;">${question.question}</p>
+                        <div class="quiz-options">
+                            ${question.options.map((option, index) => `
+                                <div class="quiz-option" onclick="selectAnswer(${index})">
+                                    ${option}
+                                </div>
+                            `).join('')}
+                        </div>
+                        <button id="nextBtn" onclick="nextQuestion()" style="background: #3498db; color: white; padding: 10px 20px; border: none; border-radius: 5px; margin-top: 20px; cursor: pointer; opacity: 0.5;" disabled>
+                            ${currentQuestion === quizQuestions.length - 1 ? 'Ver Resultado' : 'Próxima Pergunta'}
+                        </button>
+                    </div>
+                `;
+            } else {
+                showResult();
+            }
+        }
+
+        function selectAnswer(answerIndex) {
+            // Remove previous selections
+            document.querySelectorAll('.quiz-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            
+            // Add selection to clicked option
+            event.target.classList.add('selected');
+            
+            // Store answer
+            userAnswers[currentQuestion] = answerIndex;
+            
+            // Enable next button
+            const nextBtn = document.getElementById('nextBtn');
+            nextBtn.disabled = false;
+            nextBtn.style.opacity = '1';
+        }
+
+        function nextQuestion() {
+            if (userAnswers[currentQuestion] === quizQuestions[currentQuestion].correct) {
+                score++;
+            }
+            currentQuestion++;
+            showQuestion();
+        }
+
+        function showResult() {
+            const percentage = (score / quizQuestions.length) * 100;
+            let resultClass, resultMessage, recommendation;
+
+            if (percentage >= 80) {
+                resultClass = 'result-excellent';
+                resultMessage = '🎉 Excelente! Você tem um ótimo conhecimento em criptomoedas!';
+                recommendation = 'Você está pronto para estratégias avançadas. Nosso pacote VIP é perfeito para você!';
+            } else if (percentage >= 60) {
+                resultClass = 'result-good';
+                resultMessage = '👍 Bom trabalho! Você tem conhecimento intermediário.';
+                recommendation = 'Com nosso pacote VIP, você pode aprimorar ainda mais seus conhecimentos e lucros!';
+            } else {
+                resultClass = 'result-beginner';
+                resultMessage = '📚 Você está começando sua jornada em criptomoedas.';
+                recommendation = 'Nosso pacote VIP é ideal para acelerar seu aprendizado e evitar erros custosos!';
+            }
+
+            document.getElementById('quizContent').innerHTML = `
+                <div class="quiz-result ${resultClass}">
+                    <h3>${resultMessage}</h3>
+                    <p style="font-size: 1.5rem; margin: 15px 0;">Sua pontuação: ${score}/${quizQuestions.length} (${percentage.toFixed(0)}%)</p>
+                    <p style="margin: 15px 0;">${recommendation}</p>
+                    <button onclick="closeQuiz(); scrollToForm();" style="background: #f39c12; color: white; padding: 15px 30px; border: none; border-radius: 25px; font-size: 1.1rem; cursor: pointer; margin-top: 20px;">
+                        🚀 Quero Me Inscrever no Pacote VIP
+                    </button>
+                </div>
+            `;
+        }
+
+        function scrollToForm() {
+            document.querySelector('.form-container').scrollIntoView({ 
+                behavior: 'smooth' 
+            });
+        }
+
+        // Exit intent detection
+        let exitIntentShown = false;
+
+        document.addEventListener('mouseleave', function(e) {
+            if (e.clientY <= 0 && !exitIntentShown) {
+                showExitPopup();
+            }
+        });
+
+        // Show exit popup after 30 seconds if not shown yet
+        setTimeout(function() {
+            if (!exitIntentShown) {
+                showExitPopup();
+            }
+        }, 30000);
+
+        function showExitPopup() {
+            if (!exitIntentShown) {
+                document.getElementById('exitPopup').style.display = 'block';
+                exitIntentShown = true;
+            }
+        }
+
+        function closeExitPopup() {
+            document.getElementById('exitPopup').style.display = 'none';
+        }
+
+        function acceptSpecialOffer() {
+            // Update price in the main section
+            document.querySelector('.price').innerHTML = '79MT <span style="font-size: 1rem; text-decoration: line-through; opacity: 0.7;">99MT</span>';
+            
+            // Close popup and scroll to form
+            closeExitPopup();
+            scrollToForm();
+            
+            // Add special offer indicator
+            const formTitle = document.querySelector('.form-title');
+            formTitle.innerHTML = '🔥 Inscreva-se na Oferta VIP ESPECIAL (20% OFF)';
+        }
+
+        // Form submission
+        document.getElementById('vipForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Collect form data
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData);
+            
+            // Show success message
+            alert('🎉 Inscrição realizada com sucesso! Em breve entraremos em contato via WhatsApp/E-mail com os detalhes de acesso ao seu pacote VIP.');
+            
+            // Here you would typically send the data to your server
+            console.log('Form data:', data);
+            
+            // Reset form
+            this.reset();
+        });
+
+        // Initialize countdown
+        updateCountdown();
+
+        // Close modals when clicking outside
+        window.onclick = function(event) {
+            const quizModal = document.getElementById('quizModal');
+            const exitPopup = document.getElementById('exitPopup');
+            
+            if (event.target === quizModal) {
+                closeQuiz();
+            }
+            if (event.target === exitPopup) {
+                closeExitPopup();
+            }
+        }
+    </script>
+</body>
+</html>
 
   <!-- Rodapé -->
   <footer class="bg-gray-900 text-gray-300 py-16 text-center">
