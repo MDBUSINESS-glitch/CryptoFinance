@@ -1,59 +1,72 @@
+Se a página não está aparecendo visualmente, o problema **mais comum** é o arquivo CSS **não estar sendo carregado corretamente**.
+
+---
+
+### ✅ **Solução rápida 1 tudo em 1 arquivo**  
+Copie e cole **tudo** abaixo em um **único arquivo chamado `index.html`** e abra no navegador:
+
+```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="CryptoFinance Pro - Plataforma completa de análise e estratégias de criptomoedas">
-  <title>CryptoFinance Pro - NELLY-G TRADER</title>
+  <title>CryptoFinance Pro</title>
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <style>
+    :root {
+      --bg: #0d0d0d;
+      --accent: #ffd700;
+      --text: #fff;
+      --card: rgba(255,255,255,.05);
+    }
+    *{margin:0;padding:0;box-sizing:border-box;font-family:system-ui}
+    body{background:var(--bg);color:var(--text);line-height:1.6}
+    nav{position:fixed;top:0;left:0;right:0;background:var(--bg);display:flex;justify-content:space-between;align-items:center;padding:1rem 2rem;z-index:1000}
+    nav .logo{font-size:1.5rem;font-weight:700;color:var(--accent)}
+    nav ul{display:flex;gap:1rem;list-style:none}
+    nav a{color:var(--text);text-decoration:none;font-weight:600}
+    nav a:hover{color:var(--accent)}
+    .hero{padding:8rem 2rem 5rem;text-align:center;background:linear-gradient(90deg,#0055ff,#7b2ff7)}
+    .btn{display:inline-block;padding:1rem 2rem;background:var(--accent);color:#000;border-radius:50px;font-weight:700;margin-top:1rem;transition:.3s}
+    .btn:hover{background:#fff;color:#000}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.5rem;margin-top:2rem}
+    .card{background:var(--card);border:1px solid rgba(255,255,255,.1);border-radius:15px;padding:2rem;text-align:center}
+    .card i{font-size:2rem;color:var(--accent);margin-bottom:.5rem}
+    section{padding:4rem 2rem;max-width:1000px;margin:auto}
+    h3{text-align:center;color:var(--accent);margin-bottom:2rem;font-size:2rem}
+    footer{text-align:center;padding:2rem;background:#111;color:#aaa}
+  </style>
 </head>
 <body>
-  <nav aria-label="Principal">
-    <h1 class="logo">CryptoFinance Pro</h1>
+  <nav>
+    <div class="logo">CryptoFinance Pro</div>
     <ul>
       <li><a href="#beneficios">Benefícios</a></li>
       <li><a href="#servicos">Serviços</a></li>
       <li><a href="#vip">VIP</a></li>
-      <li><a href="#faq">FAQ</a></li>
     </ul>
   </nav>
 
   <header class="hero">
     <h2>O Futuro das Criptomoedas Começa Aqui 🚀</h2>
     <p>Plataforma completa com análises, estratégias e ferramentas profissionais.</p>
-    <a href="#vip" class="btn pulse">Quero Começar Agora</a>
+    <a href="#vip" class="btn">Quero Começar Agora</a>
   </header>
 
-  <main>
-    <section id="beneficios">
-      <h3>Benefícios Incríveis</h3>
-      <div class="grid">
-        <article class="card"><i class="ri-bar-chart-box-line"></i><h4>Análises Avançadas</h4><p>Relatórios detalhados e insights exclusivos.</p></article>
-        <article class="card"><i class="ri-stock-line"></i><h4>Estratégias de Trading</h4><p>Métodos testados por traders de elite.</p></article>
-        <article class="card"><i class="ri-team-line"></i><h4>Grupo VIP</h4><p>Comunidade de investidores ativa.</p></article>
-        <article class="card"><i class="ri-book-2-line"></i><h4>Conteúdo Premium</h4><p>Materiais atualizados semanalmente.</p></article>
-      </div>
-    </section>
+  <section id="beneficios">
+    <h3>Benefícios Incríveis</h3>
+    <div class="grid">
+      <div class="card"><i class="ri-bar-chart-box-line"></i><h4>Análises Avançadas</h4></div>
+      <div class="card"><i class="ri-stock-line"></i><h4>Estratégias de Trading</h4></div>
+      <div class="card"><i class="ri-team-line"></i><h4>Grupo VIP</h4></div>
+      <div class="card"><i class="ri-book-2-line"></i><h4>Conteúdo Premium</h4></div>
+    </div>
+  </section>
 
-    <section id="servicos">
-      <h3>Serviços da Oferta VIP</h3>
-      <div class="grid">
-        <article class="card">📊 Relatórios Premium Semanais</article>
-        <article class="card">📈 Sinais de Trading Diários</article>
-        <article class="card">🎥 Aulas ao Vivo via <a href="https://zoom.us" target="_blank">Zoom</a></article>
-        <article class="card">📂 Planilhas Exclusivas no <a href="https://sheets.google.com" target="_blank">Sheets</a></article>
-        <article class="card">💬 Suporte via <a href="https://t.me/CryptoFinanceProVIP" target="_blank">Telegram</a></article>
-      </div>
-    </section>
-
-    <section id="vip" class="vip">
-      <h3>Oferta VIP Exclusiva + Bônus</h3>
-      <p>Garanta acesso completo por <strong>50 MT</strong> via <a href="https://pay.tutora.co.mz/checkout/pay/6328cbd18f510ea626c7" class="btn">Pagar Agora</a></p>
-      <button class="btn" onclick="openQuiz()">Responder Quiz 🎯</button>
-    </section>
-
-    <section id="faq">
-      <h3>Perguntas Frequentes</h3>
-      <details class="faq-item"><summary>📌 Quanto tempo tenho acesso?</summary><p>Vitalício + atualizações.</p></details>
-      <details class="faq-item"><summary>📌 Reembolso?</summary><p>
+  <section id="servicos">
+    <h3>Serviços da Oferta VIP</h3>
+    <div class="grid">
+      <div class="card">📊 Relatórios Premium Semanais</div>
+      <div class="card">📈 Sinais de Trading Diários</div>
+      <div class="card">
