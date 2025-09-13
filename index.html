@@ -1,284 +1,213 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CryptoFinance Pro - NELLY-G TRADER</title>
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
-    <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script> <!-- Substitua G-XXXXXXXXXX pelo seu ID -->
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-XXXXXXXXXX');
-    </script>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background: linear-gradient(135deg, #0D0D0D, #1A1A1A); color: #fff; line-height: 1.6; }
-        a { text-decoration: none; }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CryptoFinance Pro - NELLY-G TRADER</title>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    body { background: linear-gradient(135deg, #0D0D0D, #1A1A1A); color: #fff; line-height: 1.6; }
+    a { text-decoration: none; color: inherit; }
 
-        /* Navbar */
-        nav { position: fixed; top: 0; left: 0; width: 100%; background: #0D0D0D; display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; z-index: 1000; }
-        nav .logo { font-size: 1.5rem; font-weight: 700; color: #FFD700; }
-        nav ul { list-style: none; display: flex; gap: 1.5rem; }
-        nav ul li a { color: #fff; font-weight: 600; transition: .3s; }
-        nav ul li a:hover { color: #FFD700; }
+    /* Navbar */
+    nav { position: fixed; top: 0; left: 0; width: 100%; background: #0D0D0D; display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; z-index: 1000; }
+    nav .logo { font-size: 1.5rem; font-weight: 700; color: #FFD700; }
+    nav ul { list-style: none; display: flex; gap: 1.5rem; }
+    nav ul li a { color: #fff; font-weight: 600; transition: .3s; }
+    nav ul li a:hover { color: #FFD700; }
 
-        /* Hero */
-        .hero { padding: 8rem 2rem 5rem; text-align: center; background: linear-gradient(90deg, #0055FF, #7B2FF7); }
-        .hero h1 { font-size: 2.8rem; margin-bottom: 1rem; }
-        .hero p { font-size: 1.2rem; margin-bottom: 2rem; }
-        .cta-btn { display: inline-block; padding: 1rem 2rem; background: linear-gradient(90deg, #FFD700, #FFAA00); color: #000; border-radius: 50px; font-weight: 700; transition: .3s; animation: pulse 2s infinite; }
-        .cta-btn:hover { background: linear-gradient(90deg, #7B2FF7, #0055FF); color: #fff; }
-        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.6); } 70% { box-shadow: 0 0 0 20px rgba(255, 215, 0, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0); } }
+    /* Hero */
+    .hero { padding: 8rem 2rem 5rem; text-align: center; background: linear-gradient(90deg, #0055FF, #7B2FF7); }
+    .hero h1 { font-size: 2.8rem; margin-bottom: 1rem; }
+    .hero p { font-size: 1.2rem; margin-bottom: 2rem; }
+    .cta-btn { display: inline-block; padding: 1rem 2rem; background: linear-gradient(90deg, #FFD700, #FFAA00); color: #000; border-radius: 50px; font-weight: 700; transition: .3s; animation: pulse 2s infinite; }
+    .cta-btn:hover { background: linear-gradient(90deg, #7B2FF7, #0055FF); color: #fff; }
+    @keyframes pulse { 0%{box-shadow:0 0 0 0 rgba(255,215,0,0.6);}70%{box-shadow:0 0 0 20px rgba(255,215,0,0);}100%{box-shadow:0 0 0 0 rgba(255,215,0,0);} }
 
-        section { padding: 4rem 2rem; max-width: 1100px; margin: auto; opacity: 0; animation: fadeIn 1s forwards; }
-        @keyframes fadeIn { to { opacity: 1; } }
-        h2 { text-align: center; color: #FFD700; margin-bottom: 2rem; font-size: 2rem; }
+    section { padding: 4rem 2rem; max-width: 1100px; margin: auto; opacity: 0; animation: fadeIn 1s forwards; }
+    @keyframes fadeIn { to { opacity: 1; } }
+    h2 { text-align: center; color: #FFD700; margin-bottom: 2rem; font-size: 2rem; }
 
-        /* Benefícios */
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; }
-        .card { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 15px; padding: 2rem; text-align: center; transition: .3s; }
-        .card:hover { transform: translateY(-5px); border-color: #FFD700; }
-        .card i { font-size: 2rem; color: #FFD700; margin-bottom: .8rem; }
+    /* Cards */
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; }
+    .card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 15px; padding: 2rem; text-align: center; transition: .3s; }
+    .card:hover { transform: translateY(-5px) scale(1.02); border-color: #FFD700; }
+    .card i { font-size: 2rem; color: #FFD700; margin-bottom: .8rem; }
+    a.card { display: block; color: #fff; }
 
-        /* VIP Oferta */
-        .vip { text-align: center; margin-top: 3rem; }
-        .vip h3 { color: #FFD700; font-size: 1.8rem; margin-bottom: 1rem; }
-        .vip p { margin-bottom: 1rem; }
+    iframe { border-radius: 10px; }
 
-        /* FAQ */
-        .faq-item { background: rgba(255, 255, 255, 0.05); padding: 1rem 1.5rem; border-radius: 10px; margin-bottom: 1rem; }
-        .faq-item h4 { color: #FFD700; margin-bottom: .5rem; }
+    /* VIP */
+    .vip { text-align: center; margin-top: 3rem; }
+    .vip h3 { color: #FFD700; font-size: 1.8rem; margin-bottom: 1rem; }
 
-        .badges { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin-top: 2rem; }
-        .badges span { background: rgba(255, 255, 255, 0.1); border: 1px solid #FFD700; padding: .7rem 1.2rem; border-radius: 30px; font-weight: 600; }
+    /* FAQ */
+    .faq-item { background: rgba(255,255,255,0.05); padding: 1rem 1.5rem; border-radius: 10px; margin-bottom: 1rem; }
+    .faq-item h4 { color: #FFD700; margin-bottom: .5rem; }
 
-        /* Newsletter Form */
-        .newsletter { margin: 2rem auto; max-width: 400px; }
-        .newsletter input { width: 100%; padding: 0.8rem; margin-bottom: 1rem; border-radius: 5px; border: none; }
-        .newsletter button { width: 100%; }
+    .badges { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin-top: 2rem; }
+    .badges span { background: rgba(255,255,255,0.1); border: 1px solid #FFD700; padding: .7rem 1.2rem; border-radius: 30px; font-weight: 600; }
 
-        /* Live Prices */
-        #livePrices .grid { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
-        .price-card { font-size: 1.2rem; }
+    /* Social Share */
+    .social-share { text-align: center; margin: 2rem 0; }
+    .social-share a { margin: 0 0.5rem; color: #FFD700; font-size: 1.5rem; }
 
-        /* Social Share */
-        .social-share { text-align: center; margin: 2rem 0; }
-        .social-share a { margin: 0 0.5rem; color: #FFD700; font-size: 1.5rem; }
-
-        footer { text-align: center; padding: 2rem; background: #111; color: #aaa; font-size: .9rem; }
-        footer a { color: #FFD700; margin: 0 1rem; }
-
-        /* Modal Quiz */
-        .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); display: none; justify-content: center; align-items: center; z-index: 2000; }
-        .modal-content { background: #1A1A1A; padding: 2rem; border-radius: 15px; max-width: 600px; width: 100%; }
-        .modal-content h3 { margin-bottom: 1rem; color: #FFD700; }
-        .modal-content button { display: block; margin: .5rem 0; width: 100%; padding: .8rem; border: none; border-radius: 10px; cursor: pointer; background: #FFD700; color: #000; font-weight: 600; transition: .3s; }
-        .modal-content button:hover { background: #FFAA00; }
-    </style>
+    footer { text-align: center; padding: 2rem; background: #111; color: #aaa; font-size: .9rem; }
+    footer a { color: #FFD700; margin: 0 1rem; }
+    footer nav a:hover { text-decoration: underline; }
+  </style>
 </head>
 <body>
-    <!-- Navbar -->
+  <!-- Navbar -->
+  <nav>
+    <div class="logo">CryptoFinance Pro</div>
+    <ul>
+      <li><a href="#beneficios">Benefícios</a></li>
+      <li><a href="#servicos">Serviços</a></li>
+      <li><a href="#academia">Academia</a></li>
+      <li><a href="#youtube">Tutoriais</a></li>
+      <li><a href="#vip">VIP</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#livePrices">Preços Ao Vivo</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero -->
+  <div class="hero">
+    <h1>O Futuro das Criptomoedas Começa Aqui 🚀</h1>
+    <p>Plataforma completa com análises, estratégias e ferramentas profissionais.</p>
+    <a href="#vip" class="cta-btn">Quero Começar Agora</a>
+  </div>
+
+  <!-- Benefícios -->
+  <section id="beneficios">
+    <h2>Benefícios Incríveis</h2>
+    <div class="grid">
+      <div class="card"><i class="ri-bar-chart-box-line"></i><h3>Análises Avançadas</h3><p>Relatórios detalhados e insights exclusivos.</p></div>
+      <div class="card"><i class="ri-stock-line"></i><h3>Estratégias de Trading</h3><p>Métodos testados por traders de elite.</p></div>
+      <div class="card"><i class="ri-team-line"></i><h3>Grupo VIP</h3><p>Comunidade de investidores ativa.</p></div>
+      <div class="card"><i class="ri-book-2-line"></i><h3>Conteúdo Premium</h3><p>Guias e ebooks semanais.</p></div>
+    </div>
+  </section>
+
+  <!-- Serviços -->
+  <section id="servicos">
+    <h2>Serviços da Oferta VIP</h2>
+    <div class="grid">
+      <div class="card">📊 Relatórios Premium</div>
+      <div class="card">📈 Sinais de Trading</div>
+      <div class="card">🎥 Aulas ao Vivo</div>
+      <div class="card">📂 Planilhas Exclusivas</div>
+      <div class="card">💬 Suporte Personalizado</div>
+    </div>
+  </section>
+
+  <!-- YouTube -->
+  <section id="youtube">
+    <h2>🎥 Tutoriais Exclusivos</h2>
+    <div class="grid">
+      <div class="card">
+        <iframe width="100%" height="200" src="https://www.youtube.com/embed/2uY6R-4g0TQ" frameborder="0" allowfullscreen></iframe>
+        <p>Introdução simples ao Bitcoin para iniciantes.</p>
+      </div>
+      <div class="card">
+        <iframe width="100%" height="200" src="https://www.youtube.com/embed/h5J8N4WUvTI" frameborder="0" allowfullscreen></iframe>
+        <p>Estratégias práticas de trading aplicadas ao mercado cripto.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Academia -->
+  <section id="academia">
+    <h2>📚 Academia Exclusiva</h2>
+    <div class="grid">
+      <a class="card" target="_blank" href="https://academy.binance.com/pt">
+        <i class="ri-book-open-line"></i>
+        <h3>Binance Academy</h3>
+        <p>Aprende com artigos e guias gratuitos.</p>
+      </a>
+      <a class="card" target="_blank" href="https://coinmarketcap.com/">
+        <i class="ri-bar-chart-2-line"></i>
+        <h3>CoinMarketCap</h3>
+        <p>Acompanhe cotações e análises do mercado.</p>
+      </a>
+      <a class="card" target="_blank" href="https://medium.com/topic/cryptocurrency">
+        <i class="ri-links-line"></i>
+        <h3>Artigos Exclusivos</h3>
+        <p>Insights de especialistas atualizados.</p>
+      </a>
+    </div>
+  </section>
+
+  <!-- Preços API -->
+  <section id="livePrices">
+    <h2>Preços de Criptomoedas em Tempo Real</h2>
+    <div class="grid"></div>
+  </section>
+
+  <!-- VIP -->
+  <section id="vip">
+    <div class="vip">
+      <h3>Oferta VIP Exclusiva + Bônus</h3>
+      <p>Acesso completo por apenas <strong>50 MT</strong>.</p>
+      <a href="https://pay.tutora.co.mz/checkout/pay/6328cbd18f510ea626c7" class="cta-btn">Quero Ser VIP Agora</a>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <h2>Perguntas Frequentes</h2>
+    <div class="faq-item"><h4>📌 Quanto tempo tenho acesso?</h4><p>Acesso vitalício com atualizações.</p></div>
+    <div class="faq-item"><h4>📌 Posso cancelar?</h4><p>Sim, 7 dias para reembolso.</p></div>
+    <div class="faq-item"><h4>📌 O pagamento é seguro?</h4><p>Sim, todo processo é criptografado e confiável.</p></div>
+  </section>
+
+  <!-- Social -->
+  <div class="social-share">
+    <p>Compartilhe esta página:</p>
+    <a href="https://wa.me/?text=Confira%20CryptoFinance%20Pro:%20[URL]" target="_blank"><i class="ri-whatsapp-line"></i></a>
+    <a href="https://t.me/cryptocommunity" target="_blank"><i class="ri-telegram-line"></i></a>
+    <a href="https://twitter.com/intent/tweet?text=Confira%20CryptoFinance%20Pro&url=[URL]" target="_blank"><i class="ri-twitter-line"></i></a>
+    <a href="https://www.linkedin.com/shareArticle?mini=true&url=[URL]&title=CryptoFinance%20Pro" target="_blank"><i class="ri-linkedin-line"></i></a>
+    <a href="https://youtube.com/@binance" target="_blank"><i class="ri-youtube-line"></i></a>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 CryptoFinance Pro - Todos os direitos reservados.</p>
     <nav>
-        <div class="logo">CryptoFinance Pro</div>
-        <ul>
-            <li><a href="#beneficios">Benefícios</a></li>
-            <li><a href="#servicos">Serviços</a></li>
-            <li><a href="#vip">VIP</a></li>
-            <li><a href="#faq">FAQ</a></li>
-            <li><a href="#livePrices">Preços Ao Vivo</a></li>
-        </ul>
+      <a href="#">Política de Privacidade</a> |
+      <a href="#">Termos de Uso</a> |
+      <a href="#academia">Academia</a> |
+      <a href="#youtube">Tutoriais</a>
     </nav>
-
-    <!-- Hero -->
-    <div class="hero">
-        <h1>O Futuro das Criptomoedas Começa Aqui 🚀</h1>
-        <p>Plataforma completa com análises, estratégias e ferramentas profissionais.</p>
-        <a href="#vip" class="cta-btn">Quero Começar Agora</a>
-        <!-- Newsletter Form (Formspree Integration) -->
-        <div class="newsletter">
-            <form action="https://formspree.io/f/SEU_ENDPOINT" method="POST"> <!-- Substitua por seu endpoint Formspree -->
-                <input type="email" name="email" placeholder="Seu e-mail para newsletter" required aria-label="E-mail para newsletter">
-                <button type="submit" class="cta-btn">Inscreva-se Gratuitamente</button>
-            </form>
-        </div>
+    <div>
+      <a href="https://facebook.com" target="_blank"><i class="ri-facebook-line"></i></a>
+      <a href="https://instagram.com" target="_blank"><i class="ri-instagram-line"></i></a>
+      <a href="https://twitter.com" target="_blank"><i class="ri-twitter-line"></i></a>
+      <a href="https://t.me/cryptocommunity" target="_blank"><i class="ri-telegram-line"></i></a>
+      <a href="https://youtube.com/@binance" target="_blank"><i class="ri-youtube-line"></i></a>
     </div>
+  </footer>
 
-    <!-- Benefícios -->
-    <section id="beneficios">
-        <h2>Benefícios Incríveis</h2>
-        <div class="grid">
-            <div class="card"><i class="ri-bar-chart-box-line"></i><h3>Análises Avançadas</h3><p>Receba relatórios detalhados e insights exclusivos.</p></div>
-            <div class="card"><i class="ri-stock-line"></i><h3>Estratégias de Trading</h3><p>Métodos testados usados por traders de elite.</p></div>
-            <div class="card"><i class="ri-team-line"></i><h3>Grupo VIP</h3><p>Acesso a uma comunidade de investidores séria e ativa.</p></div>
-            <div class="card"><i class="ri-book-2-line"></i><h3>Conteúdo Premium</h3><p>Guias, ebooks e materiais atualizados semanalmente.</p></div>
-        </div>
-    </section>
-
-    <!-- Serviços -->
-    <section id="servicos">
-        <h2>Serviços da Oferta VIP</h2>
-        <div class="grid">
-            <div class="card">📊 Relatórios Premium Semanais</div>
-            <div class="card">📈 Sinais de Trading Diários</div>
-            <div class="card">🎥 Aulas ao Vivo</div>
-            <div class="card">📂 Planilhas Exclusivas</div>
-            <div class="card">💬 Suporte Personalizado</div>
-        </div>
-    </section>
-
-    <!-- Preços em Tempo Real (CoinGecko API) -->
-    <section id="livePrices">
-        <h2>Preços de Criptomoedas em Tempo Real</h2>
-        <div class="grid"></div>
-    </section>
-
-    <!-- Oferta VIP -->
-    <section id="vip">
-        <div class="vip">
-            <h3>Oferta VIP Exclusiva + Bônus</h3>
-            <p>Garanta acesso completo por apenas <strong>50 MT</strong>.</p>
-            <a href="https://pay.tutora.co.mz/checkout/pay/6328cbd18f510ea626c7?utm_source=site&utm_medium=vip&utm_campaign=criptomoedas" class="cta-btn">Quero Ser VIP Agora</a>
-            <br><br>
-            <a href="#" class="cta-btn" onclick="openQuiz()">Responder Quiz 🎯</a>
-        </div>
-    </section>
-
-    <!-- FAQ -->
-    <section id="faq">
-        <h2>Perguntas Frequentes</h2>
-        <div class="faq-item"><h4>📌 Quanto tempo tenho acesso?</h4><p>O acesso é vitalício e com todas as atualizações inclusas.</p></div>
-        <div class="faq-item"><h4>📌 E se eu não gostar?</h4><p>Você tem 7 dias de garantia para reembolso.</p></div>
-        <div class="faq-item"><h4>📌 O pagamento é seguro?</h4><p>Sim, todo processo é criptografado e confiável.</p></div>
-    </section>
-
-    <div class="badges">
-        <span>🔒 Pagamento 100% Seguro</span>
-        <span>⚡ Acesso Imediato</span>
-        <span>✔ Garantia 7 Dias</span>
-    </div>
-
-    <!-- Social Share -->
-    <div class="social-share">
-        <p>Compartilhe esta página:</p>
-        <a href="https://wa.me/?text=Confira%20CryptoFinance%20Pro:%20[URL_DA_PAGINA]" target="_blank"><i class="ri-whatsapp-line"></i></a>
-        <a href="https://twitter.com/intent/tweet?text=Confira%20CryptoFinance%20Pro&url=[URL_DA_PAGINA]" target="_blank"><i class="ri-twitter-line"></i></a>
-        <a href="https://www.linkedin.com/shareArticle?mini=true&url=[URL_DA_PAGINA]&title=CryptoFinance%20Pro" target="_blank"><i class="ri-linkedin-line"></i></a>
-    </div>
-
-    <!-- Quiz Modal -->
-    <div class="modal" id="quizModal">
-        <div class="modal-content">
-            <h3>Quiz Cripto - Conheça Seu Perfil</h3>
-            <div id="quizContainer"></div>
-        </div>
-    </div>
-
-    <footer>
-        <p>&copy; 2025 CryptoFinance Pro - Todos os direitos reservados.</p>
-        <a href="#">Política de Privacidade</a> | <a href="#">Termos de Uso</a>
-        <div>
-            <a href="https://facebook.com" target="_blank"><i class="ri-facebook-line"></i></a>
-            <a href="https://instagram.com" target="_blank"><i class="ri-instagram-line"></i></a>
-            <a href="https://twitter.com" target="_blank"><i class="ri-twitter-line"></i></a>
-        </div>
-    </footer>
-
-    <!-- Tawk.to Chat Widget -->
-    <script type="text/javascript">
-        var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-        (function(){
-            var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-            s1.async=true;
-            s1.src='https://embed.tawk.to/SEU_TAWK_ID/default';  // Substitua por seu Tawk.to ID
-            s1.charset='UTF-8';
-            s1.setAttribute('crossorigin','*');
-            s0.parentNode.insertBefore(s1,s0);
-        })();
-    </script>
-
-    <!-- Scripts -->
-    <script>
-        const quizQuestions = [
-            { q: "Qual seu nível de experiência com criptomoedas?", o: ["Iniciante", "Intermediário", "Avançado"], c: 0 },
-            { q: "Qual seu principal objetivo?", o: ["Renda extra", "Investimento longo prazo", "Diversificação"], c: 0 },
-            { q: "Prefere operações?", o: ["Day Trade", "Swing Trade", "Buy & Hold"], c: 0 },
-            { q: "Quanto tempo tem para se dedicar por semana?", o: ["< 5h", "5h-10h", "+10h"], c: 0 },
-            { q: "Qual seu orçamento inicial?", o: ["< 100MT", "100-500MT", "+500MT"], c: 0 },
-            { q: "Tem interesse em mentoria personalizada?", o: ["Sim", "Não"], c: 0 },
-            { q: "Qual seu nível de conhecimento em análise técnica?", o: ["Básico", "Intermediário", "Avançado"], c: 0 },
-            { q: "Prefere estratégias de curto ou longo prazo?", o: ["Curto prazo", "Longo prazo", "Ambos"], c: 0 }
-        ];
-
-        let currentQuestion = 0;
-
-        function openQuiz() {
-            const modal = document.getElementById('quizModal');
-            modal.style.display = 'flex';
-            showQuestion();
-        }
-
-        function showQuestion() {
-            const container = document.getElementById('quizContainer');
-            if (currentQuestion >= quizQuestions.length) {
-                const score = quizQuestions.reduce((acc, q) => acc + q.c, 0);
-                let profile = score < 8 ? 'Iniciante Conservador' : score < 15 ? 'Intermediário Equilibrado' : 'Avançado Agressivo';
-                container.innerHTML = `<p>Quiz concluído! Seu perfil: ${profile}. Recomendação: ${profile === 'Iniciante Conservador' ? 'Comece com Buy & Hold.' : 'Explore Day Trade.'}</p>
-                    <form action="https://formspree.io/f/SEU_ENDPOINT" method="POST"> <!-- Substitua por seu endpoint -->
-                        <input type="email" name="email" placeholder="Seu e-mail para resultados" required>
-                        <input type="hidden" name="profile" value="${profile}">
-                        <button type="submit">Enviar Resultados</button>
-                    </form>
-                    <button onclick="closeQuiz()">Fechar</button>`;
-                return;
-            }
-
-            const q = quizQuestions[currentQuestion];
-            let html = `<p>${q.q}</p>`;
-            q.o.forEach((option, index) => {
-                html += `<button onclick="selectOption(${index})">${option}</button>`;
-            });
-            container.innerHTML = html;
-        }
-
-        function selectOption(index) {
-            quizQuestions[currentQuestion].c = index;
-            currentQuestion++;
-            showQuestion();
-        }
-
-        function closeQuiz() {
-            const modal = document.getElementById('quizModal');
-            modal.style.display = 'none';
-            currentQuestion = 0;
-        }
-
-        window.onclick = function(event) {
-            const modal = document.getElementById('quizModal');
-            if (event.target === modal) {
-                closeQuiz();
-            }
-        };
-
-        // Fetch Live Prices from CoinGecko API
-        async function fetchLivePrices() {
-            try {
-                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana&vs_currencies=usd');
-                const data = await response.json();
-                const grid = document.querySelector('#livePrices .grid');
-                grid.innerHTML = `
-                    <div class="card price-card">Bitcoin: $${data.bitcoin.usd}</div>
-                    <div class="card price-card">Ethereum: $${data.ethereum.usd}</div>
-                    <div class="card price-card">Solana: $${data.solana.usd}</div>
-                `;
-            } catch (error) {
-                console.error('Erro ao carregar preços:', error);
-            }
-        }
-        fetchLivePrices();  // Carrega ao iniciar
-        setInterval(fetchLivePrices, 60000);  // Atualiza a cada 1 minuto
-    </script>
+  <script>
+    async function fetchLivePrices() {
+      try {
+        const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana&vs_currencies=usd');
+        const data = await response.json();
+        const grid = document.querySelector('#livePrices .grid');
+        grid.innerHTML = `
+          <div class="card">🟡 Bitcoin: $${data.bitcoin.usd}</div>
+          <div class="card">💎 Ethereum: $${data.ethereum.usd}</div>
+          <div class="card">🔵 Solana: $${data.solana.usd}</div>
+        `;
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    fetchLivePrices();
+    setInterval(fetchLivePrices, 60000);
+  </script>
 </body>
 </html>
