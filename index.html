@@ -6,7 +6,7 @@
   <title>CryptoFinance Pro - NELLY-G TRADER</title>
   <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
   <style>
-    *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Tahoma,Verdana,sans-serif;}
+    *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;}
     body{background:linear-gradient(135deg,#0D0D0D,#1A1A1A);color:#fff;line-height:1.6;}
     a{text-decoration:none;color:inherit;}
 
@@ -28,9 +28,12 @@
     h2{text-align:center;color:#FFD700;margin-bottom:2rem;font-size:2rem;}
 
     .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.5rem;}
-    .card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:15px;padding:1.5rem;text-align:center;transition:.3s;}
+    .card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:15px;padding:2rem;text-align:center;transition:.3s;}
     .card:hover{transform:translateY(-5px) scale(1.02);border-color:#FFD700;}
-    .card canvas{margin-top:10px;}
+    .card i{font-size:2rem;color:#FFD700;margin-bottom:.8rem;}
+    a.card{display:block;color:#fff;}
+
+    iframe{border-radius:10px;}
 
     .vip{text-align:center;margin-top:3rem;}
     .vip h3{color:#FFD700;font-size:1.8rem;margin-bottom:1rem;}
@@ -74,52 +77,98 @@
   <!-- Benefícios -->
   <section id="beneficios">
     <h2>Benefícios Incríveis</h2>
-    <!-- ... (conteúdo intacto) ... -->
+    <div class="grid">
+      <a class="card" href="https://www.tradingview.com/" target="_blank">
+        <i class="ri-bar-chart-box-line"></i>
+        <h3>Análises Avançadas</h3>
+        <p>Acesse gráficos e estudos detalhados no TradingView.</p>
+      </a>
+      <a class="card" href="https://www.investopedia.com/articles/technical/02/121702.asp" target="_blank">
+        <i class="ri-stock-line"></i>
+        <h3>Estratégias de Trading</h3>
+        <p>Aprenda estratégias como RSI, Bandas de Bollinger e EMAs.</p>
+      </a>
+      <a class="card" href="https://t.me/+wcLnHa3UUIhhNGY0" target="_blank">
+        <i class="ri-team-line"></i>
+        <h3>Grupo VIP</h3>
+        <p>Entre para a comunidade exclusiva no Telegram.</p>
+      </a>
+      <a class="card" href="https://academy.binance.com/pt" target="_blank">
+        <i class="ri-book-2-line"></i>
+        <h3>Conteúdo Premium</h3>
+        <p>Guias, ebooks e materiais atualizados na Binance Academy.</p>
+      </a>
+    </div>
   </section>
 
   <!-- Serviços -->
   <section id="servicos">
     <h2>Serviços da Oferta VIP</h2>
-    <!-- ... (conteúdo intacto) ... -->
+    <div class="grid">
+      <a class="card" href="https://coinmarketcap.com/alexandria/" target="_blank">
+        📊 Relatórios Premium Semanais
+        <p>Acesse relatórios e insights exclusivos.</p>
+      </a>
+      <a class="card" href="https://www.tradingview.com/markets/cryptocurrencies/ideas/" target="_blank">
+        📈 Sinais de Trading
+        <p>Receba sinais validados por especialistas.</p>
+      </a>
+      <a class="card" href="https://www.youtube.com/c/binance" target="_blank">
+        🎥 Aulas ao Vivo
+        <p>Participe em webinars e transmissões da Binance.</p>
+      </a>
+      <a class="card" href="https://www.glassnode.com/" target="_blank">
+        📂 Dashboards On-chain
+        <p>Analise dados blockchain em tempo real.</p>
+      </a>
+      <a class="card" href="https://discord.gg/binance" target="_blank">
+        💬 Suporte Personalizado
+        <p>Receba apoio direto no Discord/Telegram.</p>
+      </a>
+    </div>
   </section>
 
-  <!-- YouTube -->
+  <!-- Tutoriais -->
   <section id="youtube">
     <h2>🎥 Tutoriais Exclusivos</h2>
-    <!-- ... (conteúdo intacto ou carrossel que fizemos) ... -->
+    <div class="grid">
+      <div class="card">
+        <iframe width="100%" height="200" src="https://www.youtube.com/embed/RgEnAgfVCds" frameborder="0" allowfullscreen></iframe>
+        <p>👉 Como criar conta na Binance (guia simples)</p>
+      </div>
+      <div class="card">
+        <iframe width="100%" height="200" src="https://www.youtube.com/embed/6E4omURMAGM" frameborder="0" allowfullscreen></iframe>
+        <p>📈 Estratégias básicas de trading: RSI, EMAs & Bollinger</p>
+      </div>
+    </div>
   </section>
 
   <!-- Academia -->
   <section id="academia">
     <h2>📚 Academia Exclusiva</h2>
-    <!-- ... (conteúdo intacto) ... -->
+    <div class="grid">
+      <a class="card" href="https://academy.binance.com/pt" target="_blank">
+        <i class="ri-book-open-line"></i>
+        <h3>Binance Academy</h3>
+        <p>Aprenda com cursos e artigos gratuitos.</p>
+      </a>
+      <a class="card" href="https://coinmarketcap.com/" target="_blank">
+        <i class="ri-bar-chart-2-line"></i>
+        <h3>CoinMarketCap</h3>
+        <p>Acompanhe preços e marketcaps em tempo real.</p>
+      </a>
+      <a class="card" href="https://medium.com/topic/cryptocurrency" target="_blank">
+        <i class="ri-links-line"></i>
+        <h3>Artigos Blockchain</h3>
+        <p>Leia artigos de líderes e especialistas do setor.</p>
+      </a>
+    </div>
   </section>
 
-  <!-- 👍 Preços com Mini-Gráficos -->
+  <!-- Preços -->
   <section id="livePrices">
     <h2>Preços de Criptomoedas em Tempo Real</h2>
-    <div class="grid">
-      <div class="card">
-        🟡 Bitcoin: <span id="btcPrice">$0</span>
-        <canvas id="btcChart" height="80"></canvas>
-      </div>
-      <div class="card">
-        💎 Ethereum: <span id="ethPrice">$0</span>
-        <canvas id="ethChart" height="80"></canvas>
-      </div>
-      <div class="card">
-        🔵 Solana: <span id="solPrice">$0</span>
-        <canvas id="solChart" height="80"></canvas>
-      </div>
-      <div class="card">
-        🟠 BNB: <span id="bnbPrice">$0</span>
-        <canvas id="bnbChart" height="80"></canvas>
-      </div>
-      <div class="card">
-        💠 XRP: <span id="xrpPrice">$0</span>
-        <canvas id="xrpChart" height="80"></canvas>
-      </div>
-    </div>
+    <div class="grid"></div>
   </section>
 
   <!-- VIP -->
@@ -134,13 +183,19 @@
   <!-- FAQ -->
   <section id="faq">
     <h2>Perguntas Frequentes</h2>
-    <!-- ... (conteúdo intacto) ... -->
+    <div class="faq-item"><h4>📌 Quanto tempo tenho acesso?</h4><p>Acesso vitalício com todas as atualizações.</p></div>
+    <div class="faq-item"><h4>📌 Posso cancelar?</h4><p>Sim, tens até 7 dias de garantia para pedido de reembolso.</p></div>
+    <div class="faq-item"><h4>📌 O pagamento é seguro?</h4><p>Sim, utilizamos sistemas de pagamento certificados e criptografados.</p></div>
   </section>
 
   <!-- Social -->
   <div class="social-share">
     <p>Compartilhe esta página:</p>
-    <!-- ... (links intactos) ... -->
+    <a href="https://wa.me/?text=Confira%20CryptoFinance%20Pro:%20[URL]" target="_blank"><i class="ri-whatsapp-line"></i></a>
+    <a href="https://t.me/+wcLnHa3UUIhhNGY0" target="_blank"><i class="ri-telegram-line"></i></a>
+    <a href="https://twitter.com/intent/tweet?text=Confira%20CryptoFinance%20Pro&url=[URL]" target="_blank"><i class="ri-twitter-line"></i></a>
+    <a href="https://www.linkedin.com/shareArticle?mini=true&url=[URL]&title=CryptoFinance%20Pro" target="_blank"><i class="ri-linkedin-line"></i></a>
+    <a href="https://youtube.com/@binance" target="_blank"><i class="ri-youtube-line"></i></a>
   </div>
 
   <!-- Footer -->
@@ -154,40 +209,21 @@
     </nav>
   </footer>
 
-  <!-- Scripts -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Script Preços -->
   <script>
-    async function fetchPrices() {
-      const res = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana,binancecoin,ripple&vs_currencies=usd");
-      const data = await res.json();
-      document.getElementById("btcPrice").innerText = "$"+data.bitcoin.usd;
-      document.getElementById("ethPrice").innerText = "$"+data.ethereum.usd;
-      document.getElementById("solPrice").innerText = "$"+data.solana.usd;
-      document.getElementById("bnbPrice").innerText = "$"+data.binancecoin.usd;
-      document.getElementById("xrpPrice").innerText = "$"+data.ripple.usd;
+    async function fetchLivePrices() {
+      try {
+        const res = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana&vs_currencies=usd');
+        const data = await res.json();
+        document.querySelector('#livePrices .grid').innerHTML = `
+          <div class="card">🟡 Bitcoin: $${data.bitcoin.usd}</div>
+          <div class="card">💎 Ethereum: $${data.ethereum.usd}</div>
+          <div class="card">🔵 Solana: $${data.solana.usd}</div>
+        `;
+      } catch(e){console.error(e);}
     }
-
-    async function fetchHistory(coin, chartId) {
-      const res = await fetch(`https://api.coingecko.com/api/v3/coins/${coin}/market_chart?vs_currency=usd&days=7&interval=daily`);
-      const data = await res.json();
-      const prices = data.prices.map(p=>p[1]);
-      const labels = data.prices.map(p=> new Date(p[0]).toLocaleDateString("pt-BR",{day:"2-digit",month:"short"}));
-      const color = prices[prices.length-1] >= prices[0] ? "#00FF00" : "#FF0000";
-      new Chart(document.getElementById(chartId),{
-        type:'line',
-        data:{labels:labels,datasets:[{data:prices,borderColor:color,tension:.3,fill:false,pointRadius:0}]},
-        options:{responsive:true,plugins:{legend:{display:false}},scales:{x:{display:false},y:{display:false}}}
-      });
-    }
-
-    fetchPrices();
-    fetchHistory("bitcoin","btcChart");
-    fetchHistory("ethereum","ethChart");
-    fetchHistory("solana","solChart");
-    fetchHistory("binancecoin","bnbChart");
-    fetchHistory("ripple","xrpChart");
-
-    setInterval(fetchPrices,60000);
+    fetchLivePrices();
+    setInterval(fetchLivePrices,60000);
   </script>
 </body>
 </html>
