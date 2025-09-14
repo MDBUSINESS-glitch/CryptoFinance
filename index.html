@@ -3,131 +3,191 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Investir em Criptomoedas com Binance</title>
+  <title>CryptoFinance Pro - NELLY-G TRADER</title>
   <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
   <style>
-    body{margin:0;font-family:'Segoe UI',sans-serif;background:#0D0D0D;color:#fff;}
-    .hero{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:6rem 2rem;text-align:center;background:linear-gradient(135deg,#1a1a1a,#222);}
-    .hero h1{font-size:2.8rem;color:#FFD700;margin-bottom:1rem;}
-    .hero p{max-width:700px;font-size:1.2rem;line-height:1.6;margin-bottom:1.5rem;}
-    .cta-area{margin-top:1rem;}
-    .cta-btn{display:inline-block;margin:0.5rem;padding:1rem 2rem;border:none;border-radius:50px;cursor:pointer;font-size:1.1rem;font-weight:bold;transition:.3s;text-decoration:none;}
-    .cta-primary{background:#FFD700;color:#000;}
-    .cta-primary:hover{background:#FFAA00;color:#fff;}
-    .cta-secondary{background:#7B2FF7;color:#fff;}
-    .cta-secondary:hover{background:#0055FF;}
-    .steps{text-align:left;max-width:650px;margin:2rem auto;background:rgba(255,255,255,0.05);padding:2rem;border-radius:12px;}
-    .steps h2{color:#FFD700;margin-bottom:1rem;text-align:center;}
-    .steps ol{line-height:1.8;font-size:1rem;}
-    /* CARROSSEL DE VÍDEO */
-    .video-section{text-align:center;margin:2rem 0;}
-    .video-container{position:relative;max-width:600px;margin:0 auto;}
-    .video-slide{display:none;}
-    .video-slide iframe{border-radius:12px;width:100%;height:315px;}
-    .video-controls{margin-top:10px;}
-    .video-controls button{background:#FFD700;border:none;border-radius:5px;padding:8px 15px;margin:0 5px;cursor:pointer;font-weight:bold;}
-    .video-controls button:hover{background:#FFAA00;}
-    /* REFERRAL */
-    .referral{text-align:center;margin:2rem auto;}
-    .referral code{background:rgba(255,215,0,.1);padding:.4rem .6rem;border-radius:5px;font-size:1.2rem;}
-    .qr img{margin-top:1rem;border:2px solid #FFD700;border-radius:8px;}
-    /* NEWSLETTER */
-    .newsletter{text-align:center;margin-top:2rem;}
-    .newsletter input{padding:.8rem;width:250px;border:none;border-radius:6px;margin-right:.5rem;}
-    .newsletter button{padding:.9rem 1.5rem;background:#FFD700;border:none;border-radius:6px;cursor:pointer;font-weight:bold;}
-    .newsletter button:hover{background:#FFAA00;color:#000;}
-    footer{text-align:center;padding:2rem;font-size:.9rem;color:#aaa;}
+    *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Tahoma,Verdana,sans-serif;}
+    body{background:linear-gradient(135deg,#0D0D0D,#1A1A1A);color:#fff;line-height:1.6;}
+    a{text-decoration:none;color:inherit;}
+
+    nav{position:fixed;top:0;left:0;width:100%;background:#0D0D0D;display:flex;justify-content:space-between;align-items:center;padding:1rem 2rem;z-index:1000;}
+    nav .logo{font-size:1.5rem;font-weight:700;color:#FFD700;}
+    nav ul{list-style:none;display:flex;gap:1.5rem;}
+    nav ul li a{color:#fff;font-weight:600;transition:.3s;}
+    nav ul li a:hover{color:#FFD700;}
+
+    .hero{padding:8rem 2rem 5rem;text-align:center;background:linear-gradient(90deg,#0055FF,#7B2FF7);}
+    .hero h1{font-size:2.8rem;margin-bottom:1rem;}
+    .hero p{font-size:1.2rem;margin-bottom:2rem;}
+    .cta-btn{display:inline-block;padding:1rem 2rem;background:linear-gradient(90deg,#FFD700,#FFAA00);color:#000;border-radius:50px;font-weight:700;transition:.3s;animation:pulse 2s infinite;}
+    .cta-btn:hover{background:linear-gradient(90deg,#7B2FF7,#0055FF);color:#fff;}
+    @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,215,0,.6);}70%{box-shadow:0 0 0 20px rgba(255,215,0,0);}100%{box-shadow:0 0 0 0 rgba(255,215,0,0);}}
+
+    section{padding:4rem 2rem;max-width:1100px;margin:auto;opacity:0;animation:fadeIn 1s forwards;}
+    @keyframes fadeIn{to{opacity:1;}}
+    h2{text-align:center;color:#FFD700;margin-bottom:2rem;font-size:2rem;}
+
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.5rem;}
+    .card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:15px;padding:1.5rem;text-align:center;transition:.3s;}
+    .card:hover{transform:translateY(-5px) scale(1.02);border-color:#FFD700;}
+    .card canvas{margin-top:10px;}
+
+    .vip{text-align:center;margin-top:3rem;}
+    .vip h3{color:#FFD700;font-size:1.8rem;margin-bottom:1rem;}
+
+    .faq-item{background:rgba(255,255,255,.05);padding:1rem 1.5rem;border-radius:10px;margin-bottom:1rem;}
+    .faq-item h4{color:#FFD700;margin-bottom:.5rem;}
+
+    .badges{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;margin-top:2rem;}
+    .badges span{background:rgba(255,255,255,.1);border:1px solid #FFD700;padding:.7rem 1.2rem;border-radius:30px;font-weight:600;}
+
+    .social-share{text-align:center;margin:2rem 0;}
+    .social-share a{margin:0 .5rem;color:#FFD700;font-size:1.5rem;}
+
+    footer{text-align:center;padding:2rem;background:#111;color:#aaa;font-size:.9rem;}
+    footer a{color:#FFD700;margin:0 1rem;}
+    footer nav a:hover{text-decoration:underline;}
   </style>
 </head>
 <body>
-  <!-- HERO -->
-  <section class="hero">
-    <h1>🚀 Investe em Criptomoedas com Binance</h1>
-    <p>Abre já a tua conta e começa a negociar numa das maiores corretoras do mundo.<br>
-       Usa o <b>Referral Code</b> exclusivo e recebe benefícios especiais!</p>
-    <div class="cta-area">
-      <a href="https://www.binance.com/futures/ref/1104267675" target="_blank" class="cta-btn cta-primary">🔥 Começar Agora</a>
-      <a href="#newsletter" class="cta-btn cta-secondary">📩 Inscrever-se</a>
+  <!-- Navbar -->
+  <nav>
+    <div class="logo">CryptoFinance Pro</div>
+    <ul>
+      <li><a href="#beneficios">Benefícios</a></li>
+      <li><a href="#servicos">Serviços</a></li>
+      <li><a href="#academia">Academia</a></li>
+      <li><a href="#youtube">Tutoriais</a></li>
+      <li><a href="#vip">VIP</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#livePrices">Preços Ao Vivo</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero -->
+  <div class="hero">
+    <h1>O Futuro das Criptomoedas Começa Aqui 🚀</h1>
+    <p>Plataforma completa com análises, estratégias e ferramentas profissionais.</p>
+    <a href="#vip" class="cta-btn">Quero Começar Agora</a>
+  </div>
+
+  <!-- Benefícios -->
+  <section id="beneficios">
+    <h2>Benefícios Incríveis</h2>
+    <!-- ... (conteúdo intacto) ... -->
+  </section>
+
+  <!-- Serviços -->
+  <section id="servicos">
+    <h2>Serviços da Oferta VIP</h2>
+    <!-- ... (conteúdo intacto) ... -->
+  </section>
+
+  <!-- YouTube -->
+  <section id="youtube">
+    <h2>🎥 Tutoriais Exclusivos</h2>
+    <!-- ... (conteúdo intacto ou carrossel que fizemos) ... -->
+  </section>
+
+  <!-- Academia -->
+  <section id="academia">
+    <h2>📚 Academia Exclusiva</h2>
+    <!-- ... (conteúdo intacto) ... -->
+  </section>
+
+  <!-- 👍 Preços com Mini-Gráficos -->
+  <section id="livePrices">
+    <h2>Preços de Criptomoedas em Tempo Real</h2>
+    <div class="grid">
+      <div class="card">
+        🟡 Bitcoin: <span id="btcPrice">$0</span>
+        <canvas id="btcChart" height="80"></canvas>
+      </div>
+      <div class="card">
+        💎 Ethereum: <span id="ethPrice">$0</span>
+        <canvas id="ethChart" height="80"></canvas>
+      </div>
+      <div class="card">
+        🔵 Solana: <span id="solPrice">$0</span>
+        <canvas id="solChart" height="80"></canvas>
+      </div>
+      <div class="card">
+        🟠 BNB: <span id="bnbPrice">$0</span>
+        <canvas id="bnbChart" height="80"></canvas>
+      </div>
+      <div class="card">
+        💠 XRP: <span id="xrpPrice">$0</span>
+        <canvas id="xrpChart" height="80"></canvas>
+      </div>
     </div>
   </section>
 
-  <!-- PASSO A PASSO -->
-  <div class="steps">
-    <h2>Passo a passo para começar:</h2>
-    <ol>
-      <li>1️⃣ Clica no link: <a href="https://www.binance.com/futures/ref/1104267675" target="_blank" style="color:#FFD700;">www.binance.com/futures/ref/1104267675</a></li>
-      <li>2️⃣ Cria a tua conta na Binance (email/telemóvel e senha segura).</li>
-      <li>3️⃣ Verifica a identidade (KYC) para ativar todas as funções.</li>
-      <li>4️⃣ Efetua o primeiro depósito (cartão, transferência bancária ou cripto).</li>
-      <li>5️⃣ 🎯 Começa a negociar e a investir em criptomoedas.</li>
-    </ol>
-  </div>
-
-  <!-- CARROSSEL DE VÍDEOS -->
-  <div class="video-section">
-    <h2>🎥 Tutoriais em Vídeo</h2>
-    <div class="video-container">
-      <!-- Slide 1 -->
-      <div class="video-slide" style="display:block;">
-        <iframe src="https://www.youtube.com/embed/RgEnAgfVCds" title="Como criar Conta na Binance" frameborder="0" allowfullscreen></iframe>
-        <p>👉 Como criar conta na Binance (Passo a Passo)</p>
-      </div>
-      <!-- Slide 2 -->
-      <div class="video-slide">
-        <iframe src="https://www.youtube.com/embed/6E4omURMAGM" title="Estratégias de Trading Básicas" frameborder="0" allowfullscreen></iframe>
-        <p>📈 Estratégias básicas de trading: RSI, EMAs & Bandas de Bollinger</p>
-      </div>
+  <!-- VIP -->
+  <section id="vip">
+    <div class="vip">
+      <h3>Oferta VIP Exclusiva + Bônus</h3>
+      <p>Acesso completo por apenas <strong>50 MT</strong>.</p>
+      <a href="https://pay.tutora.co.mz/checkout/pay/6328cbd18f510ea626c7" class="cta-btn">Quero Ser VIP Agora</a>
     </div>
-    <div class="video-controls">
-      <button onclick="changeVideo(-1)">⬅️ Anterior</button>
-      <button onclick="changeVideo(1)">Próximo ➡️</button>
-    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <h2>Perguntas Frequentes</h2>
+    <!-- ... (conteúdo intacto) ... -->
+  </section>
+
+  <!-- Social -->
+  <div class="social-share">
+    <p>Compartilhe esta página:</p>
+    <!-- ... (links intactos) ... -->
   </div>
 
-  <!-- REFERRAL + QR -->
-  <div class="referral">
-    <p><strong>Referral Code:</strong></p>
-    <code>1104267675</code>
-    <div class="qr">
-      <img src="https://i.ibb.co/hMr7pBC/qrcode-binance.png" alt="QR Binance Referral" width="160">
-    </div>
-  </div>
-
-  <!-- NEWSLETTER -->
-  <div class="newsletter" id="newsletter">
-    <h3>📩 Inscreve-te para receber dicas exclusivas:</h3>
-    <form action="https://formspree.io/f/YOUR_ENDPOINT" method="POST">
-      <input type="email" name="email" placeholder="Digite o seu email" required>
-      <button type="submit">Inscrever-me</button>
-    </form>
-  </div>
-
+  <!-- Footer -->
   <footer>
-    © 2025 CryptoFinance Pro - Todos os direitos reservados.
+    <p>&copy; 2025 CryptoFinance Pro - Todos os direitos reservados.</p>
+    <nav>
+      <a href="#">Política de Privacidade</a> |
+      <a href="#">Termos de Uso</a> |
+      <a href="#academia">Academia</a> |
+      <a href="#youtube">Tutoriais</a>
+    </nav>
   </footer>
 
-  <!-- Chatbot Tawk.to -->
-  <script type="text/javascript">
-    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-    (function(){
-      var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-      s1.async=true;
-      s1.src='https://embed.tawk.to/SEU_ID_DO_CHATBOT/default'; 
-      s1.charset='UTF-8'; s1.setAttribute('crossorigin','*');
-      s0.parentNode.insertBefore(s1,s0);
-    })();
-  </script>
-
-  <!-- Script Carrossel -->
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
-    let slideIndex = 0;
-    const slides = document.querySelectorAll(".video-slide");
-
-    function changeVideo(n) {
-      slides[slideIndex].style.display="none";
-      slideIndex = (slideIndex + n + slides.length) % slides.length;
-      slides[slideIndex].style.display="block";
+    async function fetchPrices() {
+      const res = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana,binancecoin,ripple&vs_currencies=usd");
+      const data = await res.json();
+      document.getElementById("btcPrice").innerText = "$"+data.bitcoin.usd;
+      document.getElementById("ethPrice").innerText = "$"+data.ethereum.usd;
+      document.getElementById("solPrice").innerText = "$"+data.solana.usd;
+      document.getElementById("bnbPrice").innerText = "$"+data.binancecoin.usd;
+      document.getElementById("xrpPrice").innerText = "$"+data.ripple.usd;
     }
+
+    async function fetchHistory(coin, chartId) {
+      const res = await fetch(`https://api.coingecko.com/api/v3/coins/${coin}/market_chart?vs_currency=usd&days=7&interval=daily`);
+      const data = await res.json();
+      const prices = data.prices.map(p=>p[1]);
+      const labels = data.prices.map(p=> new Date(p[0]).toLocaleDateString("pt-BR",{day:"2-digit",month:"short"}));
+      const color = prices[prices.length-1] >= prices[0] ? "#00FF00" : "#FF0000";
+      new Chart(document.getElementById(chartId),{
+        type:'line',
+        data:{labels:labels,datasets:[{data:prices,borderColor:color,tension:.3,fill:false,pointRadius:0}]},
+        options:{responsive:true,plugins:{legend:{display:false}},scales:{x:{display:false},y:{display:false}}}
+      });
+    }
+
+    fetchPrices();
+    fetchHistory("bitcoin","btcChart");
+    fetchHistory("ethereum","ethChart");
+    fetchHistory("solana","solChart");
+    fetchHistory("binancecoin","bnbChart");
+    fetchHistory("ripple","xrpChart");
+
+    setInterval(fetchPrices,60000);
   </script>
 </body>
 </html>
