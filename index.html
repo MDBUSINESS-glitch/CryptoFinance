@@ -3,23 +3,53 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CryptoFinance Pro - EMAs, RSI e Bollinger Bands</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css">
+  <title>CryptoFinance Pro - NELLY-G TRADER</title>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
   <style>
-    body{background:#111;color:#fff;font-family:'Segoe UI',sans-serif;margin:0;}
-    nav{position:fixed;top:0;left:0;width:100%;background:#000;padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center;}
-    nav .logo{color:#FFD700;font-weight:bold;font-size:1.4rem;}
+    *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;}
+    body{background:linear-gradient(135deg,#0D0D0D,#1A1A1A);color:#fff;line-height:1.6;}
+    a{text-decoration:none;color:inherit;}
+
+    nav{position:fixed;top:0;left:0;width:100%;background:#0D0D0D;display:flex;justify-content:space-between;align-items:center;padding:1rem 2rem;z-index:1000;}
+    nav .logo{font-size:1.5rem;font-weight:700;color:#FFD700;}
     nav ul{list-style:none;display:flex;gap:1.5rem;}
-    nav ul li a{color:#fff;text-decoration:none;font-weight:600;}
+    nav ul li a{color:#fff;font-weight:600;transition:.3s;}
     nav ul li a:hover{color:#FFD700;}
-    section{padding:5rem 2rem;max-width:1200px;margin:auto;}
-    h2{text-align:center;color:#FFD700;margin-bottom:1.5rem;}
-    button{margin:3px;padding:6px 12px;border:none;border-radius:6px;cursor:pointer;background:#FFD700;color:#000;font-weight:bold;}
-    button:hover{background:#FFAA00;}
-    footer{text-align:center;padding:1.5rem;background:#000;color:#aaa;font-size:.9rem;}
-    canvas{background:#1a1a1a;border-radius:10px;padding:1rem;margin-bottom:1rem;}
-    .options{text-align:center;margin-bottom:10px;}
-    .options label{margin:0 10px;cursor:pointer;}
+
+    .hero{padding:8rem 2rem 5rem;text-align:center;background:linear-gradient(90deg,#0055FF,#7B2FF7);}
+    .hero h1{font-size:2.8rem;margin-bottom:1rem;}
+    .hero p{font-size:1.2rem;margin-bottom:2rem;}
+    .cta-btn{display:inline-block;padding:1rem 2rem;background:linear-gradient(90deg,#FFD700,#FFAA00);color:#000;border-radius:50px;font-weight:700;transition:.3s;animation:pulse 2s infinite;}
+    .cta-btn:hover{background:linear-gradient(90deg,#7B2FF7,#0055FF);color:#fff;}
+    @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,215,0,.6);}70%{box-shadow:0 0 0 20px rgba(255,215,0,0);}100%{box-shadow:0 0 0 0 rgba(255,215,0,0);}}
+
+    section{padding:4rem 2rem;max-width:1100px;margin:auto;opacity:0;animation:fadeIn 1s forwards;}
+    @keyframes fadeIn{to{opacity:1;}}
+    h2{text-align:center;color:#FFD700;margin-bottom:2rem;font-size:2rem;}
+
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.5rem;}
+    .card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:15px;padding:2rem;text-align:center;transition:.3s;}
+    .card:hover{transform:translateY(-5px) scale(1.02);border-color:#FFD700;}
+    .card i{font-size:2rem;color:#FFD700;margin-bottom:.8rem;}
+    a.card{display:block;color:#fff;}
+
+    iframe{border-radius:10px;}
+
+    .vip{text-align:center;margin-top:3rem;}
+    .vip h3{color:#FFD700;font-size:1.8rem;margin-bottom:1rem;}
+
+    .faq-item{background:rgba(255,255,255,.05);padding:1rem 1.5rem;border-radius:10px;margin-bottom:1rem;}
+    .faq-item h4{color:#FFD700;margin-bottom:.5rem;}
+
+    .badges{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;margin-top:2rem;}
+    .badges span{background:rgba(255,255,255,.1);border:1px solid #FFD700;padding:.7rem 1.2rem;border-radius:30px;font-weight:600;}
+
+    .social-share{text-align:center;margin:2rem 0;}
+    .social-share a{margin:0 .5rem;color:#FFD700;font-size:1.5rem;}
+
+    footer{text-align:center;padding:2rem;background:#111;color:#aaa;font-size:.9rem;}
+    footer a{color:#FFD700;margin:0 1rem;}
+    footer nav a:hover{text-decoration:underline;}
   </style>
 </head>
 <body>
@@ -27,207 +57,179 @@
   <nav>
     <div class="logo">CryptoFinance Pro</div>
     <ul>
-      <li><a href="#ema9-20">⚡ EMA9 x EMA20</a></li>
-      <li><a href="#ema50-200">🏦 EMA50 x EMA200</a></li>
+      <li><a href="#beneficios">Benefícios</a></li>
+      <li><a href="#servicos">Serviços</a></li>
+      <li><a href="#academia">Academia</a></li>
+      <li><a href="#youtube">Tutoriais</a></li>
+      <li><a href="#vip">VIP</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#livePrices">Preços Ao Vivo</a></li>
     </ul>
   </nav>
 
   <!-- Hero -->
-  <section class="hero">
-    <h1 style="text-align:center;">📊 Trading Dashboard: EMAs + RSI + Bollinger</h1>
-    <p style="text-align:center;">Agora podes ativar/desativar indicadores para personalizar a análise!</p>
-  </section>
+  <div class="hero">
+    <h1>O Futuro das Criptomoedas Começa Aqui 🚀</h1>
+    <p>Plataforma completa com análises, estratégias e ferramentas profissionais.</p>
+    <a href="#vip" class="cta-btn">Quero Começar Agora</a>
+  </div>
 
-  <!-- CURTO PRAZO -->
-  <section id="ema9-20">
-    <h2>⚡ Curto Prazo (EMA9 x EMA20)</h2>
-
-    <div class="options">
-      <label><input type="checkbox" class="toggle" value="ema" checked> Mostrar EMAs</label>
-      <label><input type="checkbox" class="toggle" value="boll" checked> Mostrar Bollinger</label>
-      <label><input type="checkbox" class="toggle" value="rsi" checked> Mostrar RSI</label>
-    </div>
-
-    <h3>Bitcoin</h3>
-    <canvas id="btcChart9"></canvas><canvas id="btcRSI9" height="100"></canvas>
-    <h3>Ethereum</h3>
-    <canvas id="ethChart9"></canvas><canvas id="ethRSI9" height="100"></canvas>
-    <h3>Solana</h3>
-    <canvas id="solChart9"></canvas><canvas id="solRSI9" height="100"></canvas>
-    <div style="text-align:center;margin-top:20px;">
-      <button onclick="loadCharts9('1')">⏳ 24h</button>
-      <button onclick="loadCharts9('7')">📅 7 dias</button>
-      <button onclick="loadCharts9('30')">📈 30 dias</button>
-    </div>
-  </section>
-
-  <!-- LONGO PRAZO -->
-  <section id="ema50-200">
-    <h2>🏦 Longo Prazo (EMA50 x EMA200)</h2>
-
-    <div class="options">
-      <label><input type="checkbox" class="toggleLP" value="ema" checked> Mostrar EMAs</label>
-      <label><input type="checkbox" class="toggleLP" value="boll" checked> Mostrar Bollinger</label>
-      <label><input type="checkbox" class="toggleLP" value="rsi" checked> Mostrar RSI</label>
-    </div>
-
-    <h3>Bitcoin</h3>
-    <canvas id="btcChart50"></canvas><canvas id="btcRSI50" height="100"></canvas>
-    <h3>Ethereum</h3>
-    <canvas id="ethChart50"></canvas><canvas id="ethRSI50" height="100"></canvas>
-    <h3>Solana</h3>
-    <canvas id="solChart50"></canvas><canvas id="solRSI50" height="100"></canvas>
-    <div style="text-align:center;margin-top:20px;">
-      <button onclick="loadCharts50('90')">📅 90 dias</button>
-      <button onclick="loadCharts50('180')">📆 6 meses</button>
-      <button onclick="loadCharts50('365')">📆 1 ano</button>
+  <!-- Benefícios -->
+  <section id="beneficios">
+    <h2>Benefícios Incríveis</h2>
+    <div class="grid">
+      <a class="card" href="https://www.tradingview.com/" target="_blank">
+        <i class="ri-bar-chart-box-line"></i>
+        <h3>Análises Avançadas</h3>
+        <p>Acesse gráficos e estudos detalhados no TradingView.</p>
+      </a>
+      <a class="card" href="https://www.investopedia.com/articles/technical/02/121702.asp" target="_blank">
+        <i class="ri-stock-line"></i>
+        <h3>Estratégias de Trading</h3>
+        <p>Aprenda RSI, Bandas de Bollinger e EMAs (9, 20, 200).</p>
+      </a>
+      <a class="card" href="https://t.me/+wcLnHa3UUIhhNGY0" target="_blank">
+        <i class="ri-team-line"></i>
+        <h3>Grupo VIP</h3>
+        <p>Acesse nosso grupo exclusivo no Telegram.</p>
+      </a>
+      <a class="card" href="https://academy.binance.com/pt" target="_blank">
+        <i class="ri-book-2-line"></i>
+        <h3>Conteúdo Premium</h3>
+        <p>Estude gratuitamente artigos e guias na Binance Academy.</p>
+      </a>
     </div>
   </section>
 
+  <!-- Serviços -->
+  <section id="servicos">
+    <h2>Serviços da Oferta VIP</h2>
+    <div class="grid">
+      <a class="card" href="https://coinmarketcap.com/alexandria/" target="_blank">
+        📊 Relatórios Premium Semanais
+        <p>Acesse relatórios e insights no CoinMarketCap Premium.</p>
+      </a>
+      <a class="card" href="https://www.tradingview.com/markets/cryptocurrencies/ideas/" target="_blank">
+        📈 Sinais de Trading
+        <p>Sinais validados por especialistas no TradingView Ideas.</p>
+      </a>
+      <a class="card" href="https://www.youtube.com/c/binance" target="_blank">
+        🎥 Aulas ao Vivo
+        <p>Webinars e transmissões oficiais da Binance no YouTube.</p>
+      </a>
+      <a class="card" href="https://www.glassnode.com/" target="_blank">
+        📂 Dashboards & Dados On-chain
+        <p>Análises on-chain premium e indicadores avançados.</p>
+      </a>
+      <a class="card" href="https://discord.gg/binance" target="_blank">
+        💬 Suporte Personalizado
+        <p>Receba ajuda através do Discord/Telegram.</p>
+      </a>
+    </div>
+  </section>
+
+  <!-- YouTube -->
+  <section id="youtube">
+    <h2>🎥 Tutoriais Exclusivos</h2>
+    <div class="grid">
+      <div class="card">
+        <iframe width="100%" height="200" src="https://www.youtube.com/embed/RgEnAgfVCds" frameborder="0" allowfullscreen></iframe>
+        <p>Introdução simples ao Bitcoin para iniciantes.</p>
+      </div>
+      <div class="card">
+        <iframe width="100%" height="200" src="https://www.youtube.com/embed/6E4omURMAGM" frameborder="0" allowfullscreen></iframe>
+        <p>Estratégias práticas de trading aplicadas ao mercado cripto.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Academia -->
+  <section id="academia">
+    <h2>📚 Academia Exclusiva</h2>
+    <div class="grid">
+      <a class="card" target="_blank" href="https://academy.binance.com/pt">
+        <i class="ri-book-open-line"></i>
+        <h3>Binance Academy</h3>
+        <p>Aprende com artigos e guias gratuitos.</p>
+      </a>
+      <a class="card" target="_blank" href="https://coinmarketcap.com/">
+        <i class="ri-bar-chart-2-line"></i>
+        <h3>CoinMarketCap</h3>
+        <p>Acompanhe todas as cotações e análises.</p>
+      </a>
+      <a class="card" target="_blank" href="https://medium.com/topic/cryptocurrency">
+        <i class="ri-links-line"></i>
+        <h3>Artigos Exclusivos</h3>
+        <p>Insights de especialistas atualizados.</p>
+      </a>
+    </div>
+  </section>
+
+  <!-- Preços -->
+  <section id="livePrices">
+    <h2>Preços de Criptomoedas em Tempo Real</h2>
+    <div class="grid"></div>
+  </section>
+
+  <!-- VIP -->
+  <section id="vip">
+    <div class="vip">
+      <h3>Oferta VIP Exclusiva + Bônus</h3>
+      <p>Acesso completo por apenas <strong>50 MT</strong>.</p>
+      <a href="https://pay.tutora.co.mz/checkout/pay/6328cbd18f510ea626c7" class="cta-btn">Quero Ser VIP Agora</a>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <h2>Perguntas Frequentes</h2>
+    <div class="faq-item"><h4>📌 Quanto tempo tenho acesso?</h4><p>Acesso vitalício com atualizações.</p></div>
+    <div class="faq-item"><h4>📌 Posso cancelar?</h4><p>Sim, 7 dias para reembolso.</p></div>
+    <div class="faq-item"><h4>📌 O pagamento é seguro?</h4><p>Sim, todo processo é criptografado.</p></div>
+  </section>
+
+  <!-- Social -->
+  <div class="social-share">
+    <p>Compartilhe esta página:</p>
+    <a href="https://wa.me/?text=Confira%20CryptoFinance%20Pro:%20[URL]" target="_blank"><i class="ri-whatsapp-line"></i></a>
+    <a href="https://t.me/+wcLnHa3UUIhhNGY0" target="_blank"><i class="ri-telegram-line"></i></a>
+    <a href="https://twitter.com/intent/tweet?text=Confira%20CryptoFinance%20Pro&url=[URL]" target="_blank"><i class="ri-twitter-line"></i></a>
+    <a href="https://www.linkedin.com/shareArticle?mini=true&url=[URL]&title=CryptoFinance%20Pro" target="_blank"><i class="ri-linkedin-line"></i></a>
+    <a href="https://youtube.com/@binance" target="_blank"><i class="ri-youtube-line"></i></a>
+  </div>
+
+  <!-- Footer -->
   <footer>
-    © 2025 CryptoFinance Pro - Todos os direitos reservados.
+    <p>&copy; 2025 CryptoFinance Pro - Todos os direitos reservados.</p>
+    <nav>
+      <a href="#">Política de Privacidade</a> |
+      <a href="#">Termos de Uso</a> |
+      <a href="#academia">Academia</a> |
+      <a href="#youtube">Tutoriais</a>
+    </nav>
+    <div>
+      <a href="https://facebook.com" target="_blank"><i class="ri-facebook-line"></i></a>
+      <a href="https://instagram.com" target="_blank"><i class="ri-instagram-line"></i></a>
+      <a href="https://twitter.com" target="_blank"><i class="ri-twitter-line"></i></a>
+      <a href="https://t.me/+wcLnHa3UUIhhNGY0" target="_blank"><i class="ri-telegram-line"></i></a>
+      <a href="https://youtube.com/@binance" target="_blank"><i class="ri-youtube-line"></i></a>
+    </div>
   </footer>
 
-  <!-- Chart.js + Plugin de Anotação -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation"></script>
   <script>
-    let showEMA=true, showBoll=true, showRSI=true;
-    let showEMA_LP=true, showBoll_LP=true, showRSI_LP=true;
-
-    // Calcular EMA
-    function calcEMA(values, period){
-      let k=2/(period+1), ema=[values[0]];
-      for(let i=1;i<values.length;i++){ ema.push(values[i]*k+ema[i-1]*(1-k)); }
-      return ema;
+    async function fetchLivePrices() {
+      try {
+        const res = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana&vs_currencies=usd');
+        const data = await res.json();
+        document.querySelector('#livePrices .grid').innerHTML = `
+          <div class="card">🟡 Bitcoin: $${data.bitcoin.usd}</div>
+          <div class="card">💎 Ethereum: $${data.ethereum.usd}</div>
+          <div class="card">🔵 Solana: $${data.solana.usd}</div>
+        `;
+      } catch(e){console.error(e);}
     }
-
-    // RSI
-    function calcRSI(values, period=14){
-      let rsi=[], gains=0, losses=0;
-      for(let i=1;i<values.length;i++){
-        let change=values[i]-values[i-1];
-        gains+=change>0?change:0;
-        losses+=change<0?-change:0;
-        if(i>=period){
-          if(i>period){
-            let ch=values[i]-values[i-1];
-            gains=(gains*(period-1)+(ch>0?ch:0))/period;
-            losses=(losses*(period-1)+(ch<0?-ch:0))/period;
-          }else{gains/=period; losses/=period;}
-          let rs=losses===0?100:gains/losses;
-          rsi.push(100-(100/(1+rs)));
-        }else rsi.push(null);
-      }
-      return rsi;
-    }
-
-    // Bollinger Bands
-    function calcBollinger(values, period=20, mult=2){
-      let sma=[], upper=[], lower=[];
-      for(let i=0;i<values.length;i++){
-        if(i<period){sma.push(null);upper.push(null);lower.push(null);}
-        else{
-          let slice=values.slice(i-period,i);
-          let avg=slice.reduce((a,b)=>a+b,0)/period;
-          let variance=slice.reduce((a,b)=>a+Math.pow(b-avg,2),0)/period;
-          let stdev=Math.sqrt(variance);
-          sma.push(avg); upper.push(avg+mult*stdev); lower.push(avg-mult*stdev);
-        }
-      }
-      return {sma,upper,lower};
-    }
-
-    async function getData(coin, days){
-      const res=await fetch(`https://api.coingecko.com/api/v3/coins/${coin}/market_chart?vs_currency=usd&days=${days}`);
-      const data=await res.json();
-      return {
-        prices:data.prices.map(p=>p[1]),
-        labels:data.prices.map(p=>new Date(p[0]).toLocaleDateString("pt-BR",{day:"2-digit",month:"short"}))
-      };
-    }
-
-    async function renderChart(ctxP, ctxR, coin, days, label, fastEMA, slowEMA, opts){
-      const data=await getData(coin,days);
-      let emaF=calcEMA(data.prices,fastEMA), emaS=calcEMA(data.prices,slowEMA);
-      let buy=[],sell=[];
-      for(let i=1;i<data.prices.length;i++){
-        if(emaF[i-1]<emaS[i-1] && emaF[i]>emaS[i]) buy.push({x:data.labels[i],y:data.prices[i]});
-        if(emaF[i-1]>emaS[i-1] && emaF[i]<emaS[i]) sell.push({x:data.labels[i],y:data.prices[i]});
-      }
-      let boll=calcBollinger(data.prices,20,2);
-
-      // Price Chart
-      new Chart(ctxP,{
-        type:'line',
-        data:{labels:data.labels,datasets:[
-          {label:label+" Preço",data:data.prices,borderColor:"#FFD700",pointRadius:0},
-          ...(opts.ema?[{label:`EMA${fastEMA}`,data:emaF,borderColor:"#0f0",borderDash:[5,5],pointRadius:0},{label:`EMA${slowEMA}`,data:emaS,borderColor:"#00BFFF",borderDash:[5,5],pointRadius:0}]:[]),
-          ...(opts.boll?[{label:"BB Upper",data:boll.upper,borderColor:"rgba(255,0,0,0.5)",pointRadius:0},{label:"BB Middle",data:boll.sma,borderColor:"rgba(200,200,200,0.6)",borderDash:[2,2],pointRadius:0},{label:"BB Lower",data:boll.lower,borderColor:"rgba(0,255,0,0.5)",pointRadius:0}]:[]),
-          {label:"Buy",data:buy,borderColor:"#0f0",backgroundColor:"#0f0",pointRadius:6,showLine:false},
-          {label:"Sell",data:sell,borderColor:"#f00",backgroundColor:"#f00",pointRadius:6,showLine:false}
-        ]},
-        options:{plugins:{legend:{labels:{color:"#FFF"}}},scales:{x:{ticks:{color:"#FFF"}},y:{ticks:{color:"#FFF"}}}}
-      });
-
-      // RSI Chart (opcional)
-      if(opts.rsi){
-        const rsi = calcRSI(data.prices,14);
-        new Chart(ctxR,{
-          type:"line",
-          data:{labels:data.labels,datasets:[{label:"RSI(14)",data:rsi,borderColor:"#FF00FF",fill:false}]},
-          options:{
-            plugins:{
-              legend:{labels:{color:"#FFF"}},
-              annotation:{
-                annotations:{
-                  overbought:{type:"box",yMin:70,yMax:100,backgroundColor:"rgba(255,0,0,0.15)"},
-                  oversold:{type:"box",yMin:0,yMax:30,backgroundColor:"rgba(0,255,0,0.15)"},
-                  l1:{type:"line",yMin:70,yMax:70,borderColor:"red",borderWidth:1},
-                  l2:{type:"line",yMin:30,yMax:30,borderColor:"green",borderWidth:1}
-                }
-              }
-            },
-            scales:{y:{min:0,max:100,ticks:{color:"#FFF"}},x:{ticks:{color:"#FFF"}}}
-          }
-        });
-      }else{
-        ctxR.style.display="none";
-      }
-    }
-
-    function loadCharts9(days){
-      renderChart(document.getElementById("btcChart9"),document.getElementById("btcRSI9"),"bitcoin",days,"BTC",9,20,{ema:showEMA,boll:showBoll,rsi:showRSI});
-      renderChart(document.getElementById("ethChart9"),document.getElementById("ethRSI9"),"ethereum",days,"ETH",9,20,{ema:showEMA,boll:showBoll,rsi:showRSI});
-      renderChart(document.getElementById("solChart9"),document.getElementById("solRSI9"),"solana",days,"SOL",9,20,{ema:showEMA,boll:showBoll,rsi:showRSI});
-    }
-    function loadCharts50(days){
-      renderChart(document.getElementById("btcChart50"),document.getElementById("btcRSI50"),"bitcoin",days,"BTC",50,200,{ema:showEMA_LP,boll:showBoll_LP,rsi:showRSI_LP});
-      renderChart(document.getElementById("ethChart50"),document.getElementById("ethRSI50"),"ethereum",days,"ETH",50,200,{ema:showEMA_LP,boll:showBoll_LP,rsi:showRSI_LP});
-      renderChart(document.getElementById("solChart50"),document.getElementById("solRSI50"),"solana",days,"SOL",50,200,{ema:showEMA_LP,boll:showBoll_LP,rsi:showRSI_LP});
-    }
-
-    // Inicial
-    loadCharts9("7");
-    loadCharts50("180");
-
-    // Listeners para checkboxes
-    document.querySelectorAll(".toggle").forEach(cb=>{
-      cb.addEventListener("change",()=>{
-        showEMA=document.querySelector(".toggle[value='ema']").checked;
-        showBoll=document.querySelector(".toggle[value='boll']").checked;
-        showRSI=document.querySelector(".toggle[value='rsi']").checked;
-        loadCharts9("7");
-      });
-    });
-    document.querySelectorAll(".toggleLP").forEach(cb=>{
-      cb.addEventListener("change",()=>{
-        showEMA_LP=document.querySelector(".toggleLP[value='ema']").checked;
-        showBoll_LP=document.querySelector(".toggleLP[value='boll']").checked;
-        showRSI_LP=document.querySelector(".toggleLP[value='rsi']").checked;
-        loadCharts50("180");
-      });
-    });
+    fetchLivePrices();
+    setInterval(fetchLivePrices,60000);
   </script>
 </body>
 </html>
