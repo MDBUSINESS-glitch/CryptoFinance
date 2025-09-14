@@ -7,29 +7,27 @@
   <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
-    *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;transition:background .3s, color .3s;}
-    body{background:#0D0D0D;color:#fff;line-height:1.6;overflow-x:hidden;}
-    body.light-mode{background:#f9f9f9;color:#222;}
+    *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+    body{background:#f9f9f9;color:#222;line-height:1.6;overflow-x:hidden;}
     section{padding:6rem 2rem;max-width:1200px;margin:auto;}
 
     h2{text-align:center;color:#FFD700;margin-bottom:2.5rem;font-size:2.2rem;font-weight:700;}
     p{font-size:1rem;}
 
-    nav{position:fixed;top:0;left:0;width:100%;background:rgba(0,0,0,0.85);
+    /* NAVBAR */
+    nav{position:fixed;top:0;left:0;width:100%;background:#fff;box-shadow:0 2px 10px rgba(0,0,0,0.05);
         display:flex;justify-content:space-between;align-items:center;padding:1rem 3rem;z-index:1000;}
-    body.light-mode nav{background:rgba(255,255,255,0.95);}
     nav .logo{font-size:1.5rem;font-weight:700;color:#FFD700;}
     nav ul{list-style:none;display:flex;gap:2rem;}
-    nav ul li a{color:#fff;font-weight:600;transition:.3s;text-decoration:none;}
+    nav ul li a{color:#333;font-weight:600;transition:.3s;text-decoration:none;}
     nav ul li a:hover{color:#FFD700;}
-    body.light-mode nav ul li a{color:#222;}
-    #modeToggle{cursor:pointer;font-size:1.5rem;color:#FFD700;}
 
+    /* HERO */
     .hero{min-height:90vh;padding-top:8rem;display:flex;align-items:center;justify-content:space-between;
           gap:2rem;max-width:1200px;margin:auto;}
     .hero-text{flex:1;}
     .hero h1{font-size:3rem;line-height:1.2;margin-bottom:1rem;color:#FFD700;}
-    .hero p{font-size:1.2rem;margin-bottom:2rem;}
+    .hero p{font-size:1.2rem;margin-bottom:2rem;color:#555;}
     .hero-btns a{display:inline-block;margin:.5rem;padding:1rem 2rem;border-radius:50px;font-size:1.1rem;font-weight:bold;text-decoration:none;}
     .btn-primary{background:#FFD700;color:#000;}
     .btn-primary:hover{background:#FFAA00;}
@@ -38,21 +36,19 @@
     .hero-img{text-align:center;flex:1;}
     .hero-img img{max-width:400px;width:100%;}
 
+    /* GRIDS */
     .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2rem;}
-    .card{background:rgba(255,255,255,0.05);border-radius:12px;padding:2rem;text-align:center;}
+    .card{background:#fff;border-radius:12px;padding:2rem;text-align:center;box-shadow:0 4px 15px rgba(0,0,0,0.08);}
     .card i{font-size:2.5rem;color:#FFD700;margin-bottom:15px;}
 
-    body.light-mode .card{background:#fff;color:#111;box-shadow:0 4px 20px rgba(0,0,0,0.05);}
-
-    .steps{background:rgba(255,255,255,.05);border-radius:12px;padding:2rem;margin-top:3rem;}
+    .steps{background:#fff;box-shadow:0 4px 15px rgba(0,0,0,0.08);border-radius:12px;padding:2rem;}
     .steps ol{padding-left:1.2rem;}
     .steps ol li{margin-bottom:.8rem;}
 
-    .faq-item{background:rgba(255,255,255,0.05);padding:1rem 1.5rem;margin-bottom:1rem;border-radius:8px;}
+    .faq-item{background:#fff;box-shadow:0 4px 15px rgba(0,0,0,0.08);padding:1rem 1.5rem;margin-bottom:1rem;border-radius:8px;}
     .faq-item h4{margin-bottom:.5rem;color:#FFD700;}
 
-    footer{text-align:center;padding:2rem;background:#111;color:#aaa;font-size:.9rem;}
-    body.light-mode footer{background:#f0f0f0;color:#222;}
+    footer{text-align:center;padding:2rem;background:#f0f0f0;color:#333;font-size:.9rem;}
 
     /* Animations */
     .reveal{opacity:0;transition:all .8s ease;}
@@ -76,13 +72,12 @@
       <li><a href="#faq">FAQ</a></li>
       <li><a href="#livePrices">Preços</a></li>
     </ul>
-    <div id="modeToggle"><i class="ri-sun-line"></i></div>
   </nav>
 
   <!-- HERO -->
   <section class="hero">
     <div class="hero-text reveal fade-left">
-      <h1>Invista em Cripto com <span style="color:#FFF;">Segurança</span></h1>
+      <h1>Invista em Cripto com Segurança</h1>
       <p>A plataforma certa para análises avançadas, estratégias profissionais e insights exclusivos.</p>
       <div class="hero-btns">
         <a href="#vip" class="btn-primary">🚀 Começar Agora</a>
@@ -97,7 +92,7 @@
     <div class="steps">
       <h2>📋 Passo a passo para começar</h2>
       <ol>
-        <li>1️⃣ Regista-te em: <a href="https://www.binance.com/futures/ref/1104267675" target="_blank">binance.com/futures/ref/1104267675</a></li>
+        <li>1️⃣ Regista-te: <a href="https://www.binance.com/futures/ref/1104267675" target="_blank">binance.com/futures/ref/1104267675</a></li>
         <li>2️⃣ Cria conta com email/telemóvel e senha segura.</li>
         <li>3️⃣ Conclui verificação (KYC).</li>
         <li>4️⃣ Faz o primeiro depósito.</li>
@@ -110,10 +105,10 @@
   <section id="beneficios" class="reveal zoom-in">
     <h2>🎯 Benefícios Incríveis</h2>
     <div class="grid">
-      <div class="card"><i class="ri-bar-chart-box-line"></i><h3>Análises Avançadas</h3><p>Acesso a TradingView, indicadores técnicos e relatórios detalhados.</p></div>
-      <div class="card"><i class="ri-stock-line"></i><h3>Estratégias Consistentes</h3><p>Setups profissionais baseados em RSI, EMAs e Bollinger Bands.</p></div>
-      <div class="card"><i class="ri-team-line"></i><h3>Grupo VIP</h3><p>Networking e sinais ao vivo em comunidade fechada no Telegram.</p></div>
-      <div class="card"><i class="ri-book-2-line"></i><h3>Conteúdo Premium</h3><p>Cursos da Binance Academy, ebooks e tutoriais passo a passo.</p></div>
+      <div class="card"><i class="ri-bar-chart-box-line"></i><h3>Análises Avançadas</h3><p>Acesso ao TradingView e indicadores técnicos.</p></div>
+      <div class="card"><i class="ri-stock-line"></i><h3>Estratégias Consistentes</h3><p>Setups validados com ferramentas técnicas.</p></div>
+      <div class="card"><i class="ri-team-line"></i><h3>Grupo VIP</h3><p>Comunidade exclusiva com sinais ao vivo.</p></div>
+      <div class="card"><i class="ri-book-2-line"></i><h3>Conteúdo Premium</h3><p>Guias, ebooks e cursos Binance Academy.</p></div>
     </div>
   </section>
 
@@ -125,7 +120,7 @@
       <div class="card">📈 Sinais de Trading Profissionais</div>
       <div class="card">🎥 Aulas e Webinars exclusivos</div>
       <div class="card">📂 Dashboards On-chain</div>
-      <div class="card">💬 Suporte 24/7 Telegram</div>
+      <div class="card">💬 Suporte 24/7 no Telegram</div>
     </div>
   </section>
 
@@ -162,7 +157,7 @@
   <section id="vip" class="reveal fade-left">
     <h2>🚀 Oferta VIP</h2>
     <div style="text-align:center;">
-      <p>Apenas <strong>50 MT</strong> vitalício. Tenha acesso a todos os serviços + comunidade VIP</p>
+      <p>Apenas <strong>50 MT</strong> por acesso vitalício a todos os recursos e comunidade fechada.</p>
       <a href="https://t.me" target="_blank" class="btn-primary">QUERO SER VIP</a>
     </div>
   </section>
@@ -170,21 +165,20 @@
   <!-- FAQ -->
   <section id="faq" class="reveal fade-right">
     <h2>❓ Perguntas Frequentes</h2>
-    <div class="faq-item"><h4>📌 O acesso é vitalício?</h4><p>Sim, acesso único e permanente.</p></div>
-    <div class="faq-item"><h4>📌 Posso cancelar?</h4><p>7 dias de garantia com reembolso total.</p></div>
-    <div class="faq-item"><h4>📌 Quais formas de pagamento?</h4><p>Pagamentos seguros em cripto ou cartão.</p></div>
+    <div class="faq-item"><h4>📌 O acesso é vitalício?</h4><p>Sim, único pagamento e acesso para sempre.</p></div>
+    <div class="faq-item"><h4>📌 Posso cancelar?</h4><p>Sim, tem 7 dias de garantia.</p></div>
+    <div class="faq-item"><h4>📌 Quais métodos de pagamento?</h4><p>Cartão ou Criptomoedas via processador seguro.</p></div>
   </section>
 
   <footer><p>&copy; 2025 CryptoFinance Pro</p></footer>
 
   <!-- REFERRAL FIXO -->
-  <div class="referral">
+  <div class="referral" style="position:fixed;right:20px;bottom:20px;text-align:center;z-index:200;">
     <p>Referral Code:</p>
-    <code>1104267675</code>
-    <img src="https://i.ibb.co/hMr7pBC/qrcode-binance.png" alt="QR Binance">
+    <code style="background:rgba(255,215,0,.15);padding:.3rem .5rem;border-radius:5px;display:block;margin-bottom:5px;color:#FFD700;">1104267675</code>
+    <img src="https://i.ibb.co/hMr7pBC/qrcode-binance.png" alt="QR Binance" style="width:100px;border:2px solid #FFD700;border-radius:8px;">
   </div>
 
-  <!-- JS -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
     async function fetchPrices(){
@@ -206,13 +200,6 @@
     }
     fetchPrices();fetchHistory("bitcoin","btcChart");fetchHistory("ethereum","ethChart");fetchHistory("solana","solChart");
     setInterval(fetchPrices,60000);
-
-    // Mode Toggle
-    const toggle=document.getElementById("modeToggle");
-    toggle.addEventListener("click",()=>{document.body.classList.toggle("light-mode");
-      toggle.innerHTML=document.body.classList.contains("light-mode")?'<i class="ri-moon-line"></i>':'<i class="ri-sun-line"></i>';
-      localStorage.setItem("mode",document.body.classList.contains("light-mode")?"light":"dark");});
-    if(localStorage.getItem("mode")==="light"){document.body.classList.add("light-mode");toggle.innerHTML='<i class="ri-moon-line"></i>';}
 
     // Scroll animations
     const reveals=document.querySelectorAll(".reveal");
