@@ -6,7 +6,7 @@
   <title>CryptoFinance Pro - NELLY-G TRADER</title>
   <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
   <style>
-    *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;}
+    *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Tahoma,Verdana,sans-serif;}
     body{background:linear-gradient(135deg,#0D0D0D,#1A1A1A);color:#fff;line-height:1.6;}
     a{text-decoration:none;color:inherit;}
 
@@ -16,12 +16,25 @@
     nav ul li a{color:#fff;font-weight:600;transition:.3s;}
     nav ul li a:hover{color:#FFD700;}
 
-    .hero{padding:8rem 2rem 5rem;text-align:center;background:linear-gradient(90deg,#0055FF,#7B2FF7);}
-    .hero h1{font-size:2.8rem;margin-bottom:1rem;}
-    .hero p{font-size:1.2rem;margin-bottom:2rem;}
-    .cta-btn{display:inline-block;padding:1rem 2rem;background:linear-gradient(90deg,#FFD700,#FFAA00);color:#000;border-radius:50px;font-weight:700;transition:.3s;animation:pulse 2s infinite;}
-    .cta-btn:hover{background:linear-gradient(90deg,#7B2FF7,#0055FF);color:#fff;}
-    @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,215,0,.6);}70%{box-shadow:0 0 0 20px rgba(255,215,0,0);}100%{box-shadow:0 0 0 0 rgba(255,215,0,0);}}
+    /* HERO Moderno */
+    .hero{
+      padding:8rem 2rem 6rem;
+      text-align:center;
+      background:linear-gradient(270deg,#0055FF,#7B2FF7,#FFD700);
+      background-size:600% 600%;
+      animation:backgroundMove 12s ease infinite;
+      border-bottom:2px solid rgba(255,255,255,.1);
+    }
+    @keyframes backgroundMove {0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+    .hero h1{font-size:3rem;margin-bottom:1rem;color:#fff;}
+    .hero span{color:#FFD700;}
+    .hero .subtitle{font-size:1.3rem;max-width:700px;margin:auto;margin-bottom:2rem;color:#ddd;}
+    .highlights{display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap;margin-bottom:2rem;font-weight:600;color:#FFD700;}
+    .cta-btn{display:inline-flex;align-items:center;gap:8px;margin:0.5rem;padding:1rem 2rem;border:none;border-radius:50px;cursor:pointer;font-size:1.1rem;font-weight:bold;transition:.3s;text-decoration:none;}
+    .cta-primary{background:#FFD700;color:#000;}
+    .cta-primary:hover{background:#FFAA00;color:#fff;}
+    .cta-secondary{background:#7B2FF7;color:#fff;}
+    .cta-secondary:hover{background:#0055FF;}
 
     section{padding:4rem 2rem;max-width:1100px;margin:auto;opacity:0;animation:fadeIn 1s forwards;}
     @keyframes fadeIn{to{opacity:1;}}
@@ -32,21 +45,27 @@
     .card:hover{transform:translateY(-5px) scale(1.02);border-color:#FFD700;}
     .card i{font-size:2rem;color:#FFD700;margin-bottom:.8rem;}
     a.card{display:block;color:#fff;}
-
     iframe{border-radius:10px;}
+
+    .steps{text-align:left;max-width:650px;margin:2rem auto;background:rgba(255,255,255,0.05);padding:2rem;border-radius:12px;}
+    .steps h2{color:#FFD700;margin-bottom:1rem;text-align:center;}
+    .steps ol{line-height:1.8;font-size:1rem;}
+    .referral{text-align:center;margin:2rem auto;}
+    .referral code{background:rgba(255,215,0,.1);padding:.4rem .6rem;border-radius:5px;font-size:1.2rem;}
+    .qr img{margin-top:1rem;border:2px solid #FFD700;border-radius:8px;}
+    .newsletter{text-align:center;margin-top:2rem;}
+    .newsletter input{padding:.8rem;width:250px;border:none;border-radius:6px;margin-right:.5rem;}
+    .newsletter button{padding:.9rem 1.5rem;background:#FFD700;border:none;border-radius:6px;cursor:pointer;font-weight:bold;}
+    .newsletter button:hover{background:#FFAA00;color:#000;}
 
     .vip{text-align:center;margin-top:3rem;}
     .vip h3{color:#FFD700;font-size:1.8rem;margin-bottom:1rem;}
-
     .faq-item{background:rgba(255,255,255,.05);padding:1rem 1.5rem;border-radius:10px;margin-bottom:1rem;}
     .faq-item h4{color:#FFD700;margin-bottom:.5rem;}
-
     .badges{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;margin-top:2rem;}
     .badges span{background:rgba(255,255,255,.1);border:1px solid #FFD700;padding:.7rem 1.2rem;border-radius:30px;font-weight:600;}
-
     .social-share{text-align:center;margin:2rem 0;}
     .social-share a{margin:0 .5rem;color:#FFD700;font-size:1.5rem;}
-
     footer{text-align:center;padding:2rem;background:#111;color:#aaa;font-size:.9rem;}
     footer a{color:#FFD700;margin:0 1rem;}
     footer nav a:hover{text-decoration:underline;}
@@ -67,37 +86,57 @@
     </ul>
   </nav>
 
-  <!-- Hero -->
+  <!-- Hero Moderno -->
   <div class="hero">
-    <h1>O Futuro das Criptomoedas Começa Aqui 🚀</h1>
-    <p>Plataforma completa com análises, estratégias e ferramentas profissionais.</p>
-    <a href="#vip" class="cta-btn">Quero Começar Agora</a>
+    <h1>🚀 Bem-vindo à <span>CryptoFinance Pro</span></h1>
+    <p class="subtitle">A tua plataforma de <b>análises</b>, <b>estratégias</b> e <b>ferramentas cripto</b>.</p>
+    <div class="highlights">
+      <span>✅ 100% Seguro</span><span>📊 Estratégias profissionais</span><span>⚡ Acesso imediato</span>
+    </div>
+    <div class="cta-area">
+      <a href="#vip" class="cta-btn cta-primary"><i class="ri-rocket-2-fill"></i> Começar Agora</a>
+      <a href="#beneficios" class="cta-btn cta-secondary"><i class="ri-star-fill"></i> Ver Benefícios</a>
+    </div>
+  </div>
+
+  <!-- Passo a Passo -->
+  <div class="steps">
+    <h2>Passo a passo para começar:</h2>
+    <ol>
+      <li>1️⃣ Clica no link: <a href="https://www.binance.com/futures/ref/1104267675" target="_blank" style="color:#FFD700;">www.binance.com/futures/ref/1104267675</a></li>
+      <li>2️⃣ Cria a tua conta Binance (email/telemóvel e senha segura).</li>
+      <li>3️⃣ Faz a verificação KYC.</li>
+      <li>4️⃣ Efetua o primeiro depósito.</li>
+      <li>5️⃣ 🎯 Começa a investir e negociar cripto!</li>
+    </ol>
+  </div>
+
+  <!-- Referral Code + QR -->
+  <div class="referral">
+    <p><strong>Referral Code:</strong></p>
+    <code>1104267675</code>
+    <div class="qr">
+      <img src="https://i.ibb.co/hMr7pBC/qrcode-binance.png" alt="QR Binance Referral" width="160">
+    </div>
+  </div>
+
+  <!-- Newsletter -->
+  <div class="newsletter" id="newsletter">
+    <h3>📩 Inscreve-te para receber dicas exclusivas:</h3>
+    <form action="https://formspree.io/f/YOUR_ENDPOINT" method="POST">
+      <input type="email" name="email" placeholder="Digite o seu email" required>
+      <button type="submit">Inscrever-me</button>
+    </form>
   </div>
 
   <!-- Benefícios -->
   <section id="beneficios">
     <h2>Benefícios Incríveis</h2>
     <div class="grid">
-      <a class="card" href="https://www.tradingview.com/" target="_blank">
-        <i class="ri-bar-chart-box-line"></i>
-        <h3>Análises Avançadas</h3>
-        <p>Acesse gráficos e estudos detalhados no TradingView.</p>
-      </a>
-      <a class="card" href="https://www.investopedia.com/articles/technical/02/121702.asp" target="_blank">
-        <i class="ri-stock-line"></i>
-        <h3>Estratégias de Trading</h3>
-        <p>Aprenda estratégias como RSI, Bandas de Bollinger e EMAs.</p>
-      </a>
-      <a class="card" href="https://t.me/+wcLnHa3UUIhhNGY0" target="_blank">
-        <i class="ri-team-line"></i>
-        <h3>Grupo VIP</h3>
-        <p>Entre para a comunidade exclusiva no Telegram.</p>
-      </a>
-      <a class="card" href="https://academy.binance.com/pt" target="_blank">
-        <i class="ri-book-2-line"></i>
-        <h3>Conteúdo Premium</h3>
-        <p>Guias, ebooks e materiais atualizados na Binance Academy.</p>
-      </a>
+      <div class="card"><i class="ri-bar-chart-box-line"></i><h3>Análises Avançadas</h3><p>Acesse gráficos e estudos detalhados no TradingView.</p></div>
+      <div class="card"><i class="ri-stock-line"></i><h3>Estratégias de Trading</h3><p>Aprenda RSI, Bandas de Bollinger e EMAs.</p></div>
+      <div class="card"><i class="ri-team-line"></i><h3>Grupo VIP</h3><p>Acesse comunidade exclusiva no Telegram.</p></div>
+      <div class="card"><i class="ri-book-2-line"></i><h3>Conteúdo Premium</h3><p>Materiais e guias atualizados na Binance Academy.</p></div>
     </div>
   </section>
 
@@ -105,26 +144,11 @@
   <section id="servicos">
     <h2>Serviços da Oferta VIP</h2>
     <div class="grid">
-      <a class="card" href="https://coinmarketcap.com/alexandria/" target="_blank">
-        📊 Relatórios Premium Semanais
-        <p>Acesse relatórios e insights exclusivos.</p>
-      </a>
-      <a class="card" href="https://www.tradingview.com/markets/cryptocurrencies/ideas/" target="_blank">
-        📈 Sinais de Trading
-        <p>Receba sinais validados por especialistas.</p>
-      </a>
-      <a class="card" href="https://www.youtube.com/c/binance" target="_blank">
-        🎥 Aulas ao Vivo
-        <p>Participe em webinars e transmissões da Binance.</p>
-      </a>
-      <a class="card" href="https://www.glassnode.com/" target="_blank">
-        📂 Dashboards On-chain
-        <p>Analise dados blockchain em tempo real.</p>
-      </a>
-      <a class="card" href="https://discord.gg/binance" target="_blank">
-        💬 Suporte Personalizado
-        <p>Receba apoio direto no Discord/Telegram.</p>
-      </a>
+      <div class="card">📊 Relatórios Premium</div>
+      <div class="card">📈 Sinais de Trading</div>
+      <div class="card">🎥 Aulas ao Vivo</div>
+      <div class="card">📂 Dashboards On-chain</div>
+      <div class="card">💬 Suporte Personalizado</div>
     </div>
   </section>
 
@@ -132,14 +156,8 @@
   <section id="youtube">
     <h2>🎥 Tutoriais Exclusivos</h2>
     <div class="grid">
-      <div class="card">
-        <iframe width="100%" height="200" src="https://www.youtube.com/embed/RgEnAgfVCds" frameborder="0" allowfullscreen></iframe>
-        <p>👉 Como criar conta na Binance (guia simples)</p>
-      </div>
-      <div class="card">
-        <iframe width="100%" height="200" src="https://www.youtube.com/embed/6E4omURMAGM" frameborder="0" allowfullscreen></iframe>
-        <p>📈 Estratégias básicas de trading: RSI, EMAs & Bollinger</p>
-      </div>
+      <div class="card"><iframe src="https://www.youtube.com/embed/RgEnAgfVCds" frameborder="0" allowfullscreen></iframe><p>👉 Como criar conta na Binance</p></div>
+      <div class="card"><iframe src="https://www.youtube.com/embed/6E4omURMAGM" frameborder="0" allowfullscreen></iframe><p>📈 Estratégias básicas de trading</p></div>
     </div>
   </section>
 
@@ -147,28 +165,22 @@
   <section id="academia">
     <h2>📚 Academia Exclusiva</h2>
     <div class="grid">
-      <a class="card" href="https://academy.binance.com/pt" target="_blank">
-        <i class="ri-book-open-line"></i>
-        <h3>Binance Academy</h3>
-        <p>Aprenda com cursos e artigos gratuitos.</p>
-      </a>
-      <a class="card" href="https://coinmarketcap.com/" target="_blank">
-        <i class="ri-bar-chart-2-line"></i>
-        <h3>CoinMarketCap</h3>
-        <p>Acompanhe preços e marketcaps em tempo real.</p>
-      </a>
-      <a class="card" href="https://medium.com/topic/cryptocurrency" target="_blank">
-        <i class="ri-links-line"></i>
-        <h3>Artigos Blockchain</h3>
-        <p>Leia artigos de líderes e especialistas do setor.</p>
-      </a>
+      <div class="card"><i class="ri-book-open-line"></i><h3>Binance Academy</h3><p>Aprenda com artigos e cursos gratuitos.</p></div>
+      <div class="card"><i class="ri-bar-chart-2-line"></i><h3>CoinMarketCap</h3><p>Veja preços e análises globais.</p></div>
+      <div class="card"><i class="ri-links-line"></i><h3>Artigos Blockchain</h3><p>Insights e novidades sobre o mercado.</p></div>
     </div>
   </section>
 
   <!-- Preços -->
   <section id="livePrices">
     <h2>Preços de Criptomoedas em Tempo Real</h2>
-    <div class="grid"></div>
+    <div class="grid">
+      <div class="card">🟡 Bitcoin: <span id="btcPrice">$0</span><canvas id="btcChart" height="80"></canvas></div>
+      <div class="card">💎 Ethereum: <span id="ethPrice">$0</span><canvas id="ethChart" height="80"></canvas></div>
+      <div class="card">🔵 Solana: <span id="solPrice">$0</span><canvas id="solChart" height="80"></canvas></div>
+      <div class="card">🟠 BNB: <span id="bnbPrice">$0</span><canvas id="bnbChart" height="80"></canvas></div>
+      <div class="card">💠 XRP: <span id="xrpPrice">$0</span><canvas id="xrpChart" height="80"></canvas></div>
+    </div>
   </section>
 
   <!-- VIP -->
@@ -184,46 +196,68 @@
   <section id="faq">
     <h2>Perguntas Frequentes</h2>
     <div class="faq-item"><h4>📌 Quanto tempo tenho acesso?</h4><p>Acesso vitalício com todas as atualizações.</p></div>
-    <div class="faq-item"><h4>📌 Posso cancelar?</h4><p>Sim, tens até 7 dias de garantia para pedido de reembolso.</p></div>
-    <div class="faq-item"><h4>📌 O pagamento é seguro?</h4><p>Sim, utilizamos sistemas de pagamento certificados e criptografados.</p></div>
+    <div class="faq-item"><h4>📌 Posso cancelar?</h4><p>Sim, 7 dias de garantia de reembolso.</p></div>
+    <div class="faq-item"><h4>📌 O pagamento é seguro?</h4><p>Sim, processo criptografado e confiável.</p></div>
   </section>
 
   <!-- Social -->
   <div class="social-share">
     <p>Compartilhe esta página:</p>
-    <a href="https://wa.me/?text=Confira%20CryptoFinance%20Pro:%20[URL]" target="_blank"><i class="ri-whatsapp-line"></i></a>
-    <a href="https://t.me/+wcLnHa3UUIhhNGY0" target="_blank"><i class="ri-telegram-line"></i></a>
-    <a href="https://twitter.com/intent/tweet?text=Confira%20CryptoFinance%20Pro&url=[URL]" target="_blank"><i class="ri-twitter-line"></i></a>
-    <a href="https://www.linkedin.com/shareArticle?mini=true&url=[URL]&title=CryptoFinance%20Pro" target="_blank"><i class="ri-linkedin-line"></i></a>
-    <a href="https://youtube.com/@binance" target="_blank"><i class="ri-youtube-line"></i></a>
+    <a href="#"><i class="ri-whatsapp-line"></i></a>
+    <a href="#"><i class="ri-telegram-line"></i></a>
+    <a href="#"><i class="ri-twitter-line"></i></a>
+    <a href="#"><i class="ri-linkedin-line"></i></a>
+    <a href="#"><i class="ri-youtube-line"></i></a>
   </div>
 
   <!-- Footer -->
   <footer>
     <p>&copy; 2025 CryptoFinance Pro - Todos os direitos reservados.</p>
-    <nav>
-      <a href="#">Política de Privacidade</a> |
-      <a href="#">Termos de Uso</a> |
-      <a href="#academia">Academia</a> |
-      <a href="#youtube">Tutoriais</a>
-    </nav>
   </footer>
 
-  <!-- Script Preços -->
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
-    async function fetchLivePrices() {
-      try {
-        const res = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana&vs_currencies=usd');
-        const data = await res.json();
-        document.querySelector('#livePrices .grid').innerHTML = `
-          <div class="card">🟡 Bitcoin: $${data.bitcoin.usd}</div>
-          <div class="card">💎 Ethereum: $${data.ethereum.usd}</div>
-          <div class="card">🔵 Solana: $${data.solana.usd}</div>
-        `;
-      } catch(e){console.error(e);}
+    async function fetchPrices() {
+      const res = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana,binancecoin,ripple&vs_currencies=usd");
+      const data = await res.json();
+      document.getElementById("btcPrice").innerText = "$"+data.bitcoin.usd;
+      document.getElementById("ethPrice").innerText = "$"+data.ethereum.usd;
+      document.getElementById("solPrice").innerText = "$"+data.solana.usd;
+      document.getElementById("bnbPrice").innerText = "$"+data.binancecoin.usd;
+      document.getElementById("xrpPrice").innerText = "$"+data.ripple.usd;
     }
-    fetchLivePrices();
-    setInterval(fetchLivePrices,60000);
+    async function fetchHistory(coin, chartId) {
+      const res = await fetch(`https://api.coingecko.com/api/v3/coins/${coin}/market_chart?vs_currency=usd&days=7&interval=daily`);
+      const data = await res.json();
+      const prices = data.prices.map(p=>p[1]);
+      const labels = data.prices.map(p=>new Date(p[0]).toLocaleDateString("pt-BR",{day:"2-digit",month:"short"}));
+      const color = prices[prices.length-1] >= prices[0] ? "#00FF00" : "#FF0000";
+      new Chart(document.getElementById(chartId),{
+        type:'line',
+        data:{labels:labels,datasets:[{data:prices,borderColor:color,tension:.3,fill:false,pointRadius:0}]},
+        options:{responsive:true,plugins:{legend:{display:false}},scales:{x:{display:false},y:{display:false}}}
+      });
+    }
+    fetchPrices();
+    fetchHistory("bitcoin","btcChart");
+    fetchHistory("ethereum","ethChart");
+    fetchHistory("solana","solChart");
+    fetchHistory("binancecoin","bnbChart");
+    fetchHistory("ripple","xrpChart");
+    setInterval(fetchPrices,60000);
+  </script>
+
+  <!-- Chatbot Tawk.to -->
+  <script type="text/javascript">
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+      var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+      s1.async=true;
+      s1.src='https://embed.tawk.to/SEU_ID_DO_CHATBOT/default';
+      s1.charset='UTF-8'; s1.setAttribute('crossorigin','*');
+      s0.parentNode.insertBefore(s1,s0);
+    })();
   </script>
 </body>
 </html>
