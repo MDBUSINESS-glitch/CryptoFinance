@@ -51,18 +51,10 @@
     .card canvas{margin-top:10px;}
     iframe{border-radius:10px;width:100%;}
 
-    /* PASSO A PASSO */
     .steps{text-align:left;max-width:700px;margin:3rem auto;background:rgba(255,255,255,.05);padding:2rem;border-radius:12px;}
     body.light-mode .steps{background:#fff;color:#111;border:1px solid #ddd;}
     .steps h3{text-align:center;color:#FFD700;margin-bottom:1rem;}
 
-    /* NEWSLETTER */
-    .newsletter{text-align:center;margin-top:2rem;}
-    .newsletter input{padding:.8rem;width:250px;border:1px solid #ccc;border-radius:6px;margin-right:.5rem;}
-    .newsletter button{padding:.9rem 1.5rem;background:#FFD700;border:none;border-radius:6px;cursor:pointer;font-weight:bold;}
-    .newsletter button:hover{background:#FFAA00;color:#000;}
-
-    /* REFERRAL FIXO */
     .referral{position:fixed;right:20px;bottom:20px;text-align:center;z-index:200;}
     .referral code{background:rgba(255,215,0,.15);padding:.3rem .5rem;border-radius:5px;display:block;margin-bottom:5px;color:#FFD700;}
     .referral img{width:100px;border:2px solid #FFD700;border-radius:8px;}
@@ -70,7 +62,7 @@
     footer{text-align:center;padding:2rem;background:#111;color:#aaa;font-size:.9rem;}
     body.light-mode footer{background:#f0f0f0;color:#222;}
 
-    /* 🔥 SCROLL ANIMATIONS */
+    /* Animações */
     .reveal {opacity:0;transition:all 0.8s ease;}
     .fade-up    {transform:translateY(50px);}
     .fade-left  {transform:translateX(-50px);}
@@ -123,43 +115,49 @@
   <!-- BENEFÍCIOS -->
   <section id="beneficios" class="reveal zoom-in"><h2>Benefícios Incríveis</h2>
     <div class="grid">
-      <div class="card reveal fade-left"><i class="ri-bar-chart-box-line"></i><h3>Análises</h3><p>Gráficos e insights TradingView.</p></div>
-      <div class="card reveal fade-right"><i class="ri-stock-line"></i><h3>Estratégias</h3><p>RSI, EMAs, Bollinger Bands.</p></div>
-      <div class="card reveal fade-left"><i class="ri-team-line"></i><h3>Grupo VIP</h3><p>Comunidade exclusiva Telegram.</p></div>
-      <div class="card reveal fade-right"><i class="ri-book-2-line"></i><h3>Premium</h3><p>Guias e cursos Binance Academy.</p></div>
+      <div class="card reveal fade-left"><i class="ri-bar-chart-box-line"></i><h3>Análises Avançadas</h3><p>Tenha acesso a gráficos interativos do <strong>TradingView</strong>, indicadores técnicos e insights exclusivos para melhorar suas decisões.</p></div>
+      <div class="card reveal fade-right"><i class="ri-stock-line"></i><h3>Estratégias Consistentes</h3><p>Siga planos de trading com base em <em>RSI, EMAs, Bollinger Bands</em> e setups validados ao longo do tempo.</p></div>
+      <div class="card reveal fade-left"><i class="ri-team-line"></i><h3>Grupo VIP</h3><p>Participe da comunidade exclusiva no <a href="https://t.me" target="_blank">Telegram</a>, com suporte e sinais em tempo real.</p></div>
+      <div class="card reveal fade-right"><i class="ri-book-2-line"></i><h3>Conteúdo Premium</h3><p>Materiais da <a href="https://academy.binance.com/pt" target="_blank">Binance Academy</a>, e-books, tutoriais e resumos práticos.</p></div>
     </div>
   </section>
 
   <!-- SERVIÇOS -->
   <section id="servicos" class="reveal fade-left"><h2>Serviços VIP</h2>
     <div class="grid">
-      <div class="card reveal zoom-in">📊 Relatórios Premium</div>
-      <div class="card reveal fade-up">📈 Sinais Trading profissionais</div>
-      <div class="card reveal zoom-in">🎥 Aulas e webinars</div>
-      <div class="card reveal fade-up">📂 Dashboards On-chain</div>
-      <div class="card reveal zoom-in">💬 Suporte dedicado</div>
+      <div class="card reveal zoom-in">📊 Relatórios Premium semanais com análises de mercado detalhadas.</div>
+      <div class="card reveal fade-up">📈 Sinais de trading profissionais em pares como BTC/USDT, ETH/USDT, etc.</div>
+      <div class="card reveal zoom-in">🎥 Aulas gravadas e webinars ao vivo com traders experientes.</div>
+      <div class="card reveal fade-up">📂 Dashboards on-chain mostrando métricas de blockchain e sentimento do mercado.</div>
+      <div class="card reveal zoom-in">💬 Suporte 24/7 direto no grupo VIP do Telegram.</div>
     </div>
   </section>
 
   <!-- TUTORIAIS -->
   <section id="youtube" class="reveal fade-right"><h2>🎥 Tutoriais</h2>
     <div class="grid">
-      <div class="card reveal fade-up"><iframe src="https://www.youtube.com/embed/RgEnAgfVCds" frameborder="0"></iframe><p>👉 Criar conta Binance</p></div>
-      <div class="card reveal fade-up"><iframe src="https://www.youtube.com/embed/6E4omURMAGM" frameborder="0"></iframe><p>📈 Estratégias básicas</p></div>
+      <div class="card reveal fade-up">
+        <iframe src="https://www.youtube.com/embed/RgEnAgfVCds" frameborder="0"></iframe>
+        <p>👉 Como criar conta na Binance</p>
+      </div>
+      <div class="card reveal fade-up">
+        <iframe src="https://www.youtube.com/embed/6E4omURMAGM" frameborder="0"></iframe>
+        <p>📈 Estratégias de Trade para iniciantes</p>
+      </div>
     </div>
   </section>
 
   <!-- ACADEMIA -->
   <section id="academia" class="reveal zoom-in"><h2>📚 Academia</h2>
     <div class="grid">
-      <div class="card reveal fade-left">📕 Binance Academy</div>
-      <div class="card reveal fade-right">📊 CoinMarketCap</div>
-      <div class="card reveal fade-up">📰 Artigos Blockchain</div>
+      <div class="card reveal fade-left"><a href="https://academy.binance.com/pt" target="_blank">📕 Binance Academy – Tutoriais oficiais de blockchain</a></div>
+      <div class="card reveal fade-right"><a href="https://coinmarketcap.com/academy/" target="_blank">📊 CoinMarketCap Academy – Cursos de trading</a></div>
+      <div class="card reveal fade-up"><a href="https://decrypt.co/pt" target="_blank">📰 Artigos e notícias sobre blockchain</a></div>
     </div>
   </section>
 
   <!-- PREÇOS -->
-  <section id="livePrices" class="reveal fade-up"><h2>Preços</h2>
+  <section id="livePrices" class="reveal fade-up"><h2>Preços em Tempo Real</h2>
     <div class="grid">
       <div class="card reveal fade-left">🟡 Bitcoin: <span id="btcPrice">$0</span><canvas id="btcChart" height="80"></canvas></div>
       <div class="card reveal fade-up">💎 Ethereum: <span id="ethPrice">$0</span><canvas id="ethChart" height="80"></canvas></div>
@@ -168,13 +166,19 @@
   </section>
 
   <!-- VIP -->
-  <section id="vip" class="reveal fade-left"><div class="vip"><h3>Oferta VIP</h3><p>Apenas <strong>50 MT</strong> vitalício!</p><a href="#" class="btn-primary">Quero Ser VIP</a></div></section>
+  <section id="vip" class="reveal fade-left">
+    <div class="vip" style="text-align:center;">
+      <h3>🚀 Oferta VIP Exclusiva</h3>
+      <p>Apenas <strong>50 MT</strong> por acesso vitalício! Tenha todas as ferramentas, sinais e comunidade premium.</p>
+      <a href="https://t.me" target="_blank" class="btn-primary">Quero Ser VIP</a>
+    </div>
+  </section>
 
   <!-- FAQ -->
-  <section id="faq" class="reveal fade-right"><h2>FAQ</h2>
-    <div class="faq-item"><h4>📌 Acesso?</h4><p>Vitalício.</p></div>
-    <div class="faq-item"><h4>📌 Cancelamento?</h4><p>7 dias garantia.</p></div>
-    <div class="faq-item"><h4>📌 Pagamento?</h4><p>Seguro e criptografado.</p></div>
+  <section id="faq" class="reveal fade-right"><h2>❓ FAQ</h2>
+    <div class="faq-item"><h4>📌 O acesso é vitalício?</h4><p>Sim, com um único pagamento você terá acesso ilimitado e vitalício.</p></div>
+    <div class="faq-item"><h4>📌 Há garantia?</h4><p>Sim, oferecemos 7 dias de garantia para cancelamento e reembolso.</p></div>
+    <div class="faq-item"><h4>📌 Métodos de pagamento?</h4><p>Pagamentos seguros via criptomoeda ou cartões com processador confiável.</p></div>
   </section>
 
   <footer><p>&copy; 2025 CryptoFinance Pro</p></footer>
@@ -186,7 +190,6 @@
     <img src="https://i.ibb.co/hMr7pBC/qrcode-binance.png" alt="QR Binance">
   </div>
 
-  <!-- SCRIPTS -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
     async function fetchPrices(){
