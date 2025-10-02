@@ -56,8 +56,9 @@
     footer a{color:#FFD700;margin:0 1rem;}
     footer nav a:hover{text-decoration:underline;}
 
-    /* Referral + QR fixo */
-    .referral {position:fixed;right:20px;bottom:20px;text-align:center;}
+    /* Referral fixo */
+    .referral-container {position:fixed;right:20px;bottom:20px;display:flex;gap:20px;}
+    .referral{text-align:center;}
     .referral p{margin:0;font-size:.9rem;color:#FFD700;font-weight:bold;}
     .referral code{background:rgba(255,215,0,.15);padding:.3rem .5rem;border-radius:5px;display:block;margin-bottom:5px;color:#FFD700;}
     .qr img{width:100px;border:2px solid #FFD700;border-radius:8px;}
@@ -95,6 +96,16 @@
       <li>4️⃣ Efetua o primeiro depósito.</li>
       <li>5️⃣ 🎯 Começa a investir e negociar cripto!</li>
     </ol>
+
+    <!-- Convite Bybit -->
+    <div style="margin-top:2rem; padding:1rem; background:rgba(255,215,0,0.1); border:1px solid #FFD700; border-radius:10px; text-align:center;">
+      <p style="font-size:1.1rem; color:#FFD700; font-weight:bold;">
+        🚀 Junte-se à Bybit e comece a negociar com segurança e benefícios exclusivos!<br>
+        <a href="https://www.bybit.com/invite?ref=DK9GMVA" target="_blank" style="color:#FFD700; text-decoration:underline;">
+          Abra a sua conta através deste link
+        </a>
+      </p>
+    </div>
   </div>
 
   <!-- Newsletter -->
@@ -197,10 +208,20 @@
   </footer>
 
   <!-- Referral fixo -->
-  <div class="referral">
-    <p>Referral Code:</p>
-    <code>1104267675</code>
-    <div class="qr"><img src="https://i.ibb.co/hMr7pBC/qrcode-binance.png" alt="QR Binance"></div>
+  <div class="referral-container">
+    <!-- Binance -->
+    <div class="referral">
+      <p>Binance Code:</p>
+      <code>1104267675</code>
+      <div class="qr"><img src="https://i.ibb.co/hMr7pBC/qrcode-binance.png" alt="QR Binance"></div>
+    </div>
+
+    <!-- Bybit -->
+    <div class="referral">
+      <p>Bybit Link:</p>
+      <code>DK9GMVA</code>
+      <div class="qr"><img src="https://api.qrserver.com/v1/create-qr-code/?data=https://www.bybit.com/invite?ref=DK9GMVA&size=150x150" alt="QR Bybit"></div>
+    </div>
   </div>
 
   <!-- Scripts -->
