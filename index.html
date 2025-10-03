@@ -1,16 +1,30 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>CryptoFinance Pro - NELLY-G TRADER</title>
   <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
   <style>
+    :root{--promoH:0px;}
     *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Tahoma,Verdana,sans-serif;}
     body{background:linear-gradient(135deg,#0D0D0D,#1A1A1A);color:#fff;line-height:1.6;}
     a{text-decoration:none;color:inherit;}
 
-    nav{position:fixed;top:0;left:0;width:100%;background:#0D0D0D;display:flex;justify-content:space-between;align-items:center;padding:1rem 2rem;z-index:1000;}
+    /* Barra Promocional MEXC */
+    .promo-bar{
+      position:fixed;top:0;left:0;width:100%;
+      display:flex;align-items:center;justify-content:center;gap:.8rem;
+      padding:.6rem 1rem;background:linear-gradient(90deg,#00E5A6,#00B7FF);
+      color:#002033;font-weight:800;z-index:1100;box-shadow:0 2px 12px rgba(0,0,0,.25);
+    }
+    .promo-bar .promo-text{display:flex;align-items:center;gap:.5rem;text-align:center}
+    .promo-bar .promo-btn{background:#FFD700;color:#000;padding:.5rem 1rem;border-radius:999px;white-space:nowrap}
+    .promo-bar .close{position:absolute;right:10px;top:6px;background:transparent;border:none;color:#002033;font-size:1.2rem;cursor:pointer;opacity:.8}
+
+    /* Navbar (ajuste quando há promo) */
+    nav{position:fixed;top:0;left:0;width:100%;background:#0D0D0D;display:flex;justify-content:space-between;align-items:center;padding:1rem 2rem;z-index:1000;transition:top .2s ease;}
+    body.has-promo nav{top:var(--promoH);}
     nav .logo{font-size:1.5rem;font-weight:700;color:#FFD700;}
     nav ul{list-style:none;display:flex;gap:1.5rem;}
     nav ul li a{color:#fff;font-weight:600;transition:.3s;}
@@ -35,6 +49,16 @@
     iframe{border-radius:10px;}
     .card canvas{margin-top:10px;}
 
+    /* Seção MEXC */
+    .mexc-promo{
+      max-width:1100px;margin:2rem auto;padding:2rem;border-radius:14px;
+      background:linear-gradient(135deg,rgba(0,229,166,.08),rgba(0,183,255,.08));
+      border:1px solid rgba(0,229,166,.35);text-align:center;
+    }
+    .mexc-promo h3{color:#00E5A6;font-size:1.8rem;margin-bottom:.6rem}
+    .mexc-promo p{color:#cfe;opacity:.95}
+    .mexc-promo .banner{width:100%;max-width:900px;margin:14px auto;border-radius:12px;border:2px solid #00E5A6;box-shadow:0 10px 25px rgba(0,229,166,.15);display:block}
+
     /* Passo a passo */
     .steps{text-align:left;max-width:650px;margin:2rem auto;background:rgba(255,255,255,0.05);padding:2rem;border-radius:12px;}
     .steps h2{color:#FFD700;margin-bottom:1rem;text-align:center;}
@@ -57,18 +81,26 @@
     footer nav a:hover{text-decoration:underline;}
 
     /* Referral fixo */
-    .referral-container {position:fixed;right:20px;bottom:20px;display:flex;gap:20px;}
+    .referral-container {position:fixed;right:20px;bottom:20px;display:flex;gap:20px;flex-wrap:wrap;}
     .referral{text-align:center;}
     .referral p{margin:0;font-size:.9rem;color:#FFD700;font-weight:bold;}
     .referral code{background:rgba(255,215,0,.15);padding:.3rem .5rem;border-radius:5px;display:block;margin-bottom:5px;color:#FFD700;}
     .qr img{width:100px;border:2px solid #FFD700;border-radius:8px;}
   </style>
 </head>
-<body>
+<body class="has-promo">
+  <!-- Barra Promocional MEXC -->
+  <div class="promo-bar" id="promoBar">
+    <div class="promo-text">⚡️ Últimos dias para aproveitar! 💰 Cadastre-se agora na MEXC e receba bônus exclusivos de boas-vindas!</div>
+    <a class="promo-btn" href="https://www.mexc.com/pt-PT/acquisition/custom-sign-up?shareCode=mexc-3UbJJ" target="_blank" rel="nofollow noopener sponsored">Quero meu Bônus</a>
+    <button class="close" id="closePromo" aria-label="Fechar promoção">×</button>
+  </div>
+
   <!-- Navbar -->
   <nav>
     <div class="logo">CryptoFinance Pro</div>
     <ul>
+      <li><a href="#mexc">MEXC</a></li>
       <li><a href="#beneficios">Benefícios</a></li>
       <li><a href="#servicos">Serviços</a></li>
       <li><a href="#academia">Academia</a></li>
@@ -85,6 +117,34 @@
     <p>Plataforma completa com análises, estratégias e ferramentas profissionais.</p>
     <a href="#vip" class="cta-btn">Quero Começar Agora</a>
   </div>
+
+  <!-- Seção MEXC com banner responsivo -->
+  <section id="mexc" class="mexc-promo">
+    <h3>🎁 Promo MEXC: Bônus de Boas-Vindas</h3>
+    <p>⚡️ Últimos dias para aproveitar! Cadastre-se e receba bônus exclusivos de boas-vindas.</p>
+
+    <a href="https://www.mexc.com/pt-PT/acquisition/custom-sign-up?shareCode=mexc-3UbJJ"
+       target="_blank" rel="nofollow noopener sponsored" aria-label="Cadastrar na MEXC">
+      <picture>
+        <!-- WebP responsivo -->
+        <source type="image/webp"
+                srcset="
+                  images/mexc-banner-480.webp 480w,
+                  images/mexc-banner-768.webp 768w,
+                  images/mexc-banner-1200.webp 1200w"
+                sizes="(max-width: 600px) 92vw, (max-width: 1024px) 85vw, 900px">
+        <!-- Fallback PNG/JPG -->
+        <img class="banner"
+             src="images/mexc-banner.png"
+             alt="MEXC - 8,000 USDT Beginner Reward - Cadastre-se agora"
+             loading="lazy" decoding="async" fetchpriority="low">
+      </picture>
+    </a>
+
+    <a class="cta-btn"
+       href="https://www.mexc.com/pt-PT/acquisition/custom-sign-up?shareCode=mexc-3UbJJ"
+       target="_blank" rel="nofollow noopener sponsored">Cadastrar na MEXC</a>
+  </section>
 
   <!-- Passo a Passo -->
   <div class="steps">
@@ -103,6 +163,16 @@
         🚀 Junte-se à Bybit e comece a negociar com segurança e benefícios exclusivos!<br>
         <a href="https://www.bybit.com/invite?ref=DK9GMVA" target="_blank" style="color:#FFD700; text-decoration:underline;">
           Abra a sua conta através deste link
+        </a>
+      </p>
+    </div>
+
+    <!-- Convite MEXC -->
+    <div style="margin-top:1rem; padding:1rem; background:linear-gradient(90deg,rgba(0,229,166,.12),rgba(0,183,255,.12)); border:1px solid rgba(0,229,166,.5); border-radius:10px; text-align:center;">
+      <p style="font-size:1.1rem; color:#00E5A6; font-weight:bold;">
+        ⚡️ Últimos dias para aproveitar! 💰 Cadastre-se na MEXC e receba bônus exclusivos de boas-vindas!<br>
+        <a href="https://www.mexc.com/pt-PT/acquisition/custom-sign-up?shareCode=mexc-3UbJJ" target="_blank" style="color:#00E5A6; text-decoration:underline;">
+          👉 Abrir conta MEXC pelo link oficial
         </a>
       </p>
     </div>
@@ -154,7 +224,6 @@
         <p>📈 Estratégias básicas: RSI, EMAs, Bollinger</p>
       </div>
 
-      <!-- ADICIONADO: Tutorial passo a passo solicitado -->
       <div class="card">
         <iframe width="100%" height="200" src="https://www.youtube.com/embed/zwhHYMsMJFk" frameborder="0" allowfullscreen></iframe>
         <p>🔰 Passo a passo: Como iniciar na Binance (tutorial completo)</p>
@@ -238,11 +307,37 @@
       <code>DK9GMVA</code>
       <div class="qr"><img src="https://api.qrserver.com/v1/create-qr-code/?data=https://www.bybit.com/invite?ref=DK9GMVA&size=150x150" alt="QR Bybit"></div>
     </div>
+
+    <!-- MEXC -->
+    <div class="referral">
+      <p>MEXC Código:</p>
+      <code>mexc-3UbJJ</code>
+      <div class="qr">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?data=https%3A%2F%2Fwww.mexc.com%2Fpt-PT%2Facquisition%2Fcustom-sign-up%3FshareCode%3Dmexc-3UbJJ&size=150x150" alt="QR MEXC">
+      </div>
+    </div>
   </div>
 
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
+    // Ajusta a altura da barra promocional para empurrar a nav
+    function adjustPromoHeight(){
+      const bar=document.getElementById('promoBar');
+      const h=bar && bar.style.display!=='none' ? bar.offsetHeight : 0;
+      document.documentElement.style.setProperty('--promoH', h+'px');
+      if(h>0){document.body.classList.add('has-promo');} else {document.body.classList.remove('has-promo');}
+    }
+    window.addEventListener('load', adjustPromoHeight);
+    window.addEventListener('resize', adjustPromoHeight);
+
+    // Fechar barra promocional
+    document.getElementById('closePromo').addEventListener('click', ()=>{
+      const bar=document.getElementById('promoBar');
+      bar.style.display='none';
+      adjustPromoHeight();
+    });
+
     async function fetchPrices(){
       const res=await fetch("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana&vs_currencies=usd");
       const data=await res.json();
