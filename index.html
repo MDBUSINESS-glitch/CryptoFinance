@@ -1,112 +1,165 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Painel Administrativo – Ebook</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Construa Seu Império Digital</title>
 <style>
-body{font-family:Arial,Helvetica,sans-serif;background:#f4f6fb;margin:0;color:#111}
-header{background:#0b3d91;color:#fff;text-align:center;padding:14px 0}
-.container{max-width:1000px;margin:20px auto;background:#fff;border-radius:8px;padding:20px;box-shadow:0 4px 14px rgba(0,0,0,0.08)}
-input,button{padding:10px;margin:6px 0;width:100%;border-radius:6px;border:1px solid #ddd}
-button{cursor:pointer;background:#0b3d91;color:#fff;border:none;font-weight:bold}
-table{width:100%;border-collapse:collapse;margin-top:16px}
-th,td{border:1px solid #eee;padding:8px;text-align:center}
-th{background:#0b3d91;color:#fff}
-.btn{background:#0b3d91;color:#fff;border:none;padding:6px 8px;border-radius:6px;cursor:pointer}
-.search{margin-top:12px}
+body { font-family: 'Arial', sans-serif; background:#0D0D0D; color:#fff; margin:0; padding:0;}
+a { text-decoration:none; color:inherit;}
+.container { max-width:900px; margin:auto; padding:20px;}
+h1,h2,h3 { color:#FFD700; text-align:center;}
+input, button { padding:10px; margin:5px 0; border-radius:6px; border:none; font-size:1rem;}
+input { width:100%; }
+button { background:#FFD700; color:#000; cursor:pointer; font-weight:bold; }
+button:hover { background:#FFAA00; }
+.notification { background:#111; color:#FFD700; padding:1rem; border-radius:12px; margin:10px 0; display:none; text-align:center; }
+#ebookLinks { display:none; margin-top:20px; text-align:center;}
+#loginForm, #dashboardContent { max-width:400px; margin:auto; padding:20px; background:rgba(0,0,0,0.6); border-radius:12px; }
+table { width:100%; border-collapse: collapse; margin-top:20px;}
+th, td { border:1px solid #FFD700; padding:10px; text-align:left; }
+th { background:#FFD700; color:#000;}
 </style>
 </head>
 <body>
-<header><h2>📊 Painel Administrativo — Ebook</h2></header>
-
 <div class="container">
-  <div id="login">
-    <label>Usuário</label>
-    <input id="adminUser" placeholder="Usuário admin">
-    <label>Senha</label>
-    <input id="adminPass" type="password" placeholder="Senha">
-    <button id="loginBtn">Entrar</button>
-    <p id="loginMsg" style="color:red"></p>
-  </div>
+<h1>CONSTRUA SEU IMPÉRIO DIGITAL</h1>
+<h3>Da Ideia ao Lançamento do Seu Produto Online</h3>
 
-  <div id="panel" style="display:none">
-    <div class="search">
-      <input id="search" placeholder="Pesquisar nome, email ou telefone">
-      <button id="refreshBtn" class="btn">Atualizar</button>
-    </div>
+<!-- Cadastro -->
+<div id="cadastroForm">
+<h2>Cadastro do Cliente</h2>
+<input type="text" id="nome" placeholder="Nome completo" required/>
+<input type="email" id="email" placeholder="Email" required/>
+<input type="text" id="telemovel" placeholder="Número de Telemóvel" required/>
+<button id="btnCadastro">Cadastrar</button>
+<div class="notification" id="notifCadastro"></div>
+</div>
 
-    <table id="table">
-      <thead>
-        <tr>
-          <th>ID</th><th>Nome</th><th>Email</th><th>Telefone</th>
-          <th>Status</th><th>Data</th><th>Ação</th>
-        </tr>
-      </thead>
-      <tbody id="tbody"></tbody>
-    </table>
-  </div>
+<!-- Envio WhatsApp e download -->
+<div id="ebookLinks">
+<h2>Envie o comprovativo e receba seu Ebook</h2>
+<p>💳 M-Pesa: 840330540 | eMola: 877480775 | Valor: 99,9 MT</p>
+<button id="btnWhatsApp">Enviar Comprovativo pelo WhatsApp</button>
+<div class="notification" id="notifWhatsApp"></div>
+<div id="linksEntrega" style="margin-top:20px;">
+<p>📘 <a href="https://drive.google.com/file/d/1zAhbLDIdZgfASULt9_E2XBgNEW-j7DBQ/view?usp=sharing" target="_blank">Baixar Ebook Principal</a></p>
+<p>📝 <a href="https://drive.google.com/file/d/1vOwKjA9lNu8ohXOfp1UG1fOQsc4nGF0h/view?usp=sharing" target="_blank">Baixar Exercício Prático</a></p>
+</div>
+</div>
+
+<hr style="margin:40px 0; border-color:#FFD700;"/>
+
+<!-- Login Dashboard -->
+<div id="loginForm">
+<h2>Login do Administrador</h2>
+<input type="text" id="adminUser" placeholder="Usuário"/>
+<input type="password" id="adminPass" placeholder="Senha"/>
+<button onclick="loginAdmin()">Entrar</button>
+<div class="notification" id="notifLogin"></div>
+</div>
+
+<!-- Dashboard -->
+<div id="dashboardContent">
+<h2>Dashboard</h2>
+<label>Filtrar por pagamento:</label>
+<select id="filtro">
+<option value="todos">Todos</option>
+<option value="M-Pesa">M-Pesa</option>
+<option value="eMola">eMola</option>
+</select>
+<table>
+<thead>
+<tr><th>Data</th><th>Nome</th><th>Email</th><th>Telemóvel</th><th>Pagamento</th></tr>
+</thead>
+<tbody id="tabelaDashboard"></tbody>
+</table>
+</div>
 </div>
 
 <script>
-const webAppURL = "https://script.google.com/macros/s/AKfycbz8ad-CUSon007FRfMh7r1ZxbMWFA2G_kx8_tDk8Kf0D0Z7mTE3qz511g3VZvfJxAp5wQ/exec";
+// CONFIGURAÇÕES
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbz8ad-CUSon007FRfMh7r1ZxbMWFA2G_kx8_tDk8Kf0D0Z7mTE3qz511g3VZvfJxAp5wQ/exec";
+const ADMIN_USER = "admin";
+const ADMIN_PASS = "123456";
+const WHATSAPP_NUMBER = "258877480775";
 
-document.getElementById('loginBtn').addEventListener('click', ()=>{
-  const user = document.getElementById('adminUser').value.trim();
-  const pass = document.getElementById('adminPass').value.trim();
-  if(user==='admin' && pass==='12345'){
-    document.getElementById('login').style.display='none';
-    document.getElementById('panel').style.display='block';
-    loadData();
-  }else{
-    document.getElementById('loginMsg').innerText='Usuário ou senha incorretos!';
-  }
-});
+// Função mostrar notificação
+function showNotification(id, msg) {
+  const notif = document.getElementById(id);
+  notif.innerText = msg;
+  notif.style.display = 'block';
+  setTimeout(()=>{notif.style.display='none';},4000);
+}
 
-document.getElementById('refreshBtn').addEventListener('click', loadData);
+// Cadastro do cliente
+document.getElementById('btnCadastro').addEventListener('click', async ()=>{
+  const nome = document.getElementById('nome').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const telemovel = document.getElementById('telemovel').value.trim();
+  if(!nome || !email || !telemovel){ showNotification('notifCadastro','Preencha todos os campos'); return; }
 
-async function loadData(){
   try{
-    const res = await fetch(webAppURL);
-    const json = await res.json();
-    if(json.status!=='success'){alert('Erro: '+json.message);return;}
-    const tbody=document.getElementById('tbody');
-    tbody.innerHTML='';
-    json.data.forEach(item=>{
-      const tr=document.createElement('tr');
-      tr.innerHTML=`
-        <td>${item.id}</td>
-        <td>${escapeHtml(item.name)}</td>
-        <td>${escapeHtml(item.email)}</td>
-        <td>${escapeHtml(item.phone)}</td>
-        <td>${escapeHtml(item.paymentStatus)}</td>
-        <td>${item.date?new Date(item.date).toLocaleString():''}</td>
-        <td>${item.paymentStatus!=='Pago'
-            ?`<button class="btn" onclick="markPaid(${item.id})">Marcar Pago</button>`
-            :'✅'}</td>`;
-      tbody.appendChild(tr);
+    const res = await fetch(WEB_APP_URL, {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({action:'cadastro', nome, email, telemovel})
     });
-  }catch(err){alert('Erro: '+err);}
-}
-
-async function markPaid(id){
-  try{
-    const body={action:'updatePaymentStatus',id:id,paymentStatus:'Pago'};
-    const res=await fetch(webAppURL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
-    const json=await res.json();
-    if(json.status==='success'){alert('Status atualizado!');loadData();}
-    else alert('Erro: '+json.message);
-  }catch(err){alert('Erro: '+err);}
-}
-
-document.getElementById('search').addEventListener('input',function(){
-  const q=this.value.toLowerCase();
-  document.querySelectorAll('#tbody tr').forEach(tr=>{
-    tr.style.display=tr.innerText.toLowerCase().includes(q)?'':'none';
-  });
+    const data = await res.json();
+    if(data.status==='success'){
+      showNotification('notifCadastro','✅ Cadastro realizado com sucesso!');
+      document.getElementById('cadastroForm').style.display='none';
+      document.getElementById('ebookLinks').style.display='block';
+    } else { showNotification('notifCadastro',data.message || 'Erro no cadastro'); }
+  } catch(err){ showNotification('notifCadastro','Erro de conexão'); }
 });
 
-function escapeHtml(s){return String(s||'').replace(/[&<>]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[m]));}
+// Enviar comprovativo via WhatsApp
+document.getElementById('btnWhatsApp').addEventListener('click', ()=>{
+  const msg = encodeURIComponent("Olá! Acabei de efetuar o pagamento de 99,9 MT do ebook 'CONSTRUA SEU IMPÉRIO DIGITAL'. Segue o comprovativo.");
+  window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, '_blank');
+  showNotification('notifWhatsApp','✅ Comprovativo enviado para WhatsApp!');
+});
+
+// LOGIN ADMIN
+function loginAdmin(){
+  const user = document.getElementById('adminUser').value;
+  const pass = document.getElementById('adminPass').value;
+  if(user===ADMIN_USER && pass===ADMIN_PASS){
+    document.getElementById('loginForm').style.display='none';
+    document.getElementById('dashboardContent').style.display='block';
+    carregarDashboard();
+  } else { showNotification('notifLogin','Usuário ou senha incorretos!'); }
+}
+
+// Carregar Dashboard
+async function carregarDashboard(){
+  try{
+    const res = await fetch(WEB_APP_URL+"?action=getRegistros");
+    const data = await res.json();
+    exibirDashboard(data);
+  } catch(err){ console.error(err); }
+}
+
+// Exibir Dashboard
+function exibirDashboard(data){
+  const filtro = document.getElementById('filtro').value;
+  const tabela = document.getElementById('tabelaDashboard');
+  tabela.innerHTML='';
+  const filtrados = filtro==='todos'? data : data.filter(r=>r.pagamento===filtro);
+  filtrados.forEach(r=>{
+    const row = `<tr>
+      <td>${new Date(r.data).toLocaleString()}</td>
+      <td>${r.nome}</td>
+      <td>${r.email}</td>
+      <td>${r.telemovel}</td>
+      <td>${r.pagamento}</td>
+    </tr>`;
+    tabela.innerHTML += row;
+  });
+}
+
+document.getElementById('filtro').addEventListener('change', carregarDashboard);
 </script>
 </body>
 </html>
