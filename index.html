@@ -1,165 +1,135 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Construa Seu Império Digital</title>
+<title>Império Digital - Cadastro e Admin</title>
 <style>
-body { font-family: 'Arial', sans-serif; background:#0D0D0D; color:#fff; margin:0; padding:0;}
-a { text-decoration:none; color:inherit;}
-.container { max-width:900px; margin:auto; padding:20px;}
-h1,h2,h3 { color:#FFD700; text-align:center;}
-input, button { padding:10px; margin:5px 0; border-radius:6px; border:none; font-size:1rem;}
-input { width:100%; }
-button { background:#FFD700; color:#000; cursor:pointer; font-weight:bold; }
-button:hover { background:#FFAA00; }
-.notification { background:#111; color:#FFD700; padding:1rem; border-radius:12px; margin:10px 0; display:none; text-align:center; }
-#ebookLinks { display:none; margin-top:20px; text-align:center;}
-#loginForm, #dashboardContent { max-width:400px; margin:auto; padding:20px; background:rgba(0,0,0,0.6); border-radius:12px; }
-table { width:100%; border-collapse: collapse; margin-top:20px;}
-th, td { border:1px solid #FFD700; padding:10px; text-align:left; }
-th { background:#FFD700; color:#000;}
+body{font-family:Arial,sans-serif;background:#111;color:#fff;margin:0;padding:0;}
+.container{max-width:900px;margin:2rem auto;padding:1rem;background:#222;border-radius:12px;}
+h1,h2,h3{color:#FFD700;text-align:center;}
+input,button{padding:.8rem;margin:.3rem 0;width:100%;border-radius:6px;border:none;}
+button{background:#FFD700;color:#000;font-weight:bold;cursor:pointer;}
+button:hover{background:#FFAA00;color:#000;}
+.notification{background:#333;color:#FFD700;padding:1rem;margin:1rem 0;border-radius:10px;display:none;}
+.dashboard{display:none; margin-top:2rem;}
+.dashboard table{width:100%;border-collapse:collapse;}
+.dashboard th, .dashboard td{border:1px solid #555;padding:.5rem;text-align:left;}
+.dashboard th{background:#222;color:#FFD700;}
 </style>
 </head>
 <body>
+
 <div class="container">
 <h1>CONSTRUA SEU IMPÉRIO DIGITAL</h1>
-<h3>Da Ideia ao Lançamento do Seu Produto Online</h3>
+
+<div id="notification" class="notification"></div>
 
 <!-- Cadastro -->
-<div id="cadastroForm">
-<h2>Cadastro do Cliente</h2>
-<input type="text" id="nome" placeholder="Nome completo" required/>
-<input type="email" id="email" placeholder="Email" required/>
-<input type="text" id="telemovel" placeholder="Número de Telemóvel" required/>
+<div id="cadastroSection">
+<h3>Cadastro do Cliente</h3>
+<input type="text" id="nome" placeholder="Nome Completo"/>
+<input type="email" id="email" placeholder="Email"/>
+<input type="text" id="telemovel" placeholder="Número de Telemóvel"/>
 <button id="btnCadastro">Cadastrar</button>
-<div class="notification" id="notifCadastro"></div>
-</div>
 
-<!-- Envio WhatsApp e download -->
-<div id="ebookLinks">
-<h2>Envie o comprovativo e receba seu Ebook</h2>
-<p>💳 M-Pesa: 840330540 | eMola: 877480775 | Valor: 99,9 MT</p>
-<button id="btnWhatsApp">Enviar Comprovativo pelo WhatsApp</button>
-<div class="notification" id="notifWhatsApp"></div>
-<div id="linksEntrega" style="margin-top:20px;">
-<p>📘 <a href="https://drive.google.com/file/d/1zAhbLDIdZgfASULt9_E2XBgNEW-j7DBQ/view?usp=sharing" target="_blank">Baixar Ebook Principal</a></p>
-<p>📝 <a href="https://drive.google.com/file/d/1vOwKjA9lNu8ohXOfp1UG1fOQsc4nGF0h/view?usp=sharing" target="_blank">Baixar Exercício Prático</a></p>
+<div id="linksEbook" style="display:none; margin-top:1rem;">
+<h3>Entrega do Ebook</h3>
+<p>📘 <a href="https://drive.google.com/file/d/1zAhbLDIdZgfASULt9_E2XBgNEW-j7DBQ/view?usp=sharing" target="_blank">Baixar Ebook</a></p>
+<p>📝 <a href="https://drive.google.com/file/d/1vOwKjA9lNu8ohXOfp1UG1fOQsc4nGF0h/view?usp=sharing" target="_blank">Exercício Prático</a></p>
+<p>💰 Preço: 99,9 MT</p>
+<p>📲 Envie comprovativo para WhatsApp: <a id="whatsAppLink" href="#" target="_blank">Enviar</a></p>
 </div>
 </div>
 
-<hr style="margin:40px 0; border-color:#FFD700;"/>
+<hr>
 
-<!-- Login Dashboard -->
-<div id="loginForm">
-<h2>Login do Administrador</h2>
+<!-- Login Admin -->
+<div id="adminLoginSection">
+<h3>Login do Administrador</h3>
 <input type="text" id="adminUser" placeholder="Usuário"/>
 <input type="password" id="adminPass" placeholder="Senha"/>
-<button onclick="loginAdmin()">Entrar</button>
-<div class="notification" id="notifLogin"></div>
+<button id="btnLogin">Entrar</button>
 </div>
 
 <!-- Dashboard -->
-<div id="dashboardContent">
-<h2>Dashboard</h2>
-<label>Filtrar por pagamento:</label>
-<select id="filtro">
-<option value="todos">Todos</option>
-<option value="M-Pesa">M-Pesa</option>
-<option value="eMola">eMola</option>
-</select>
-<table>
-<thead>
-<tr><th>Data</th><th>Nome</th><th>Email</th><th>Telemóvel</th><th>Pagamento</th></tr>
-</thead>
-<tbody id="tabelaDashboard"></tbody>
+<div id="dashboardSection" class="dashboard">
+<h2>Dashboard de Cadastros</h2>
+<table id="dashboardTable">
+<tr>
+<th>Data</th><th>Nome</th><th>Email</th><th>Telemóvel</th><th>Pagamento</th>
+</tr>
 </table>
 </div>
 </div>
 
 <script>
-// CONFIGURAÇÕES
-const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbz8ad-CUSon007FRfMh7r1ZxbMWFA2G_kx8_tDk8Kf0D0Z7mTE3qz511g3VZvfJxAp5wQ/exec";
+const webAppURL = "https://script.google.com/macros/s/AKfycbz8ad-CUSon007FRfMh7r1ZxbMWFA2G_kx8_tDk8Kf0D0Z7mTE3qz511g3VZvfJxAp5wQ/exec";
+
+// Defina usuário e senha do admin
 const ADMIN_USER = "admin";
 const ADMIN_PASS = "123456";
-const WHATSAPP_NUMBER = "258877480775";
 
-// Função mostrar notificação
-function showNotification(id, msg) {
-  const notif = document.getElementById(id);
+function showNotification(msg){
+  const notif = document.getElementById('notification');
   notif.innerText = msg;
-  notif.style.display = 'block';
+  notif.style.display='block';
   setTimeout(()=>{notif.style.display='none';},4000);
 }
 
-// Cadastro do cliente
+// Cadastro cliente
 document.getElementById('btnCadastro').addEventListener('click', async ()=>{
   const nome = document.getElementById('nome').value.trim();
   const email = document.getElementById('email').value.trim();
   const telemovel = document.getElementById('telemovel').value.trim();
-  if(!nome || !email || !telemovel){ showNotification('notifCadastro','Preencha todos os campos'); return; }
+  if(!nome || !email || !telemovel){ showNotification("Preencha todos os campos"); return; }
 
   try{
-    const res = await fetch(WEB_APP_URL, {
+    const res = await fetch(webAppURL,{
       method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({action:'cadastro', nome, email, telemovel})
+      body: JSON.stringify({action:"cadastro", nome, email, telemovel})
     });
     const data = await res.json();
-    if(data.status==='success'){
-      showNotification('notifCadastro','✅ Cadastro realizado com sucesso!');
-      document.getElementById('cadastroForm').style.display='none';
-      document.getElementById('ebookLinks').style.display='block';
-    } else { showNotification('notifCadastro',data.message || 'Erro no cadastro'); }
-  } catch(err){ showNotification('notifCadastro','Erro de conexão'); }
+    if(data.status==="success"){
+      showNotification(data.message);
+      document.getElementById('linksEbook').style.display='block';
+      document.getElementById('whatsAppLink').href = `https://wa.me/258877480775?text=${encodeURIComponent("Olá! Acabei de efetuar o pagamento de 99,9 MT do ebook 'CONSTRUA SEU IMPÉRIO DIGITAL'. Segue o comprovativo.")}`;
+    } else showNotification(data.message);
+  } catch(err){
+    showNotification("Erro no cadastro: "+err.message);
+  }
 });
 
-// Enviar comprovativo via WhatsApp
-document.getElementById('btnWhatsApp').addEventListener('click', ()=>{
-  const msg = encodeURIComponent("Olá! Acabei de efetuar o pagamento de 99,9 MT do ebook 'CONSTRUA SEU IMPÉRIO DIGITAL'. Segue o comprovativo.");
-  window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, '_blank');
-  showNotification('notifWhatsApp','✅ Comprovativo enviado para WhatsApp!');
-});
-
-// LOGIN ADMIN
-function loginAdmin(){
-  const user = document.getElementById('adminUser').value;
-  const pass = document.getElementById('adminPass').value;
+// Login admin
+document.getElementById('btnLogin').addEventListener('click', ()=>{
+  const user = document.getElementById('adminUser').value.trim();
+  const pass = document.getElementById('adminPass').value.trim();
   if(user===ADMIN_USER && pass===ADMIN_PASS){
-    document.getElementById('loginForm').style.display='none';
-    document.getElementById('dashboardContent').style.display='block';
+    showNotification("Login efetuado com sucesso!");
+    document.getElementById('adminLoginSection').style.display='none';
+    document.getElementById('dashboardSection').style.display='block';
     carregarDashboard();
-  } else { showNotification('notifLogin','Usuário ou senha incorretos!'); }
-}
+  } else{
+    showNotification("Usuário ou senha incorretos!");
+  }
+});
 
-// Carregar Dashboard
+// Dashboard
 async function carregarDashboard(){
   try{
-    const res = await fetch(WEB_APP_URL+"?action=getRegistros");
-    const data = await res.json();
-    exibirDashboard(data);
-  } catch(err){ console.error(err); }
+    const res = await fetch(webAppURL+"?action=getRegistros");
+    const registros = await res.json();
+    const tbody = document.getElementById('dashboardTable');
+    tbody.innerHTML='<tr><th>Data</th><th>Nome</th><th>Email</th><th>Telemóvel</th><th>Pagamento</th></tr>';
+    registros.forEach(r=>{
+      const tr = document.createElement('tr');
+      tr.innerHTML=`<td>${new Date(r.data).toLocaleString()}</td><td>${r.nome}</td><td>${r.email}</td><td>${r.telemovel}</td><td>${r.pagamento}</td>`;
+      tbody.appendChild(tr);
+    });
+  } catch(err){
+    showNotification("Erro ao carregar dashboard: "+err.message);
+  }
 }
-
-// Exibir Dashboard
-function exibirDashboard(data){
-  const filtro = document.getElementById('filtro').value;
-  const tabela = document.getElementById('tabelaDashboard');
-  tabela.innerHTML='';
-  const filtrados = filtro==='todos'? data : data.filter(r=>r.pagamento===filtro);
-  filtrados.forEach(r=>{
-    const row = `<tr>
-      <td>${new Date(r.data).toLocaleString()}</td>
-      <td>${r.nome}</td>
-      <td>${r.email}</td>
-      <td>${r.telemovel}</td>
-      <td>${r.pagamento}</td>
-    </tr>`;
-    tabela.innerHTML += row;
-  });
-}
-
-document.getElementById('filtro').addEventListener('change', carregarDashboard);
 </script>
 </body>
 </html>
