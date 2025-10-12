@@ -11,18 +11,13 @@
     body{background:linear-gradient(135deg,#0D0D0D,#1A1A1A);color:#fff;line-height:1.6;}
     a{text-decoration:none;color:inherit;}
 
-    /* Barra Promocional MEXC */
-    .promo-bar{
-      position:fixed;top:0;left:0;width:100%;
-      display:flex;align-items:center;justify-content:center;gap:.8rem;
-      padding:.6rem 1rem;background:linear-gradient(90deg,#00E5A6,#00B7FF);
-      color:#002033;font-weight:800;z-index:1100;box-shadow:0 2px 12px rgba(0,0,0,.25);
-    }
+    /* Barra Promocional */
+    .promo-bar{position:fixed;top:0;left:0;width:100%;display:flex;align-items:center;justify-content:center;gap:.8rem;padding:.6rem 1rem;background:linear-gradient(90deg,#00E5A6,#00B7FF);color:#002033;font-weight:800;z-index:1100;box-shadow:0 2px 12px rgba(0,0,0,.25);}
     .promo-bar .promo-text{display:flex;align-items:center;gap:.5rem;text-align:center}
     .promo-bar .promo-btn{background:#FFD700;color:#000;padding:.5rem 1rem;border-radius:999px;white-space:nowrap}
     .promo-bar .close{position:absolute;right:10px;top:6px;background:transparent;border:none;color:#002033;font-size:1.2rem;cursor:pointer;opacity:.8}
 
-    /* Navbar (ajuste quando há promo) */
+    /* Navbar */
     nav{position:fixed;top:0;left:0;width:100%;background:#0D0D0D;display:flex;justify-content:space-between;align-items:center;padding:1rem 2rem;z-index:1000;transition:top .2s ease;}
     body.has-promo nav{top:var(--promoH);}
     nav .logo{font-size:1.5rem;font-weight:700;color:#FFD700;}
@@ -30,6 +25,7 @@
     nav ul li a{color:#fff;font-weight:600;transition:.3s;}
     nav ul li a:hover{color:#FFD700;}
 
+    /* Hero */
     .hero{padding:8rem 2rem 5rem;text-align:center;background:linear-gradient(90deg,#0055FF,#7B2FF7);}
     .hero h1{font-size:2.8rem;margin-bottom:1rem;}
     .hero p{font-size:1.2rem;margin-bottom:2rem;}
@@ -49,22 +45,10 @@
     iframe{border-radius:10px;}
     .card canvas{margin-top:10px;}
 
-    /* Seção MEXC */
-    .mexc-promo{
-      max-width:1100px;margin:2rem auto;padding:2rem;border-radius:14px;
-      background:linear-gradient(135deg,rgba(0,229,166,.08),rgba(0,183,255,.08));
-      border:1px solid rgba(0,229,166,.35);text-align:center;
-    }
-    .mexc-promo h3{color:#00E5A6;font-size:1.8rem;margin-bottom:.6rem}
-    .mexc-promo p{color:#cfe;opacity:.95}
-    .mexc-promo .banner{width:100%;max-width:900px;margin:14px auto;border-radius:12px;border:2px solid #00E5A6;box-shadow:0 10px 25px rgba(0,229,166,.15);display:block}
-
-    /* Passo a passo */
+    /* Passo a passo / Seções especiais */
     .steps{text-align:left;max-width:650px;margin:2rem auto;background:rgba(255,255,255,0.05);padding:2rem;border-radius:12px;}
     .steps h2{color:#FFD700;margin-bottom:1rem;text-align:center;}
-    .steps ol{line-height:1.8;font-size:1rem;}
 
-    /* Newsletter */
     .newsletter{text-align:center;margin-top:2rem;}
     .newsletter input{padding:.8rem;width:250px;border:none;border-radius:6px;margin-right:.5rem;}
     .newsletter button{padding:.9rem 1.5rem;background:#FFD700;border:none;border-radius:6px;cursor:pointer;font-weight:bold;}
@@ -78,9 +62,7 @@
     .social-share a{margin:0 .5rem;color:#FFD700;font-size:1.5rem;}
     footer{text-align:center;padding:2rem;background:#111;color:#aaa;font-size:.9rem;}
     footer a{color:#FFD700;margin:0 1rem;}
-    footer nav a:hover{text-decoration:underline;}
 
-    /* Referral fixo */
     .referral-container {position:fixed;right:20px;bottom:20px;display:flex;gap:20px;flex-wrap:wrap;}
     .referral{text-align:center;}
     .referral p{margin:0;font-size:.9rem;color:#FFD700;font-weight:bold;}
@@ -89,10 +71,11 @@
   </style>
 </head>
 <body class="has-promo">
-  <!-- Barra Promocional MEXC -->
+
+  <!-- Barra Promocional -->
   <div class="promo-bar" id="promoBar">
-    <div class="promo-text">⚡️ Últimos dias para aproveitar! 💰 Cadastre-se agora na MEXC e receba bônus exclusivos de boas-vindas!</div>
-    <a class="promo-btn" href="https://www.mexc.com/pt-PT/acquisition/custom-sign-up?shareCode=mexc-3UbJJ" target="_blank" rel="nofollow noopener sponsored">Quero meu Bônus</a>
+    <div class="promo-text">⚡️ Últimos dias para aproveitar! 💰 Cadastre-se agora na MEXC e receba bônus exclusivos!</div>
+    <a class="promo-btn" href="https://www.mexc.com/pt-PT/acquisition/custom-sign-up?shareCode=mexc-3UbJJ" target="_blank">Quero meu Bônus</a>
     <button class="close" id="closePromo" aria-label="Fechar promoção">×</button>
   </div>
 
@@ -105,9 +88,9 @@
       <li><a href="#servicos">Serviços</a></li>
       <li><a href="#academia">Academia</a></li>
       <li><a href="#youtube">Tutoriais</a></li>
+      <li><a href="#ebook">Ebook</a></li>
       <li><a href="#vip">VIP</a></li>
       <li><a href="#faq">FAQ</a></li>
-      <li><a href="#livePrices">Preços Ao Vivo</a></li>
     </ul>
   </nav>
 
@@ -118,69 +101,72 @@
     <a href="#vip" class="cta-btn">Quero Começar Agora</a>
   </div>
 
-  <!-- Seção MEXC com banner responsivo -->
-  <section id="mexc" class="mexc-promo">
-    <h3>🎁 Promo MEXC: Bônus de Boas-Vindas</h3>
-    <p>⚡️ Últimos dias para aproveitar! Cadastre-se e receba bônus exclusivos de boas-vindas.</p>
-
-    <a href="https://www.mexc.com/pt-PT/acquisition/custom-sign-up?shareCode=mexc-3UbJJ"
-       target="_blank" rel="nofollow noopener sponsored" aria-label="Cadastrar na MEXC">
-      <picture>
-        <!-- WebP responsivo -->
-        <source type="image/webp"
-                srcset="
-                  images/mexc-banner-480.webp 480w,
-                  images/mexc-banner-768.webp 768w,
-                  images/mexc-banner-1200.webp 1200w"
-                sizes="(max-width: 600px) 92vw, (max-width: 1024px) 85vw, 900px">
-        <!-- Fallback PNG/JPG -->
-        <img class="banner"
-             src="images/mexc-banner.png"
-             alt="MEXC - 8,000 USDT Beginner Reward - Cadastre-se agora"
-             loading="lazy" decoding="async" fetchpriority="low">
-      </picture>
-    </a>
-
-    <a class="cta-btn"
-       href="https://www.mexc.com/pt-PT/acquisition/custom-sign-up?shareCode=mexc-3UbJJ"
-       target="_blank" rel="nofollow noopener sponsored">Cadastrar na MEXC</a>
+  <!-- Seção MEXC -->
+  <section id="mexc" class="steps">
+    <h2>🎁 Promo MEXC</h2>
+    <p>Cadastre-se e receba bônus exclusivos de boas-vindas!</p>
+    <a href="https://www.mexc.com/pt-PT/acquisition/custom-sign-up?shareCode=mexc-3UbJJ" class="cta-btn" target="_blank">Abrir Conta</a>
   </section>
 
-  <!-- Passo a Passo -->
+  <!-- Passo a passo -->
   <div class="steps">
     <h2>Passo a passo para começar:</h2>
     <ol>
-      <li>1️⃣ Clica no link: <a href="https://www.binance.com/futures/ref/1104267675" target="_blank" style="color:#FFD700;">www.binance.com/futures/ref/1104267675</a></li>
-      <li>2️⃣ Cria a tua conta Binance com email/telemóvel e senha segura.</li>
-      <li>3️⃣ Faz a verificação KYC (identidade).</li>
-      <li>4️⃣ Efetua o primeiro depósito.</li>
-      <li>5️⃣ 🎯 Começa a investir e negociar cripto!</li>
+      <li>Clique no link: <a href="https://www.binance.com/futures/ref/1104267675" style="color:#FFD700;" target="_blank">www.binance.com/futures/ref/1104267675</a></li>
+      <li>Crie sua conta Binance com email/telemóvel e senha segura.</li>
+      <li>Faça verificação KYC.</li>
+      <li>Efetue o primeiro depósito.</li>
+      <li>🎯 Comece a investir e negociar cripto!</li>
     </ol>
-
-    <!-- Convite Bybit -->
-    <div style="margin-top:2rem; padding:1rem; background:rgba(255,215,0,0.1); border:1px solid #FFD700; border-radius:10px; text-align:center;">
-      <p style="font-size:1.1rem; color:#FFD700; font-weight:bold;">
-        🚀 Junte-se à Bybit e comece a negociar com segurança e benefícios exclusivos!<br>
-        <a href="https://www.bybit.com/invite?ref=DK9GMVA" target="_blank" style="color:#FFD700; text-decoration:underline;">
-          Abra a sua conta através deste link
-        </a>
-      </p>
-    </div>
-
-    <!-- Convite MEXC -->
-    <div style="margin-top:1rem; padding:1rem; background:linear-gradient(90deg,rgba(0,229,166,.12),rgba(0,183,255,.12)); border:1px solid rgba(0,229,166,.5); border-radius:10px; text-align:center;">
-      <p style="font-size:1.1rem; color:#00E5A6; font-weight:bold;">
-        ⚡️ Últimos dias para aproveitar! 💰 Cadastre-se na MEXC e receba bônus exclusivos de boas-vindas!<br>
-        <a href="https://www.mexc.com/pt-PT/acquisition/custom-sign-up?shareCode=mexc-3UbJJ" target="_blank" style="color:#00E5A6; text-decoration:underline;">
-          👉 Abrir conta MEXC pelo link oficial
-        </a>
-      </p>
-    </div>
   </div>
+
+  <!-- Seção Ebook -->
+  <section id="ebook">
+    <h2>📘 COMPRE SEU EBOOK</h2>
+    <div class="steps" style="text-align:center; max-width:700px; margin:auto;">
+      <h3>Nome do eBook:</h3>
+      <p style="font-weight:bold; font-size:1.3rem; color:#FFD700;">
+        CONSTRUA SEU IMPÉRIO DIGITAL: DA IDEIA AO LANÇAMENTO DO SEU PRODUTO ONLINE
+      </p>
+
+      <h3>Descrição resumida:</h3>
+      <p style="color:#ccc;">
+        Transforme suas ideias em renda! Este guia prático leva você, passo a passo, desde a concepção da ideia até o lançamento do seu produto digital. Com exemplos claros e ações aplicáveis, incluindo um eBook modelo de "Receitas Rápidas para Vidas Corridas", você aprenderá a criar, estruturar e vender produtos online mesmo sendo iniciante. Cada capítulo é um mini-treino de 1-2 horas que garante resultados reais.
+      </p>
+
+      <h3>Instruções de pagamento:</h3>
+      <p style="color:#FFD700; font-weight:bold;">
+        💳 M-Pesa: 840330540<br>
+        💳 eMola: 877480775<br>
+        💰 Valor: 99,9 MT
+      </p>
+
+      <p>Envie comprovativo para WhatsApp: 📲</p>
+      <a href="https://wa.me/25887XXXXXXX?text=Olá!%20Acabei%20de%20efetuar%20o%20pagamento%20de%2099,9%20MT%20do%20ebook%20'CONSTRUA%20SEU%20IMPÉRIO%20DIGITAL'.%20Segue%20o%20comprovativo." 
+         target="_blank" 
+         class="cta-btn" 
+         style="display:inline-block; margin:1rem 0;">
+        Enviar Comprovativo pelo WhatsApp
+      </a>
+
+      <h3>Entrega do ebook:</h3>
+      <p>Depois que o cliente enviar o comprovativo, você envia:</p>
+      <a href="https://drive.google.com/file/d/1zAhbLDIdZgfASULt9_E2XBgNEW-j7DBQ/view?usp=sharing"
+         target="_blank"
+         class="cta-btn"
+         style="display:inline-block; margin-top:1rem;">
+        Baixar Ebook
+      </a>
+
+      <p style="margin-top:1rem; font-size:1.2rem; color:#FFD700; font-weight:bold;">
+        Preço: 99,9 MT
+      </p>
+    </div>
+  </section>
 
   <!-- Newsletter -->
   <div class="newsletter" id="newsletter">
-    <h3>📩 Inscreve-te para receber dicas exclusivas:</h3>
+    <h3>📩 Inscreva-se para receber dicas exclusivas:</h3>
     <form action="https://formspree.io/f/YOUR_ENDPOINT" method="POST">
       <input type="email" name="email" placeholder="Digite o seu email" required>
       <button type="submit">Inscrever-me</button>
@@ -198,89 +184,6 @@
     </div>
   </section>
 
-  <!-- Serviços -->
-  <section id="servicos">
-    <h2>Serviços da Oferta VIP</h2>
-    <div class="grid">
-      <a class="card" href="https://coinmarketcap.com/alexandria/" target="_blank">📊 Relatórios Premium</a>
-      <a class="card" href="https://www.tradingview.com/markets/cryptocurrencies/ideas/" target="_blank">📈 Sinais de Trading</a>
-      <a class="card" href="https://www.youtube.com/c/binance" target="_blank">🎥 Aulas ao Vivo</a>
-      <a class="card" href="https://www.glassnode.com/" target="_blank">📂 Dashboards On-chain</a>
-      <a class="card" href="https://discord.gg/binance" target="_blank">💬 Suporte Personalizado</a>
-    </div>
-  </section>
-
-  <!-- Tutoriais -->
-  <section id="youtube">
-    <h2>🎥 Tutoriais Exclusivos</h2>
-    <div class="grid">
-      <div class="card">
-        <iframe width="100%" height="200" src="https://www.youtube.com/embed/RgEnAgfVCds" frameborder="0" allowfullscreen></iframe>
-        <p>👉 Criar conta na Binance</p>
-      </div>
-
-      <div class="card">
-        <iframe width="100%" height="200" src="https://www.youtube.com/embed/6E4omURMAGM" frameborder="0" allowfullscreen></iframe>
-        <p>📈 Estratégias básicas: RSI, EMAs, Bollinger</p>
-      </div>
-
-      <div class="card">
-        <iframe width="100%" height="200" src="https://www.youtube.com/embed/zwhHYMsMJFk" frameborder="0" allowfullscreen></iframe>
-        <p>🔰 Passo a passo: Como iniciar na Binance (tutorial completo)</p>
-        <p style="margin-top:6px;font-size:.9rem;color:#ccc;">
-          <a href="https://www.youtube.com/watch?v=zwhHYMsMJFk" target="_blank" style="color:#FFD700;">Ver no YouTube</a>
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Academia -->
-  <section id="academia">
-    <h2>📚 Academia Exclusiva</h2>
-    <div class="grid">
-      <a class="card" href="https://academy.binance.com/pt" target="_blank"><i class="ri-book-open-line"></i><h3>Binance Academy</h3></a>
-      <a class="card" href="https://coinmarketcap.com/" target="_blank"><i class="ri-bar-chart-2-line"></i><h3>CoinMarketCap</h3></a>
-      <a class="card" href="https://medium.com/topic/cryptocurrency" target="_blank"><i class="ri-links-line"></i><h3>Artigos Exclusivos</h3></a>
-    </div>
-  </section>
-
-  <!-- Preços -->
-  <section id="livePrices">
-    <h2>Preços de Criptomoedas em Tempo Real</h2>
-    <div class="grid">
-      <div class="card">🟡 Bitcoin: <span id="btcPrice">$0</span><canvas id="btcChart" height="80"></canvas></div>
-      <div class="card">💎 Ethereum: <span id="ethPrice">$0</span><canvas id="ethChart" height="80"></canvas></div>
-      <div class="card">🔵 Solana: <span id="solPrice">$0</span><canvas id="solChart" height="80"></canvas></div>
-    </div>
-  </section>
-
-  <!-- VIP -->
-  <section id="vip">
-    <div class="vip">
-      <h3>Oferta VIP Exclusiva + Bônus</h3>
-      <p>Acesso completo por apenas <strong>50 MT</strong>.</p>
-      <a href="https://pay.tutora.co.mz/checkout/pay/6328cbd18f510ea626c7" class="cta-btn">Quero Ser VIP Agora</a>
-    </div>
-  </section>
-
-  <!-- FAQ -->
-  <section id="faq">
-    <h2>Perguntas Frequentes</h2>
-    <div class="faq-item"><h4>📌 Quanto tempo tenho acesso?</h4><p>Acesso vitalício com atualizações.</p></div>
-    <div class="faq-item"><h4>📌 Posso cancelar?</h4><p>Sim, tens 7 dias de garantia.</p></div>
-    <div class="faq-item"><h4>📌 O pagamento é seguro?</h4><p>Sim, processo é 100% criptografado.</p></div>
-  </section>
-
-  <!-- Social -->
-  <div class="social-share">
-    <p>Compartilhe esta página:</p>
-    <a href="#"><i class="ri-whatsapp-line"></i></a>
-    <a href="#"><i class="ri-telegram-line"></i></a>
-    <a href="#"><i class="ri-twitter-line"></i></a>
-    <a href="#"><i class="ri-linkedin-line"></i></a>
-    <a href="#"><i class="ri-youtube-line"></i></a>
-  </div>
-
   <!-- Footer -->
   <footer>
     <p>&copy; 2025 CryptoFinance Pro - Todos os direitos reservados.</p>
@@ -292,34 +195,7 @@
     </nav>
   </footer>
 
-  <!-- Referral fixo -->
-  <div class="referral-container">
-    <!-- Binance -->
-    <div class="referral">
-      <p>Binance Code:</p>
-      <code>1104267675</code>
-      <div class="qr"><img src="https://i.ibb.co/hMr7pBC/qrcode-binance.png" alt="QR Binance"></div>
-    </div>
-
-    <!-- Bybit -->
-    <div class="referral">
-      <p>Bybit Link:</p>
-      <code>DK9GMVA</code>
-      <div class="qr"><img src="https://api.qrserver.com/v1/create-qr-code/?data=https://www.bybit.com/invite?ref=DK9GMVA&size=150x150" alt="QR Bybit"></div>
-    </div>
-
-    <!-- MEXC -->
-    <div class="referral">
-      <p>MEXC Código:</p>
-      <code>mexc-3UbJJ</code>
-      <div class="qr">
-        <img src="https://api.qrserver.com/v1/create-qr-code/?data=https%3A%2F%2Fwww.mexc.com%2Fpt-PT%2Facquisition%2Fcustom-sign-up%3FshareCode%3Dmexc-3UbJJ&size=150x150" alt="QR MEXC">
-      </div>
-    </div>
-  </div>
-
   <!-- Scripts -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
     // Ajusta a altura da barra promocional para empurrar a nav
     function adjustPromoHeight(){
@@ -337,31 +213,6 @@
       bar.style.display='none';
       adjustPromoHeight();
     });
-
-    async function fetchPrices(){
-      const res=await fetch("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana&vs_currencies=usd");
-      const data=await res.json();
-      document.getElementById("btcPrice").innerText="$"+data.bitcoin.usd;
-      document.getElementById("ethPrice").innerText="$"+data.ethereum.usd;
-      document.getElementById("solPrice").innerText="$"+data.solana.usd;
-    }
-    async function fetchHistory(coin,chartId){
-      const res=await fetch(`https://api.coingecko.com/api/v3/coins/${coin}/market_chart?vs_currency=usd&days=7&interval=daily`);
-      const data=await res.json();
-      const prices=data.prices.map(p=>p[1]);
-      const labels=data.prices.map(p=>new Date(p[0]).toLocaleDateString("pt-BR",{day:"2-digit",month:"short"}));
-      const color=prices[prices.length-1]>=prices[0]?"#00FF00":"#FF0000";
-      new Chart(document.getElementById(chartId),{
-        type:'line',
-        data:{labels:labels,datasets:[{data:prices,borderColor:color,tension:.3,fill:false,pointRadius:0}]},
-        options:{responsive:true,plugins:{legend:{display:false}},scales:{x:{display:false},y:{display:false}}}
-      });
-    }
-    fetchPrices();
-    fetchHistory("bitcoin","btcChart");
-    fetchHistory("ethereum","ethChart");
-    fetchHistory("solana","solChart");
-    setInterval(fetchPrices,60000);
   </script>
 </body>
 </html>
