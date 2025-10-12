@@ -64,7 +64,7 @@ button:hover{background:#FFAA00;color:#000;}
 </div>
 
 <script>
-const webAppURL = "https://script.google.com/macros/s/AKfycbz81ugMoyklksJPJzdizoiP8L14TrpSS97LLBN5i2OhsuqmtAhUtOja-zgQx6mAZ-WY-g/exec";
+const webAppURL = "https://script.google.com/macros/s/AKfycbz8ad-CUSon007FRfMh7r1ZxbMWFA2G_kx8_tDk8Kf0D0Z7mTE3qz511g3VZvfJxAp5wQ/exec";
 
 // Defina usuário e senha do admin
 const ADMIN_USER = "admin";
@@ -87,7 +87,6 @@ document.getElementById('btnCadastro').addEventListener('click', async ()=>{
   try{
     const res = await fetch(webAppURL,{
       method:'POST',
-      headers:{ 'Content-Type':'application/json' },
       body: JSON.stringify({action:"cadastro", nome, email, telemovel})
     });
     const data = await res.json();
