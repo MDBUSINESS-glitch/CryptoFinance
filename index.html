@@ -1,205 +1,260 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Painel de Vendas - Ebook Digital</title>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <style>
-    body { font-family: 'Segoe UI', sans-serif; background: #f8fafc; margin: 0; padding: 0; }
-    header { background: #007bff; color: #fff; padding: 15px; text-align: center; }
-    h1 { margin: 0; font-size: 22px; }
-    .logout { background: #dc3545; color: #fff; border: none; border-radius: 6px; padding: 6px 10px; float: right; cursor: pointer; }
-
-    .container {
-      max-width: 1100px; margin: 20px auto; background: #fff;
-      border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); padding: 20px;
-    }
-
-    .stats { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 15px; margin-bottom: 20px; }
-    .card {
-      flex: 1; min-width: 200px; background: #007bff; color: #fff; border-radius: 10px;
-      padding: 15px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    }
-    .card h2 { margin: 0; font-size: 28px; }
-    .card p { margin: 5px 0 0; font-size: 14px; opacity: 0.9; }
-
-    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-    th, td { border-bottom: 1px solid #ddd; padding: 10px; text-align: left; }
-    th { background: #007bff; color: #fff; }
-    tr:hover { background: #f1f1f1; }
-    button { padding: 6px 10px; border: none; border-radius: 5px; cursor: pointer; }
-    .paid { background: #28a745; color: #fff; }
-    .pending { background: #ffc107; color: #000; }
-    .search { width: 100%; padding: 8px; margin-top: 10px; border: 1px solid #ccc; border-radius: 5px; }
-
-    .login-container {
-      max-width: 400px; margin: 100px auto; background: #fff; padding: 30px;
-      border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); text-align: center;
-    }
-    .login-container input {
-      width: 90%; padding: 10px; margin: 8px 0;
-      border: 1px solid #ccc; border-radius: 5px;
-    }
-    .login-container button {
-      background: #007bff; color: #fff; width: 95%; border: none;
-      border-radius: 5px; padding: 10px; cursor: pointer;
-    }
-    canvas { width: 100% !important; height: 300px !important; margin-top: 20px; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>CryptoFinance Pro - Ebook Digital</title>
+<link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+  :root{--promoH:0px;}
+  *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Tahoma,Verdana,sans-serif;}
+  body{background:#0D0D0D;color:#fff;line-height:1.6;}
+  a{text-decoration:none;color:inherit;}
+  nav{position:fixed;top:0;left:0;width:100%;background:#111;display:flex;justify-content:space-between;align-items:center;padding:1rem 2rem;z-index:1000;}
+  nav .logo{font-size:1.5rem;font-weight:700;color:#FFD700;}
+  nav ul{list-style:none;display:flex;gap:1.5rem;}
+  nav ul li a{color:#fff;font-weight:600;}
+  .hero{padding:6rem 2rem 3rem;text-align:center;}
+  .hero h1{font-size:2.5rem;margin-bottom:1rem;color:#FFD700;}
+  .hero p{font-size:1.2rem;margin-bottom:2rem;}
+  .cta-btn{display:inline-block;padding:1rem 2rem;background:#FFD700;color:#000;border-radius:50px;font-weight:700;transition:.3s;cursor:pointer;}
+  .cta-btn:hover{background:#FFAA00;color:#000;}
+  section{padding:4rem 2rem;max-width:1100px;margin:auto;}
+  h2{text-align:center;color:#FFD700;margin-bottom:2rem;font-size:2rem;}
+  input, button, select{font-family:'Segoe UI';}
+  input, select{padding:.6rem;margin:.5rem 0;width:100%;border-radius:6px;border:none;}
+  button{padding:.8rem 1.5rem;border:none;border-radius:6px;cursor:pointer;}
+  .notification {background:#111;color:#FFD700;padding:1rem 1.5rem;border-radius:12px;box-shadow:0 5px 15px rgba(0,0,0,0.3);opacity:0;transform:translateY(50px);transition: all 0.5s ease;font-weight:bold;position:fixed;bottom:20px;right:20px;z-index:9999;}
+  .notification.show { opacity:1; transform:translateY(0); }
+  table{width:100%;border-collapse:collapse;margin-top:1rem;}
+  th, td{border:1px solid #FFD700;padding:.5rem;text-align:center;}
+  th{background:#222;}
+  .paid{background:#0F0;color:#000;font-weight:bold;}
+  .pending{background:#FFD700;color:#000;font-weight:bold;}
+  canvas{background:#111;margin-top:2rem;border-radius:12px;padding:1rem;}
+  #dashboardSection{display:none;}
+</style>
 </head>
 <body>
-  <header>
-    <h1>📊 Painel de Vendas - Ebook Digital</h1>
-    <button class="logout" onclick="logout()">Sair</button>
-  </header>
 
-  <!-- LOGIN -->
-  <div id="loginScreen" class="login-container" style="display:none;">
-    <h2>🔒 Acesso Restrito</h2>
-    <input type="text" id="username" placeholder="Usuário" />
-    <input type="password" id="password" placeholder="Senha" />
-    <button onclick="login()">Entrar</button>
-    <p id="loginMsg" style="color:red; font-size:14px;"></p>
+<nav>
+  <div class="logo">CryptoFinance Pro</div>
+  <ul>
+    <li><a href="#hero">Home</a></li>
+    <li><a href="#ebook">Ebook</a></li>
+    <li><a href="#dashboardSection">Dashboard</a></li>
+  </ul>
+</nav>
+
+<div class="hero" id="hero">
+  <h1>Construa seu Império Digital 🚀</h1>
+  <p>Cadastre-se, pague e receba seu ebook + exercício prático!</p>
+</div>
+
+<section id="ebook">
+<h2>📘 COMPRE SEU EBOOK</h2>
+<div>
+  <h3>Cadastro</h3>
+  <input type="text" id="fullName" placeholder="Nome completo" required>
+  <input type="email" id="email" placeholder="Email" required>
+  <input type="tel" id="phone" placeholder="Telefone" required>
+  <button id="registerBtn" class="cta-btn">Cadastrar e Pagar</button>
+
+  <div id="countdown" style="display:none;margin-top:1rem;color:#FFD700;font-weight:bold;">
+    ⏳ Preparando seu ebook... <span id="seconds">10</span>s
   </div>
 
-  <!-- DASHBOARD -->
-  <div id="dashboard" class="container" style="display:none;">
-    <div class="stats">
-      <div class="card"><h2 id="totalCadastros">0</h2><p>📘 Cadastros Totais</p></div>
-      <div class="card" style="background:#28a745;"><h2 id="totalPagos">0</h2><p>💰 Pagamentos Confirmados</p></div>
-      <div class="card" style="background:#ffc107; color:#000;"><h2 id="totalPendentes">0</h2><p>⏳ Pendentes</p></div>
-      <div class="card" style="background:#6c757d;"><h2 id="valorTotal">0 MTN</h2><p>💵 Total Arrecadado</p></div>
-    </div>
-
-    <canvas id="chartVendas"></canvas>
-
-    <input type="text" id="search" class="search" placeholder="🔍 Pesquisar cliente...">
-    <table>
-      <thead>
-        <tr>
-          <th>Nome</th>
-          <th>Email</th>
-          <th>Telefone</th>
-          <th>Status</th>
-          <th>Data</th>
-          <th>Ação</th>
-        </tr>
-      </thead>
-      <tbody id="data"></tbody>
-    </table>
+  <div id="downloadLink" style="display:none;margin-top:1rem;text-align:center;">
+    <h3>Entrega do ebook e exercício prático:</h3>
+    <p>📘 <strong>Ebook Principal:</strong><br>
+    <a href="https://drive.google.com/file/d/1zAhbLDIdZgfASULt9_E2XBgNEW-j7DBQ/view?usp=sharing" target="_blank" class="cta-btn">Baixar Ebook</a></p>
+    <p>📝 <strong>Exercício Prático:</strong><br>
+    <a href="https://drive.google.com/file/d/1vOwKjA9lNu8ohXOfp1UG1fOQsc4nGF0h/view?usp=sharing" target="_blank" class="cta-btn">Baixar Exercício</a></p>
+    <p style="margin-top:1rem;font-weight:bold;color:#FFD700;">Preço: 99,9 MT</p>
   </div>
+</div>
+</section>
 
-  <script>
-    const sheetURL = "https://script.google.com/macros/s/AKfycbzhCW-dRij2d3a1q8Wtijh6aoGDwGFsneJH6oqbMl6kWOZkIiJaeTemBYgsdRr15nny5A/exec";
+<section id="dashboardSection">
+<h2>🔒 Login de Administrador</h2>
+<div>
+  <input type="text" id="adminUser" placeholder="Usuário" required>
+  <input type="password" id="adminPass" placeholder="Senha" required>
+  <button id="loginBtn" class="cta-btn">Entrar</button>
+</div>
 
-    const ADMIN_USER = "admin";
-    const ADMIN_PASS = "12345";
+<div id="dashboardContent" style="display:none;">
+<h2>📊 Painel de Cadastros</h2>
+<table id="dashboardTable">
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Email</th>
+      <th>Telefone</th>
+      <th>Status</th>
+      <th>Data de cadastro</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
 
-    let chart;
+<h3>📈 Estatísticas</h3>
+<canvas id="chartTotal"></canvas>
+<canvas id="chartStatus"></canvas>
+</div>
+</section>
 
-    function checkLogin() {
-      const loggedIn = localStorage.getItem("loggedIn");
-      if (loggedIn === "true") {
-        document.getElementById("loginScreen").style.display = "none";
-        document.getElementById("dashboard").style.display = "block";
-        loadData();
-      } else {
-        document.getElementById("loginScreen").style.display = "block";
-      }
-    }
+<div id="notificationContainer"></div>
 
-    function login() {
-      const u = document.getElementById("username").value.trim();
-      const p = document.getElementById("password").value.trim();
-      if (u === ADMIN_USER && p === ADMIN_PASS) {
-        localStorage.setItem("loggedIn", "true");
-        document.getElementById("loginScreen").style.display = "none";
-        document.getElementById("dashboard").style.display = "block";
-        loadData();
-      } else {
-        document.getElementById("loginMsg").textContent = "Usuário ou senha incorretos!";
-      }
-    }
+<script>
+const WEBAPP_URL = "https://script.google.com/macros/s/AKfycbzhCW-dRij2d3a1q8Wtijh6aoGDwGFsneJH6oqbMl6kWOZkIiJaeTemBYgsdRr15nny5A/exec";
 
-    function logout() {
-      localStorage.removeItem("loggedIn");
-      location.reload();
-    }
+const registerBtn = document.getElementById('registerBtn');
+const countdownEl = document.getElementById('countdown');
+const secondsEl = document.getElementById('seconds');
+const downloadLink = document.getElementById('downloadLink');
+const notificationContainer = document.getElementById('notificationContainer');
+const tableBody = document.querySelector('#dashboardTable tbody');
 
-    async function loadData() {
-      const res = await fetch(sheetURL);
-      const data = await res.json();
-      renderTable(data);
-      renderStats(data);
-    }
+const loginBtn = document.getElementById('loginBtn');
+const adminUserInput = document.getElementById('adminUser');
+const adminPassInput = document.getElementById('adminPass');
+const dashboardContent = document.getElementById('dashboardContent');
+const dashboardSection = document.getElementById('dashboardSection');
 
-    function renderTable(data) {
-      const tbody = document.getElementById("data");
-      tbody.innerHTML = "";
-      data.forEach(row => {
-        const tr = document.createElement("tr");
-        tr.innerHTML = `
-          <td>${row.nome}</td>
-          <td>${row.email}</td>
-          <td>${row.telefone}</td>
-          <td><span class="${row.status === "Pago" ? "paid" : "pending"}">${row.status}</span></td>
-          <td>${row.data}</td>
-          <td>
-            <button class="paid" onclick="markPaid('${row.telefone}')">Marcar Pago</button>
-          </td>
-        `;
-        tbody.appendChild(tr);
-      });
-    }
+let previousData = [];
 
-    function renderStats(data) {
-      const total = data.length;
-      const pagos = data.filter(d => d.status === "Pago").length;
-      const pendentes = total - pagos;
-      const valorTotal = pagos * 99.9;
+// Credenciais de admin
+const ADMIN_USER = "admin";
+const ADMIN_PASS = "123456";
 
-      document.getElementById("totalCadastros").textContent = total;
-      document.getElementById("totalPagos").textContent = pagos;
-      document.getElementById("totalPendentes").textContent = pendentes;
-      document.getElementById("valorTotal").textContent = valorTotal.toFixed(1) + " MTN";
+function showNotification(message){
+  const notif = document.createElement('div');
+  notif.className='notification';
+  notif.innerText=message;
+  notificationContainer.appendChild(notif);
+  setTimeout(()=>notif.classList.add('show'),50);
+  setTimeout(()=>{notif.classList.remove('show'); setTimeout(()=>notif.remove(),500);},4000);
+}
 
-      // Gráfico
-      const ctx = document.getElementById("chartVendas").getContext("2d");
-      if (chart) chart.destroy();
-      chart = new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-          labels: ["Pagos", "Pendentes"],
-          datasets: [{
-            data: [pagos, pendentes],
-            backgroundColor: ["#28a745", "#ffc107"],
-          }]
-        },
-        options: {
-          plugins: {
-            legend: { position: "bottom" },
-            title: { display: true, text: "Distribuição de Pagamentos" }
-          }
+// Login Admin
+loginBtn.addEventListener('click', ()=>{
+  const user = adminUserInput.value.trim();
+  const pass = adminPassInput.value.trim();
+  if(user===ADMIN_USER && pass===ADMIN_PASS){
+    showNotification("✅ Login realizado com sucesso!");
+    dashboardContent.style.display='block';
+    loginBtn.style.display='none';
+    adminUserInput.style.display='none';
+    adminPassInput.style.display='none';
+    loadDashboard();
+  } else{
+    showNotification("❌ Usuário ou senha incorretos!");
+  }
+});
+
+// Registro de cliente
+registerBtn.addEventListener('click', ()=>{
+  const fullName = document.getElementById('fullName').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  if(!fullName||!email||!phone){ showNotification("❌ Preencha todos os campos!"); return; }
+
+  fetch(WEBAPP_URL,{
+    method:"POST",
+    body:JSON.stringify({fullName,email,phone})
+  })
+  .then(res=>res.json())
+  .then(r=>{
+    if(r.status==="success"){
+      showNotification("✅ Cadastro realizado! Envie o comprovativo pelo WhatsApp.");
+      const waNumber="258877480775";
+      const message=encodeURIComponent(`Olá! Acabei de efetuar o pagamento de 99,9 MT do ebook 'CONSTRUA SEU IMPÉRIO DIGITAL'. Segue o comprovativo.`);
+      window.open(`https://wa.me/${waNumber}?text=${message}`,'_blank');
+
+      countdownEl.style.display='block';
+      let seconds=10; secondsEl.innerText=seconds;
+      const timer = setInterval(()=>{
+        seconds--; secondsEl.innerText=seconds;
+        if(seconds<=0){
+          clearInterval(timer);
+          countdownEl.style.display='none';
+          downloadLink.style.display='block';
+          showNotification("📥 Links do ebook e exercício prático disponíveis!");
         }
-      });
-    }
+      },1000);
+    } else showNotification("❌ Erro no cadastro");
+  });
+});
 
-    async function markPaid(telefone) {
-      await fetch(sheetURL + "?action=update&telefone=" + telefone);
-      alert("✅ Cliente marcado como Pago!");
-      loadData();
-    }
+// Dashboard
+let chartTotalInstance, chartStatusInstance;
 
-    document.getElementById("search").addEventListener("input", e => {
-      const search = e.target.value.toLowerCase();
-      document.querySelectorAll("tbody tr").forEach(tr => {
-        const visible = [...tr.children].some(td => td.textContent.toLowerCase().includes(search));
-        tr.style.display = visible ? "" : "none";
-      });
+function renderCharts(data){
+  const total = data.length;
+  const pagos = data.filter(d=>d.status==="Pago").length;
+  const pendentes = total - pagos;
+  const receita = pagos*99.9;
+
+  const ctxTotal = document.getElementById('chartTotal').getContext('2d');
+  if(chartTotalInstance) chartTotalInstance.destroy();
+  chartTotalInstance = new Chart(ctxTotal,{
+    type:'bar',
+    data:{labels:['Cadastros','Pagos','Pendentes','Receita (MT)'],datasets:[{label:'Estatísticas',data:[total,pagos,pendentes,receita],backgroundColor:['#FFD700','#0F0','#FFA500','#00BFFF']}]},
+    options:{responsive:true,plugins:{legend:{display:false}}}
+  });
+
+  const ctxStatus = document.getElementById('chartStatus').getContext('2d');
+  if(chartStatusInstance) chartStatusInstance.destroy();
+  chartStatusInstance = new Chart(ctxStatus,{
+    type:'pie',
+    data:{labels:['Pago','Pendente'],datasets:[{data:[pagos,pendentes],backgroundColor:['#0F0','#FFD700']}]},
+    options:{responsive:true}
+  });
+}
+
+function loadDashboard(){
+  fetch(WEBAPP_URL)
+  .then(res=>res.json())
+  .then(data=>{
+    tableBody.innerHTML="";
+    data.forEach(r=>{
+      const tr = document.createElement('tr');
+      tr.innerHTML=`
+        <td>${r.nomecompleto||""}</td>
+        <td>${r.email||""}</td>
+        <td>${r.telefone||""}</td>
+        <td class="${r.status==="Pago"?"paid":"pending"}">${r.status||"Pendente"}</td>
+        <td>${r.datadecadastro||""}</td>
+        <td>${r.status!=="Pago"?`<button class="cta-btn" onclick="markPaid('${r.telefone}')">Marcar Pago</button>`:""}</td>
+      `;
+      tableBody.appendChild(tr);
     });
 
-    checkLogin();
-  </script>
+    if(previousData.length>0){
+      const newEntries = data.filter(d=>!previousData.some(p=>p.telefone===d.telefone));
+      newEntries.forEach(e=>showNotification(`📥 Novo cadastro: ${e.nomecompleto}`));
+      const pagamentosConfirmados = data.filter(d=>{
+        const prev = previousData.find(p=>p.telefone===d.telefone);
+        return prev && prev.status!=="Pago" && d.status==="Pago";
+      });
+      pagamentosConfirmados.forEach(p=>showNotification(`✅ Pagamento confirmado: ${p.nomecompleto}`));
+    }
+    previousData = data.map(d=>({...d}));
+    renderCharts(data);
+  });
+}
+
+function markPaid(phone){
+  fetch(`${WEBAPP_URL}?action=update&telefone=${phone}`)
+  .then(res=>res.json())
+  .then(r=>{
+    if(r.status==="success"){ showNotification("✅ Status atualizado para Pago"); loadDashboard(); }
+    else showNotification("❌ Falha ao atualizar");
+  });
+}
+</script>
 </body>
 </html>
