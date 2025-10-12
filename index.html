@@ -10,17 +10,7 @@
     *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Tahoma,Verdana,sans-serif;}
     body{background:linear-gradient(135deg,#0D0D0D,#1A1A1A);color:#fff;line-height:1.6;}
     a{text-decoration:none;color:inherit;}
-    .promo-bar{
-      position:fixed;top:0;left:0;width:100%;
-      display:flex;align-items:center;justify-content:center;gap:.8rem;
-      padding:.6rem 1rem;background:linear-gradient(90deg,#00E5A6,#00B7FF);
-      color:#002033;font-weight:800;z-index:1100;box-shadow:0 2px 12px rgba(0,0,0,.25);
-    }
-    .promo-bar .promo-text{display:flex;align-items:center;gap:.5rem;text-align:center}
-    .promo-bar .promo-btn{background:#FFD700;color:#000;padding:.5rem 1rem;border-radius:999px;white-space:nowrap}
-    .promo-bar .close{position:absolute;right:10px;top:6px;background:transparent;border:none;color:#002033;font-size:1.2rem;cursor:pointer;opacity:.8}
     nav{position:fixed;top:0;left:0;width:100%;background:#0D0D0D;display:flex;justify-content:space-between;align-items:center;padding:1rem 2rem;z-index:1000;transition:top .2s ease;}
-    body.has-promo nav{top:var(--promoH);}
     nav .logo{font-size:1.5rem;font-weight:700;color:#FFD700;}
     nav ul{list-style:none;display:flex;gap:1.5rem;}
     nav ul li a{color:#fff;font-weight:600;transition:.3s;}
@@ -40,17 +30,8 @@
     .card i{font-size:2rem;color:#FFD700;margin-bottom:.8rem;}
     a.card{display:block;color:#fff;}
     iframe{border-radius:10px;}
-    .mexc-promo{
-      max-width:1100px;margin:2rem auto;padding:2rem;border-radius:14px;
-      background:linear-gradient(135deg,rgba(0,229,166,.08),rgba(0,183,255,.08));
-      border:1px solid rgba(0,229,166,.35);text-align:center;
-    }
-    .mexc-promo h3{color:#00E5A6;font-size:1.8rem;margin-bottom:.6rem}
-    .mexc-promo p{color:#cfe;opacity:.95}
-    .mexc-promo .banner{width:100%;max-width:900px;margin:14px auto;border-radius:12px;border:2px solid #00E5A6;box-shadow:0 10px 25px rgba(0,229,166,.15);display:block}
     .steps{text-align:left;max-width:650px;margin:2rem auto;background:rgba(255,255,255,0.05);padding:2rem;border-radius:12px;}
     .steps h2{color:#FFD700;margin-bottom:1rem;text-align:center;}
-    .steps ol{line-height:1.8;font-size:1rem;}
     .newsletter{text-align:center;margin-top:2rem;}
     .newsletter input{padding:.8rem;width:250px;border:none;border-radius:6px;margin-right:.5rem;}
     .newsletter button{padding:.9rem 1.5rem;background:#FFD700;border:none;border-radius:6px;cursor:pointer;font-weight:bold;}
@@ -69,48 +50,42 @@
     .referral p{margin:0;font-size:.9rem;color:#FFD700;font-weight:bold;}
     .referral code{background:rgba(255,215,0,.15);padding:.3rem .5rem;border-radius:5px;display:block;margin-bottom:5px;color:#FFD700;}
     .qr img{width:100px;border:2px solid #FFD700;border-radius:8px;}
-    .notification {
-      background:#111; color:#FFD700; padding:1rem 1.5rem; margin-top:0.5rem; border-radius:12px;
-      box-shadow:0 5px 15px rgba(0,0,0,0.3); opacity:0; transform:translateY(50px);
-      transition: all 0.5s ease; font-weight:bold;
-    }
+    .notification {background:#111; color:#FFD700; padding:1rem 1.5rem; margin-top:0.5rem; border-radius:12px; box-shadow:0 5px 15px rgba(0,0,0,0.3); opacity:0; transform:translateY(50px); transition: all 0.5s ease; font-weight:bold;}
     .notification.show { opacity:1; transform:translateY(0); }
   </style>
 </head>
 <body class="has-promo">
 
-  <div class="promo-bar" id="promoBar">
-    <div class="promo-text">⚡️ Últimos dias para aproveitar! 💰 Cadastre-se agora na MEXC e receba bônus exclusivos de boas-vindas!</div>
-    <a class="promo-btn" href="https://www.mexc.com/pt-PT/acquisition/custom-sign-up?shareCode=mexc-3UbJJ" target="_blank" rel="nofollow noopener sponsored">Quero meu Bônus</a>
-    <button class="close" id="closePromo" aria-label="Fechar promoção">×</button>
-  </div>
-
+  <!-- Navbar -->
   <nav>
     <div class="logo">CryptoFinance Pro</div>
     <ul>
+      <li><a href="#hero">Home</a></li>
       <li><a href="#mexc">MEXC</a></li>
       <li><a href="#beneficios">Benefícios</a></li>
       <li><a href="#servicos">Serviços</a></li>
       <li><a href="#academia">Academia</a></li>
       <li><a href="#youtube">Tutoriais</a></li>
       <li><a href="#vip">VIP</a></li>
-      <li><a href="#faq">FAQ</a></li>
       <li><a href="#ebook">Ebook</a></li>
     </ul>
   </nav>
 
-  <div class="hero">
+  <!-- Hero -->
+  <div class="hero" id="hero">
     <h1>O Futuro das Criptomoedas Começa Aqui 🚀</h1>
     <p>Plataforma completa com análises, estratégias e ferramentas profissionais.</p>
     <a href="#vip" class="cta-btn">Quero Começar Agora</a>
   </div>
 
+  <!-- Seção MEXC -->
   <section id="mexc" class="mexc-promo">
     <h3>🎁 Promo MEXC: Bônus de Boas-Vindas</h3>
     <p>⚡️ Últimos dias para aproveitar! Cadastre-se e receba bônus exclusivos de boas-vindas.</p>
-    <a class="cta-btn" href="https://www.mexc.com/pt-PT/acquisition/custom-sign-up?shareCode=mexc-3UbJJ" target="_blank" rel="nofollow noopener sponsored">Cadastrar na MEXC</a>
+    <a class="cta-btn" href="https://www.mexc.com/pt-PT/acquisition/custom-sign-up?shareCode=mexc-3UbJJ" target="_blank">Cadastrar na MEXC</a>
   </section>
 
+  <!-- Benefícios -->
   <section id="beneficios">
     <h2>Benefícios Incríveis</h2>
     <div class="grid">
@@ -121,6 +96,7 @@
     </div>
   </section>
 
+  <!-- Serviços -->
   <section id="servicos">
     <h2>Serviços da Oferta VIP</h2>
     <div class="grid">
@@ -132,6 +108,7 @@
     </div>
   </section>
 
+  <!-- Tutoriais -->
   <section id="youtube">
     <h2>🎥 Tutoriais Exclusivos</h2>
     <div class="grid">
@@ -146,6 +123,7 @@
     </div>
   </section>
 
+  <!-- Academia -->
   <section id="academia">
     <h2>📚 Academia Exclusiva</h2>
     <div class="grid">
@@ -154,43 +132,70 @@
     </div>
   </section>
 
+  <!-- VIP -->
   <section id="vip" class="vip">
     <h3>💎 Entre para o VIP</h3>
     <p>Receba sinais, análises e estratégias exclusivas para investidores sérios.</p>
     <a href="https://t.me/+wcLnHa3UUIhhNGY0" class="cta-btn" target="_blank">Entrar no VIP</a>
   </section>
 
+  <!-- Ebook com cadastro -->
   <section id="ebook">
     <h2>📘 COMPRE SEU EBOOK</h2>
     <div class="steps">
       <h3>Nome do eBook:</h3>
-      <p style="font-weight:bold; font-size:1.3rem; color:#FFD700;">CONSTRUA SEU IMPÉRIO DIGITAL: DA IDEIA AO LANÇAMENTO DO SEU PRODUTO ONLINE</p>
+      <p style="font-weight:bold; font-size:1.3rem; color:#FFD700;">
+        CONSTRUA SEU IMPÉRIO DIGITAL: DA IDEIA AO LANÇAMENTO DO SEU PRODUTO ONLINE
+      </p>
       <h3>Descrição resumida:</h3>
-      <p style="color:#ccc;">Transforme suas ideias em renda! Este guia prático leva você do zero ao lançamento do seu produto digital. Inclui exercício prático passo a passo e modelos de ação rápida.</p>
-      <h3>Instruções de pagamento:</h3>
-      <p style="color:#FFD700; font-weight:bold;">💳 M-Pesa: 840330540<br>💳 eMola: 877480775<br>💰 Valor: 99,9 MT</p>
-      <p>Envie comprovativo para WhatsApp: 📲</p>
+      <p style="color:#ccc;">
+        Transforme suas ideias em renda! Este guia prático leva você do zero ao lançamento do seu produto digital. Inclui exercício prático passo a passo e modelos de ação rápida.
+      </p>
 
-      <button id="sendWhatsApp" class="cta-btn" style="margin:1rem 0;">Enviar Comprovativo pelo WhatsApp</button>
+      <h3>Cadastro do Cliente:</h3>
+      <form id="customerForm" style="max-width:400px; margin:auto; display:flex; flex-direction:column; gap:1rem;">
+        <input type="text" id="fullName" placeholder="Nome completo" required style="padding:.8rem;border-radius:6px;border:none;">
+        <input type="email" id="email" placeholder="E-mail" required style="padding:.8rem;border-radius:6px;border:none;">
+        <input type="tel" id="phone" placeholder="Número de telemóvel" required style="padding:.8rem;border-radius:6px;border:none;">
+        <button type="submit" class="cta-btn">Cadastrar Cliente</button>
+      </form>
 
-      <div id="countdown" style="display:none; margin-top:1rem; font-size:1.1rem; font-weight:bold; color:#FFD700;">⏳ Preparando seu ebook... <span id="seconds">10</span>s</div>
+      <div id="paymentSection" style="display:none; margin-top:2rem; text-align:center;">
+        <h3>Instruções de pagamento:</h3>
+        <p style="color:#FFD700; font-weight:bold;">
+          💳 M-Pesa: 840330540<br>
+          💳 eMola: 877480775<br>
+          💰 Valor: 99,9 MT
+        </p>
+        <p>Envie comprovativo para WhatsApp: 📲</p>
+        <button id="sendWhatsApp" class="cta-btn" style="margin:1rem 0;">Enviar Comprovativo pelo WhatsApp</button>
 
-      <div id="downloadLink" style="display:none; margin-top:1rem; text-align:center;">
-        <h3>Entrega do ebook e exercício prático:</h3>
-        <p>📘 <strong>Ebook Principal:</strong><br><a href="https://drive.google.com/file/d/1zAhbLDIdZgfASULt9_E2XBgNEW-j7DBQ/view?usp=sharing" target="_blank" class="cta-btn">Baixar Ebook</a></p>
-        <p>📝 <strong>Exercício Prático:</strong><br><a href="https://drive.google.com/file/d/1vOwKjA9lNu8ohXOfp1UG1fOQsc4nGF0h/view?usp=sharing" target="_blank" class="cta-btn">Baixar Exercício Prático</a></p>
-        <p style="margin-top:1rem; font-size:1.2rem; color:#FFD700; font-weight:bold;">Preço: 99,9 MT</p>
+        <div id="countdown" style="display:none; margin-top:1rem; font-size:1.1rem; font-weight:bold; color:#FFD700;">
+          ⏳ Preparando seu ebook... <span id="seconds">10</span>s
+        </div>
+
+        <div id="downloadLink" style="display:none; margin-top:1rem; text-align:center;">
+          <h3>Entrega do ebook e exercício prático:</h3>
+          <p>📘 <strong>Ebook Principal:</strong><br>
+          <a href="https://drive.google.com/file/d/1zAhbLDIdZgfASULt9_E2XBgNEW-j7DBQ/view?usp=sharing" target="_blank" class="cta-btn">Baixar Ebook</a></p>
+          <p>📝 <strong>Exercício Prático:</strong><br>
+          <a href="https://drive.google.com/file/d/1vOwKjA9lNu8ohXOfp1UG1fOQsc4nGF0h/view?usp=sharing" target="_blank" class="cta-btn">Baixar Exercício Prático</a></p>
+          <p style="margin-top:1rem; font-size:1.2rem; color:#FFD700; font-weight:bold;">Preço: 99,9 MT</p>
+        </div>
       </div>
     </div>
   </section>
 
+  <!-- Notificações -->
   <div id="notificationContainer" style="position:fixed; bottom:20px; right:20px; z-index:9999;"></div>
 
+  <!-- Footer -->
   <footer>
     <p>© 2025 CryptoFinance Pro | Desenvolvido por Manuel Antonio Danca</p>
     <nav><a href="#hero">Home</a><a href="#vip">VIP</a><a href="#faq">FAQ</a></nav>
   </footer>
 
+  <!-- Referral QR -->
   <div class="referral-container">
     <div class="referral">
       <p>Ref. M-Pesa</p>
@@ -205,12 +210,8 @@
   </div>
 
   <script>
-    // Fechar Promo Bar
-    const promoBar = document.getElementById('promoBar');
-    const closePromo = document.getElementById('closePromo');
-    closePromo.addEventListener('click', () => { promoBar.style.display='none'; document.body.style.setProperty('--promoH','0px');});
-
-    // Ebook WhatsApp + Notificações
+    const customerForm = document.getElementById('customerForm');
+    const paymentSection = document.getElementById('paymentSection');
     const sendBtn = document.getElementById('sendWhatsApp');
     const countdownEl = document.getElementById('countdown');
     const secondsEl = document.getElementById('seconds');
@@ -226,6 +227,23 @@
       setTimeout(()=>{notif.classList.remove('show'); setTimeout(()=>notif.remove(),500);},4000);
     }
 
+    // Cadastro do cliente
+    customerForm.addEventListener('submit', function(e){
+      e.preventDefault();
+      const fullName = document.getElementById('fullName').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+
+      if(fullName && email && phone){
+        showNotification(`✅ Cliente ${fullName} cadastrado com sucesso!`);
+        customerForm.style.display='none';
+        paymentSection.style.display='block';
+      } else {
+        showNotification('⚠️ Por favor, preencha todos os campos.');
+      }
+    });
+
+    // Envio do comprovativo
     sendBtn.addEventListener('click', function(){
       const waNumber='258877480775';
       const message=encodeURIComponent("Olá! Acabei de efetuar o pagamento de 99,9 MT do ebook 'CONSTRUA SEU IMPÉRIO DIGITAL'. Segue o comprovativo.");
@@ -248,7 +266,11 @@
           showNotification('📥 Links do ebook e exercício prático disponíveis!');
           sendBtn.disabled=true;
           sendBtn.innerText='✅ Comprovativo Enviado';
-          sendBtn.style.background='#00FF00'; sendBtn.style.color='#000'; sendBtn.style.cursor='default';
+          sendBtn.style.background='linear-gradient(90deg,#00FF00,#00AA00)';
+          sendBtn.style.color='#000'; 
+          sendBtn.style.cursor='default';
+          sendBtn.style.transform='scale(1.1)';
+          setTimeout(()=>sendBtn.style.transform='scale(1)',300);
         }
       },1000);
     });
