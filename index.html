@@ -1,276 +1,205 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>CryptoFinance Pro - NELLY-G TRADER</title>
-  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Painel de Vendas - Ebook Digital</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
-    :root{--promoH:0px;}
-    *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Tahoma,Verdana,sans-serif;}
-    body{background:linear-gradient(135deg,#0D0D0D,#1A1A1A);color:#fff;line-height:1.6;}
-    a{text-decoration:none;color:inherit;}
-    /* Barra Promocional MEXC */
-    .promo-bar{
-      position:fixed;top:0;left:0;width:100%;
-      display:flex;align-items:center;justify-content:center;gap:.8rem;
-      padding:.6rem 1rem;background:linear-gradient(90deg,#00E5A6,#00B7FF);
-      color:#002033;font-weight:800;z-index:1100;box-shadow:0 2px 12px rgba(0,0,0,.25);
+    body { font-family: 'Segoe UI', sans-serif; background: #f8fafc; margin: 0; padding: 0; }
+    header { background: #007bff; color: #fff; padding: 15px; text-align: center; }
+    h1 { margin: 0; font-size: 22px; }
+    .logout { background: #dc3545; color: #fff; border: none; border-radius: 6px; padding: 6px 10px; float: right; cursor: pointer; }
+
+    .container {
+      max-width: 1100px; margin: 20px auto; background: #fff;
+      border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); padding: 20px;
     }
-    .promo-bar .promo-text{display:flex;align-items:center;gap:.5rem;text-align:center}
-    .promo-bar .promo-btn{background:#FFD700;color:#000;padding:.5rem 1rem;border-radius:999px;white-space:nowrap}
-    .promo-bar .close{position:absolute;right:10px;top:6px;background:transparent;border:none;color:#002033;font-size:1.2rem;cursor:pointer;opacity:.8}
-    nav{position:fixed;top:0;left:0;width:100%;background:#0D0D0D;display:flex;justify-content:space-between;align-items:center;padding:1rem 2rem;z-index:1000;transition:top .2s ease;}
-    body.has-promo nav{top:var(--promoH);}
-    nav .logo{font-size:1.5rem;font-weight:700;color:#FFD700;}
-    nav ul{list-style:none;display:flex;gap:1.5rem;}
-    nav ul li a{color:#fff;font-weight:600;transition:.3s;}
-    nav ul li a:hover{color:#FFD700;}
-    .hero{padding:8rem 2rem 5rem;text-align:center;background:linear-gradient(90deg,#0055FF,#7B2FF7);}
-    .hero h1{font-size:2.8rem;margin-bottom:1rem;}
-    .hero p{font-size:1.2rem;margin-bottom:2rem;}
-    .cta-btn{display:inline-block;padding:1rem 2rem;background:linear-gradient(90deg,#FFD700,#FFAA00);color:#000;border-radius:50px;font-weight:700;transition:.3s;animation:pulse 2s infinite;}
-    .cta-btn:hover{background:linear-gradient(90deg,#7B2FF7,#0055FF);color:#fff;}
-    @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,215,0,.6);}70%{box-shadow:0 0 0 20px rgba(255,215,0,0);}100%{box-shadow:0 0 0 0 rgba(255,215,0,0);}}
-    section{padding:4rem 2rem;max-width:1100px;margin:auto;opacity:0;animation:fadeIn 1s forwards;}
-    @keyframes fadeIn{to{opacity:1;}}
-    h2{text-align:center;color:#FFD700;margin-bottom:2rem;font-size:2rem;}
-    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.5rem;}
-    .card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:15px;padding:1.5rem;text-align:center;transition:.3s;}
-    .card:hover{transform:translateY(-5px) scale(1.02);border-color:#FFD700;}
-    .card i{font-size:2rem;color:#FFD700;margin-bottom:.8rem;}
-    a.card{display:block;color:#fff;}
-    iframe{border-radius:10px;}
-    /* Seção MEXC */
-    .mexc-promo{
-      max-width:1100px;margin:2rem auto;padding:2rem;border-radius:14px;
-      background:linear-gradient(135deg,rgba(0,229,166,.08),rgba(0,183,255,.08));
-      border:1px solid rgba(0,229,166,.35);text-align:center;
+
+    .stats { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 15px; margin-bottom: 20px; }
+    .card {
+      flex: 1; min-width: 200px; background: #007bff; color: #fff; border-radius: 10px;
+      padding: 15px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     }
-    .mexc-promo h3{color:#00E5A6;font-size:1.8rem;margin-bottom:.6rem}
-    .mexc-promo p{color:#cfe;opacity:.95}
-    .mexc-promo .banner{width:100%;max-width:900px;margin:14px auto;border-radius:12px;border:2px solid #00E5A6;box-shadow:0 10px 25px rgba(0,229,166,.15);display:block}
-    /* Passo a passo */
-    .steps{text-align:left;max-width:650px;margin:2rem auto;background:rgba(255,255,255,0.05);padding:2rem;border-radius:12px;}
-    .steps h2{color:#FFD700;margin-bottom:1rem;text-align:center;}
-    .steps ol{line-height:1.8;font-size:1rem;}
-    /* Newsletter */
-    .newsletter{text-align:center;margin-top:2rem;}
-    .newsletter input{padding:.8rem;width:250px;border:none;border-radius:6px;margin-right:.5rem;}
-    .newsletter button{padding:.9rem 1.5rem;background:#FFD700;border:none;border-radius:6px;cursor:pointer;font-weight:bold;}
-    .newsletter button:hover{background:#FFAA00;color:#000;}
-    .vip{text-align:center;margin-top:3rem;}
-    .vip h3{color:#FFD700;font-size:1.8rem;margin-bottom:1rem;}
-    .faq-item{background:rgba(255,255,255,.05);padding:1rem 1.5rem;border-radius:10px;margin-bottom:1rem;}
-    .faq-item h4{color:#FFD700;margin-bottom:.5rem;}
-    .social-share{text-align:center;margin:2rem 0;}
-    .social-share a{margin:0 .5rem;color:#FFD700;font-size:1.5rem;}
-    footer{text-align:center;padding:2rem;background:#111;color:#aaa;font-size:.9rem;}
-    footer a{color:#FFD700;margin:0 1rem;}
-    footer nav a:hover{text-decoration:underline;}
-    /* Referral fixo */
-    .referral-container {position:fixed;right:20px;bottom:20px;display:flex;gap:20px;flex-wrap:wrap;}
-    .referral{text-align:center;}
-    .referral p{margin:0;font-size:.9rem;color:#FFD700;font-weight:bold;}
-    .referral code{background:rgba(255,215,0,.15);padding:.3rem .5rem;border-radius:5px;display:block;margin-bottom:5px;color:#FFD700;}
-    .qr img{width:100px;border:2px solid #FFD700;border-radius:8px;}
-    /* Notificações pop-up */
-    .notification {
-      background:#111; color:#FFD700; padding:1rem 1.5rem; margin-top:0.5rem; border-radius:12px;
-      box-shadow:0 5px 15px rgba(0,0,0,0.3); opacity:0; transform:translateY(50px);
-      transition: all 0.5s ease; font-weight:bold;
+    .card h2 { margin: 0; font-size: 28px; }
+    .card p { margin: 5px 0 0; font-size: 14px; opacity: 0.9; }
+
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    th, td { border-bottom: 1px solid #ddd; padding: 10px; text-align: left; }
+    th { background: #007bff; color: #fff; }
+    tr:hover { background: #f1f1f1; }
+    button { padding: 6px 10px; border: none; border-radius: 5px; cursor: pointer; }
+    .paid { background: #28a745; color: #fff; }
+    .pending { background: #ffc107; color: #000; }
+    .search { width: 100%; padding: 8px; margin-top: 10px; border: 1px solid #ccc; border-radius: 5px; }
+
+    .login-container {
+      max-width: 400px; margin: 100px auto; background: #fff; padding: 30px;
+      border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); text-align: center;
     }
-    .notification.show { opacity:1; transform:translateY(0); }
+    .login-container input {
+      width: 90%; padding: 10px; margin: 8px 0;
+      border: 1px solid #ccc; border-radius: 5px;
+    }
+    .login-container button {
+      background: #007bff; color: #fff; width: 95%; border: none;
+      border-radius: 5px; padding: 10px; cursor: pointer;
+    }
+    canvas { width: 100% !important; height: 300px !important; margin-top: 20px; }
   </style>
 </head>
-<body class="has-promo">
+<body>
+  <header>
+    <h1>📊 Painel de Vendas - Ebook Digital</h1>
+    <button class="logout" onclick="logout()">Sair</button>
+  </header>
 
-  <!-- Barra Promocional MEXC -->
-  <div class="promo-bar" id="promoBar">
-    <div class="promo-text">⚡️ Últimos dias para aproveitar! 💰 Cadastre-se agora na MEXC e receba bônus exclusivos de boas-vindas!</div>
-    <a class="promo-btn" href="https://www.mexc.com/pt-PT/acquisition/custom-sign-up?shareCode=mexc-3UbJJ" target="_blank" rel="nofollow noopener sponsored">Quero meu Bônus</a>
-    <button class="close" id="closePromo" aria-label="Fechar promoção">×</button>
+  <!-- LOGIN -->
+  <div id="loginScreen" class="login-container" style="display:none;">
+    <h2>🔒 Acesso Restrito</h2>
+    <input type="text" id="username" placeholder="Usuário" />
+    <input type="password" id="password" placeholder="Senha" />
+    <button onclick="login()">Entrar</button>
+    <p id="loginMsg" style="color:red; font-size:14px;"></p>
   </div>
 
-  <!-- Navbar -->
-  <nav>
-    <div class="logo">CryptoFinance Pro</div>
-    <ul>
-      <li><a href="#mexc">MEXC</a></li>
-      <li><a href="#beneficios">Benefícios</a></li>
-      <li><a href="#servicos">Serviços</a></li>
-      <li><a href="#academia">Academia</a></li>
-      <li><a href="#youtube">Tutoriais</a></li>
-      <li><a href="#vip">VIP</a></li>
-      <li><a href="#faq">FAQ</a></li>
-      <li><a href="#ebook">Ebook</a></li>
-    </ul>
-  </nav>
-
-  <!-- Hero -->
-  <div class="hero">
-    <h1>O Futuro das Criptomoedas Começa Aqui 🚀</h1>
-    <p>Plataforma completa com análises, estratégias e ferramentas profissionais.</p>
-    <a href="#vip" class="cta-btn">Quero Começar Agora</a>
-  </div>
-
-  <!-- Seção MEXC -->
-  <section id="mexc" class="mexc-promo">
-    <h3>🎁 Promo MEXC: Bônus de Boas-Vindas</h3>
-    <p>⚡️ Últimos dias para aproveitar! Cadastre-se e receba bônus exclusivos de boas-vindas.</p>
-    <a class="cta-btn" href="https://www.mexc.com/pt-PT/acquisition/custom-sign-up?shareCode=mexc-3UbJJ" target="_blank" rel="nofollow noopener sponsored">Cadastrar na MEXC</a>
-  </section>
-
-  <!-- Benefícios -->
-  <section id="beneficios">
-    <h2>Benefícios Incríveis</h2>
-    <div class="grid">
-      <a class="card" href="https://www.tradingview.com/" target="_blank"><i class="ri-bar-chart-box-line"></i><h3>Análises Avançadas</h3></a>
-      <a class="card" href="https://www.investopedia.com/articles/technical/02/121702.asp" target="_blank"><i class="ri-stock-line"></i><h3>Estratégias de Trading</h3></a>
-      <a class="card" href="https://t.me/+wcLnHa3UUIhhNGY0" target="_blank"><i class="ri-team-line"></i><h3>Grupo VIP</h3></a>
-      <a class="card" href="https://academy.binance.com/pt" target="_blank"><i class="ri-book-2-line"></i><h3>Conteúdo Premium</h3></a>
+  <!-- DASHBOARD -->
+  <div id="dashboard" class="container" style="display:none;">
+    <div class="stats">
+      <div class="card"><h2 id="totalCadastros">0</h2><p>📘 Cadastros Totais</p></div>
+      <div class="card" style="background:#28a745;"><h2 id="totalPagos">0</h2><p>💰 Pagamentos Confirmados</p></div>
+      <div class="card" style="background:#ffc107; color:#000;"><h2 id="totalPendentes">0</h2><p>⏳ Pendentes</p></div>
+      <div class="card" style="background:#6c757d;"><h2 id="valorTotal">0 MTN</h2><p>💵 Total Arrecadado</p></div>
     </div>
-  </section>
 
-  <!-- Serviços -->
-  <section id="servicos">
-    <h2>Serviços da Oferta VIP</h2>
-    <div class="grid">
-      <a class="card" href="https://coinmarketcap.com/alexandria/" target="_blank">📊 Relatórios Premium</a>
-      <a class="card" href="https://www.tradingview.com/markets/cryptocurrencies/ideas/" target="_blank">📈 Sinais de Trading</a>
-      <a class="card" href="https://www.youtube.com/c/binance" target="_blank">🎥 Aulas ao Vivo</a>
-      <a class="card" href="https://www.glassnode.com/" target="_blank">📂 Dashboards On-chain</a>
-      <a class="card" href="https://discord.gg/binance" target="_blank">💬 Suporte Personalizado</a>
-    </div>
-  </section>
+    <canvas id="chartVendas"></canvas>
 
-  <!-- Tutoriais -->
-  <section id="youtube">
-    <h2>🎥 Tutoriais Exclusivos</h2>
-    <div class="grid">
-      <div class="card">
-        <iframe width="100%" height="200" src="https://www.youtube.com/embed/RgEnAgfVCds" frameborder="0" allowfullscreen></iframe>
-        <p>👉 Criar conta na Binance</p>
-      </div>
-      <div class="card">
-        <iframe width="100%" height="200" src="https://www.youtube.com/embed/6E4omURMAGM" frameborder="0" allowfullscreen></iframe>
-        <p>📈 Estratégias básicas: RSI, EMAs, Bollinger</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Academia -->
-  <section id="academia">
-    <h2>📚 Academia Exclusiva</h2>
-    <div class="grid">
-      <a class="card" href="https://academy.binance.com/pt" target="_blank"><i class="ri-book-open-line"></i><h3>Binance Academy</h3></a>
-      <a class="card" href="https://www.investopedia.com/" target="_blank"><i class="ri-book-line"></i><h3>Investopedia</h3></a>
-    </div>
-  </section>
-
-  <!-- VIP -->
-  <section id="vip" class="vip">
-    <h3>💎 Entre para o VIP</h3>
-    <p>Receba sinais, análises e estratégias exclusivas para investidores sérios.</p>
-    <a href="https://t.me/+wcLnHa3UUIhhNGY0" class="cta-btn" target="_blank">Entrar no VIP</a>
-  </section>
-
-  <!-- Ebook -->
-  <section id="ebook">
-    <h2>📘 COMPRE SEU EBOOK</h2>
-    <div class="steps">
-      <h3>Nome do eBook:</h3>
-      <p style="font-weight:bold; font-size:1.3rem; color:#FFD700;">CONSTRUA SEU IMPÉRIO DIGITAL: DA IDEIA AO LANÇAMENTO DO SEU PRODUTO ONLINE</p>
-      <h3>Descrição resumida:</h3>
-      <p style="color:#ccc;">Transforme suas ideias em renda! Este guia prático leva você do zero ao lançamento do seu produto digital. Inclui exercício prático passo a passo e modelos de ação rápida.</p>
-      <h3>Instruções de pagamento:</h3>
-      <p style="color:#FFD700; font-weight:bold;">💳 M-Pesa: 840330540<br>💳 eMola: 877480775<br>💰 Valor: 99,9 MT</p>
-      <p>Envie comprovativo para WhatsApp: 📲</p>
-
-      <button id="sendWhatsApp" class="cta-btn" style="margin:1rem 0;">Enviar Comprovativo pelo WhatsApp</button>
-
-      <div id="countdown" style="display:none; margin-top:1rem; font-size:1.1rem; font-weight:bold; color:#FFD700;">⏳ Preparando seu ebook... <span id="seconds">10</span>s</div>
-
-      <div id="downloadLink" style="display:none; margin-top:1rem; text-align:center;">
-        <h3>Entrega do ebook e exercício prático:</h3>
-        <p>📘 <strong>Ebook Principal:</strong><br><a href="https://drive.google.com/file/d/1zAhbLDIdZgfASULt9_E2XBgNEW-j7DBQ/view?usp=sharing" target="_blank" class="cta-btn">Baixar Ebook</a></p>
-        <p>📝 <strong>Exercício Prático:</strong><br><a href="https://drive.google.com/file/d/1vOwKjA9lNu8ohXOfp1UG1fOQsc4nGF0h/view?usp=sharing" target="_blank" class="cta-btn">Baixar Exercício Prático</a></p>
-        <p style="margin-top:1rem; font-size:1.2rem; color:#FFD700; font-weight:bold;">Preço: 99,9 MT</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Notificações -->
-  <div id="notificationContainer" style="position:fixed; bottom:20px; right:20px; z-index:9999;"></div>
-
-  <!-- Footer -->
-  <footer>
-    <p>© 2025 CryptoFinance Pro | Desenvolvido por Manuel Antonio Danca</p>
-    <nav><a href="#hero">Home</a><a href="#vip">VIP</a><a href="#faq">FAQ</a></nav>
-  </footer>
-
-  <!-- Referral QR -->
-  <div class="referral-container">
-    <div class="referral">
-      <p>Ref. M-Pesa</p>
-      <code>840330540</code>
-      <div class="qr"><img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=840330540" alt="QR M-Pesa"></div>
-    </div>
-    <div class="referral">
-      <p>Ref. eMola</p>
-      <code>877480775</code>
-      <div class="qr"><img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=877480775" alt="QR eMola"></div>
-    </div>
+    <input type="text" id="search" class="search" placeholder="🔍 Pesquisar cliente...">
+    <table>
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Email</th>
+          <th>Telefone</th>
+          <th>Status</th>
+          <th>Data</th>
+          <th>Ação</th>
+        </tr>
+      </thead>
+      <tbody id="data"></tbody>
+    </table>
   </div>
 
   <script>
-    // Fechar Promo Bar
-    const promoBar = document.getElementById('promoBar');
-    const closePromo = document.getElementById('closePromo');
-    closePromo.addEventListener('click', () => { promoBar.style.display='none'; document.body.style.setProperty('--promoH','0px');});
+    const sheetURL = "https://script.google.com/macros/s/AKfycbzhCW-dRij2d3a1q8Wtijh6aoGDwGFsneJH6oqbMl6kWOZkIiJaeTemBYgsdRr15nny5A/exec";
 
-    // Ebook WhatsApp + Notificações
-    const sendBtn = document.getElementById('sendWhatsApp');
-    const countdownEl = document.getElementById('countdown');
-    const secondsEl = document.getElementById('seconds');
-    const downloadLink = document.getElementById('downloadLink');
-    const notificationContainer = document.getElementById('notificationContainer');
+    const ADMIN_USER = "admin";
+    const ADMIN_PASS = "12345";
 
-    function showNotification(message){
-      const notif = document.createElement('div');
-      notif.className='notification';
-      notif.innerText=message;
-      notificationContainer.appendChild(notif);
-      setTimeout(()=>notif.classList.add('show'),50);
-      setTimeout(()=>{notif.classList.remove('show'); setTimeout(()=>notif.remove(),500);},4000);
+    let chart;
+
+    function checkLogin() {
+      const loggedIn = localStorage.getItem("loggedIn");
+      if (loggedIn === "true") {
+        document.getElementById("loginScreen").style.display = "none";
+        document.getElementById("dashboard").style.display = "block";
+        loadData();
+      } else {
+        document.getElementById("loginScreen").style.display = "block";
+      }
     }
 
-    sendBtn.addEventListener('click', function(){
-      const waNumber='25887XXXXXXX';
-      const message=encodeURIComponent("Olá! Acabei de efetuar o pagamento de 99,9 MT do ebook 'CONSTRUA SEU IMPÉRIO DIGITAL'. Segue o comprovativo.");
-      window.open(`https://wa.me/${waNumber}?text=${message}`,'_blank');
-      showNotification('✅ Comprovativo enviado para WhatsApp!');
+    function login() {
+      const u = document.getElementById("username").value.trim();
+      const p = document.getElementById("password").value.trim();
+      if (u === ADMIN_USER && p === ADMIN_PASS) {
+        localStorage.setItem("loggedIn", "true");
+        document.getElementById("loginScreen").style.display = "none";
+        document.getElementById("dashboard").style.display = "block";
+        loadData();
+      } else {
+        document.getElementById("loginMsg").textContent = "Usuário ou senha incorretos!";
+      }
+    }
 
-      countdownEl.style.display='block';
-      countdownEl.style.opacity=0;
-      setTimeout(()=>countdownEl.style.opacity=1,50);
-      let seconds=10; secondsEl.innerText=seconds;
+    function logout() {
+      localStorage.removeItem("loggedIn");
+      location.reload();
+    }
 
-      const timer = setInterval(()=>{
-        seconds--; secondsEl.innerText=seconds;
-        if(seconds<=0){
-          clearInterval(timer);
-          countdownEl.style.display='none';
-          downloadLink.style.display='block';
-          downloadLink.style.opacity=0;
-          setTimeout(()=>downloadLink.style.opacity=1,50);
-          showNotification('📥 Links do ebook e exercício prático disponíveis!');
-          sendBtn.disabled=true;
-          sendBtn.innerText='✅ Comprovativo Enviado';
-          sendBtn.style.background='#00FF00'; sendBtn.style.color='#000'; sendBtn.style.cursor='default';
+    async function loadData() {
+      const res = await fetch(sheetURL);
+      const data = await res.json();
+      renderTable(data);
+      renderStats(data);
+    }
+
+    function renderTable(data) {
+      const tbody = document.getElementById("data");
+      tbody.innerHTML = "";
+      data.forEach(row => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${row.nome}</td>
+          <td>${row.email}</td>
+          <td>${row.telefone}</td>
+          <td><span class="${row.status === "Pago" ? "paid" : "pending"}">${row.status}</span></td>
+          <td>${row.data}</td>
+          <td>
+            <button class="paid" onclick="markPaid('${row.telefone}')">Marcar Pago</button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function renderStats(data) {
+      const total = data.length;
+      const pagos = data.filter(d => d.status === "Pago").length;
+      const pendentes = total - pagos;
+      const valorTotal = pagos * 99.9;
+
+      document.getElementById("totalCadastros").textContent = total;
+      document.getElementById("totalPagos").textContent = pagos;
+      document.getElementById("totalPendentes").textContent = pendentes;
+      document.getElementById("valorTotal").textContent = valorTotal.toFixed(1) + " MTN";
+
+      // Gráfico
+      const ctx = document.getElementById("chartVendas").getContext("2d");
+      if (chart) chart.destroy();
+      chart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: ["Pagos", "Pendentes"],
+          datasets: [{
+            data: [pagos, pendentes],
+            backgroundColor: ["#28a745", "#ffc107"],
+          }]
+        },
+        options: {
+          plugins: {
+            legend: { position: "bottom" },
+            title: { display: true, text: "Distribuição de Pagamentos" }
+          }
         }
-      },1000);
+      });
+    }
+
+    async function markPaid(telefone) {
+      await fetch(sheetURL + "?action=update&telefone=" + telefone);
+      alert("✅ Cliente marcado como Pago!");
+      loadData();
+    }
+
+    document.getElementById("search").addEventListener("input", e => {
+      const search = e.target.value.toLowerCase();
+      document.querySelectorAll("tbody tr").forEach(tr => {
+        const visible = [...tr.children].some(td => td.textContent.toLowerCase().includes(search));
+        tr.style.display = visible ? "" : "none";
+      });
     });
+
+    checkLogin();
   </script>
 </body>
 </html>
