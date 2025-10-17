@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
+ <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>CryptoFinance Pro - NELLY-G TRADER</title>
@@ -53,15 +53,16 @@
     .notification {background:#111; color:#FFD700; padding:1rem 1.5rem; margin-top:0.5rem; border-radius:12px; box-shadow:0 5px 15px rgba(0,0,0,0.3); opacity:0; transform:translateY(50px); transition: all 0.5s ease; font-weight:bold;}
     .notification.show { opacity:1; transform:translateY(0); }
   </style>
-</head>
-<body class="has-promo">
-
+ </head>
+ <body class="has-promo">
   <!-- Navbar -->
   <nav>
     <div class="logo">CryptoFinance Pro</div>
     <ul>
       <li><a href="#hero">Home</a></li>
       <li><a href="#mexc">MEXC</a></li>
+      <!-- Novo item do menu para a seção IC Markets -->
+      <li><a href="#icmarkets">IC Markets</a></li>
       <li><a href="#beneficios">Benefícios</a></li>
       <li><a href="#servicos">Serviços</a></li>
       <li><a href="#academia">Academia</a></li>
@@ -83,6 +84,30 @@
     <h3>🎁 Promo MEXC: Bônus de Boas-Vindas</h3>
     <p>⚡️ Últimos dias para aproveitar! Cadastre-se e receba bônus exclusivos de boas-vindas.</p>
     <a class="cta-btn" href="https://www.mexc.com/pt-PT/acquisition/custom-sign-up?shareCode=mexc-3UbJJ" target="_blank">Cadastrar na MEXC</a>
+  </section>
+
+  <!-- Seção IC Markets (Referral + Banner + Widget) -->
+  <section id="icmarkets">
+    <h2>IC Markets — Referral e Ferramentas</h2>
+    <p style="text-align:center; margin-bottom:1rem;">Abra sua conta usando nosso link de referência e acompanhe os preços em tempo real.</p>
+    <div class="grid">
+      <div class="card">
+        <h3>Link de Referência</h3>
+        <p>
+          <a href="https://icmarkets.com/?camp=61871" id="referalLink">https://icmarkets.com/?camp=61871</a>
+        </p>
+      </div>
+      <div class="card">
+        <h3>Banner</h3>
+        <a href='https://icmarkets.com/?camp=61871' target='_blank'>
+          <img class='img-fluid' src='https://promo.icmarkets.com/Banners/2021/English/EN_300x600_Cellphon_FSA.jpg' width='300' height='600' alt="IC Markets Banner"/>
+        </a>
+      </div>
+      <div class="card">
+        <h3>Widget de Preços</h3>
+        <iframe src="https://secure.icmarkets.com//Partner/Widget/PriceWidget/61871" width="273" frameborder="0" height="480"></iframe>
+      </div>
+    </div>
   </section>
 
   <!-- Benefícios -->
@@ -144,13 +169,11 @@
     <h2>📘 COMPRE SEU EBOOK</h2>
     <div class="steps">
       <h3>Nome do eBook:</h3>
-      <p style="font-weight:bold; font-size:1.3rem; color:#FFD700;">
-        CONSTRUA SEU IMPÉRIO DIGITAL: DA IDEIA AO LANÇAMENTO DO SEU PRODUTO ONLINE
-      </p>
+      <p style="font-weight:bold; font-size:1.3rem; color:#FFD700;"> CONSTRUA SEU IMPÉRIO DIGITAL: DA IDEIA AO LANÇAMENTO DO SEU PRODUTO ONLINE </p>
       <h3>Descrição resumida:</h3>
-      <p style="color:#ccc;">
-        Transforme suas ideias em renda! Este guia prático leva você do zero ao lançamento do seu produto digital. Inclui exercício prático passo a passo e modelos de ação rápida.
-      </p>
+      <p style="color:#ccc;"> Transforme suas ideias em renda! Este guia prático leva você do zero ao lançamento do seu produto digital. Inclui exercício prático passo a passo e modelos de ação rápida. </p>
+
+      text
 
       <h3>Cadastro do Cliente:</h3>
       <form id="customerForm" style="max-width:400px; margin:auto; display:flex; flex-direction:column; gap:1rem;">
@@ -224,7 +247,10 @@
       notif.innerText=message;
       notificationContainer.appendChild(notif);
       setTimeout(()=>notif.classList.add('show'),50);
-      setTimeout(()=>{notif.classList.remove('show'); setTimeout(()=>notif.remove(),500);},4000);
+      setTimeout(()=>{
+        notif.classList.remove('show');
+        setTimeout(()=>notif.remove(),500);
+      },4000);
     }
 
     // Cadastro do cliente
@@ -233,7 +259,6 @@
       const fullName = document.getElementById('fullName').value.trim();
       const email = document.getElementById('email').value.trim();
       const phone = document.getElementById('phone').value.trim();
-
       if(fullName && email && phone){
         showNotification(`✅ Cliente ${fullName} cadastrado com sucesso!`);
         customerForm.style.display='none';
@@ -249,14 +274,14 @@
       const message=encodeURIComponent("Olá! Acabei de efetuar o pagamento de 99,9 MT do ebook 'CONSTRUA SEU IMPÉRIO DIGITAL'. Segue o comprovativo.");
       window.open(`https://wa.me/${waNumber}?text=${message}`,'_blank');
       showNotification('✅ Comprovativo enviado para WhatsApp!');
-
       countdownEl.style.display='block';
       countdownEl.style.opacity=0;
       setTimeout(()=>countdownEl.style.opacity=1,50);
-      let seconds=10; secondsEl.innerText=seconds;
-
+      let seconds=10;
+      secondsEl.innerText=seconds;
       const timer = setInterval(()=>{
-        seconds--; secondsEl.innerText=seconds;
+        seconds--;
+        secondsEl.innerText=seconds;
         if(seconds<=0){
           clearInterval(timer);
           countdownEl.style.display='none';
@@ -267,7 +292,7 @@
           sendBtn.disabled=true;
           sendBtn.innerText='✅ Comprovativo Enviado';
           sendBtn.style.background='linear-gradient(90deg,#00FF00,#00AA00)';
-          sendBtn.style.color='#000'; 
+          sendBtn.style.color='#000';
           sendBtn.style.cursor='default';
           sendBtn.style.transform='scale(1.1)';
           setTimeout(()=>sendBtn.style.transform='scale(1)',300);
@@ -275,5 +300,5 @@
       },1000);
     });
   </script>
-</body>
+ </body>
 </html>
