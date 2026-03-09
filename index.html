@@ -258,9 +258,9 @@ tbody tr:last-child td{border-bottom:none;}
       <div class="fg"><label>Data</label><input type="date" id="f-date"></div>
       <div class="fg"><label>Par</label>
         <select id="f-par">
-          <option>XAUUSD</option><option>EURUSD</option><option>GBPUSD</option>
-          <option>USDJPY</option><option>GBPJPY</option><option>NASDAQ</option>
-          <option>US30</option><option>US500</option><option>BTCUSD</option><option>Outro</option>
+          <option>XAU/USD</option><option>EUR/USD</option><option>GBP/USD</option>
+          <option>USD/JPY</option><option>GBP/JPY</option><option>NAS100</option>
+          <option>US30</option><option>US500</option><option>BTC/USD</option><option>Outro</option>
         </select>
       </div>
       <div class="fg"><label>Direção</label>
@@ -725,11 +725,14 @@ function closeModal(){ document.getElementById('modal').classList.remove('on'); 
 // ============================================================
 // RENDER TABLE
 // ============================================================
+function normPar(s){ return s.toLowerCase().replace('/','').replace('-','').trim(); }
+
 function renderTable(){
-  const fPar = (document.getElementById('fp-par').value||'').toLowerCase();
-  const fOut = document.getElementById('fp-out').value;
+  const fParRaw = (document.getElementById('fp-par').value||'').toLowerCase().trim();
+  const fPar    = normPar(fParRaw);
+  const fOut    = document.getElementById('fp-out').value;
   let list = [...trades].filter(t=>{
-    if(fPar && !t.par.toLowerCase().includes(fPar)) return false;
+    if(fPar && !normPar(t.par).includes(fPar)) return false;
     if(fOut && t.out!==fOut) return false;
     return true;
   }).sort((a,b)=>new Date(b.date)-new Date(a.date));
@@ -1140,8 +1143,53 @@ function exportCSV(){
 }
 
 // ============================================================
+// SAVE / LOAD — localStorage para guardar dados entre sessões
+// ============================================================
+function saveAll(){
+  try{
+    localStorage.setItem('ng_trades', JSON.stringify(trades));
+    localStorage.setItem('ng_weeks',  JSON.stringify(weeks));
+    localStorage.setItem('ng_checks', JSON.stringify(checks));
+  } catch(e){ /* ignore se não disponível */ }
+}
+
+function loadAll(){
+  try{
+    const t = localStorage.getItem('ng_trades');
+    const w = localStorage.getItem('ng_weeks');
+    const c = localStorage.getItem('ng_checks');
+    if(t) trades  = JSON.parse(t);
+    if(w) weeks   = JSON.parse(w);
+    if(c) checks  = JSON.parse(c);
+  } catch(e){ /* ignore */ }
+}
+
+// Patch addTrade, deleteTrade, saveEdit, updW, toggleChk to auto-save
+const _origAdd = addTrade;
+function addTrade(){
+  _origAdd(); saveAll();
+}
+const _origDel = deleteTrade;
+function deleteTrade(id){
+  _origDel(id); saveAll();
+}
+const _origSave = saveEdit;
+function saveEdit(){
+  _origSave(); saveAll();
+}
+const _origUpdW = updW;
+function updW(id,field,val){
+  _origUpdW(id,field,val); saveAll();
+}
+const _origToggle = toggleChk;
+function toggleChk(key){
+  _origToggle(key); saveAll();
+}
+
+// ============================================================
 // BOOT
 // ============================================================
+loadAll();
 document.getElementById('f-date').value = today();
 document.getElementById('hd-date').textContent = new Date().toLocaleDateString('pt-BR',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
 renderDash();
