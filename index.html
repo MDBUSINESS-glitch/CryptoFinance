@@ -308,6 +308,10 @@ table.dt tbody tr:last-child td{border-bottom:none;}
     </div>
   </div>
   <div class="hdr-right">
+    <div id="save-status" style="font-family:var(--font-num);font-size:9px;letter-spacing:1px;color:var(--t3);display:none;align-items:center;gap:5px;">
+      <span id="save-dot" style="width:5px;height:5px;background:var(--grn);border-radius:50%;display:inline-block;"></span>
+      <span id="save-txt">GUARDADO</span>
+    </div>
     <div class="hdr-date">
       <span id="hd-day"></span><br>
       <span id="hd-time" style="color:var(--t3);"></span>
@@ -484,37 +488,47 @@ table.dt tbody tr:last-child td{border-bottom:none;}
 <div id="pg-diary" class="pg">
   <div class="sec-lbl">Registar Operação</div>
   <div class="card">
+
+    <!-- ROW 1: meta -->
     <div class="fr c4">
       <div class="fg"><label>Data</label><input type="date" id="f-date"></div>
       <div class="fg"><label>Par</label>
-        <select id="f-par">
+        <select id="f-par" onchange="autoCalc()">
           <option>XAU/USD</option><option>EUR/USD</option><option>GBP/USD</option>
           <option>USD/JPY</option><option>GBP/JPY</option><option>NAS100</option>
           <option>US30</option><option>US500</option><option>BTC/USD</option><option>Outro</option>
         </select>
       </div>
       <div class="fg"><label>Direção</label>
-        <select id="f-dir"><option value="BUY">📈 BUY</option><option value="SELL">📉 SELL</option></select>
+        <select id="f-dir" onchange="autoCalc()">
+          <option value="BUY">📈 BUY</option><option value="SELL">📉 SELL</option>
+        </select>
       </div>
       <div class="fg"><label>Sessão</label>
         <select id="f-sess"><option>Londres</option><option>Nova York</option><option>Ásia</option><option>Overlap</option></select>
       </div>
     </div>
+
+    <!-- ROW 2: preços -->
     <div class="fr c4">
-      <div class="fg"><label>Entrada</label><input type="number" step="any" id="f-entry" placeholder="ex: 2350.00"></div>
-      <div class="fg"><label>Stop Loss</label><input type="number" step="any" id="f-sl" placeholder="ex: 2340.00"></div>
-      <div class="fg"><label>Take Profit</label><input type="number" step="any" id="f-tp" placeholder="ex: 2370.00"></div>
-      <div class="fg">
-        <label>Resultado ($) · positivo=ganho / negativo=perda</label>
-        <input type="number" step="any" id="f-res" placeholder="ex: 120  ou  -50"
-          style="border-color:rgba(201,162,39,.5);font-family:var(--font-num);font-size:15px;font-weight:600;">
+      <div class="fg"><label>Entrada</label><input type="number" step="any" id="f-entry" placeholder="ex: 2350.00" oninput="autoCalc()"></div>
+      <div class="fg"><label>Stop Loss</label><input type="number" step="any" id="f-sl" placeholder="ex: 2340.00" oninput="autoCalc()"></div>
+      <div class="fg"><label>Take Profit</label><input type="number" step="any" id="f-tp" placeholder="ex: 2370.00" oninput="autoCalc()"></div>
+      <div class="fg"><label>Saldo da Conta ($)</label>
+        <input type="number" step="any" id="f-bal" placeholder="ex: 10000" oninput="saveBal();autoCalc()">
       </div>
     </div>
+
+    <!-- ROW 3: risco -->
     <div class="fr c4">
-      <div class="fg"><label>Risco (%)</label><input type="number" step="0.1" id="f-riskp" value="0.5"></div>
-      <div class="fg"><label>R:R</label><input type="number" step="0.1" id="f-rr" placeholder="ex: 2.0"></div>
-      <div class="fg"><label>Resultado</label>
-        <select id="f-out"><option value="WIN">✅ WIN</option><option value="LOSS">❌ LOSS</option><option value="BE">🔄 BE</option></select>
+      <div class="fg"><label>Risco (%)</label><input type="number" step="0.1" id="f-riskp" value="0.5" oninput="autoCalc()"></div>
+      <div class="fg"><label>R:R <span id="f-rr-auto" style="color:var(--cyan2);font-size:10px;margin-left:4px;"></span></label>
+        <input type="number" step="0.01" id="f-rr" placeholder="auto" readonly
+          style="background:rgba(0,184,217,.06);border-color:rgba(0,184,217,.3);font-family:var(--font-num);font-weight:700;color:var(--cyan2);">
+      </div>
+      <div class="fg"><label>Lote Calculado</label>
+        <input type="text" id="f-lot" placeholder="auto" readonly
+          style="background:rgba(201,162,39,.06);border-color:rgba(201,162,39,.3);font-family:var(--font-num);font-weight:700;color:var(--gold2);">
       </div>
       <div class="fg"><label>Setup</label>
         <select id="f-setup">
@@ -523,8 +537,43 @@ table.dt tbody tr:last-child td{border-bottom:none;}
         </select>
       </div>
     </div>
-    <div class="fr c2">
+
+    <!-- CALC PREVIEW PANEL -->
+    <div id="calc-panel" style="display:none;background:var(--p2);border:1px solid var(--bdr2);border-radius:10px;padding:14px;margin-bottom:12px;">
+      <div style="font-family:var(--font-num);font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--t3);margin-bottom:10px;">⚡ CÁLCULO AUTOMÁTICO</div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;">
+        <div>
+          <div style="font-family:var(--font-num);font-size:9px;color:var(--t2);letter-spacing:1px;text-transform:uppercase;margin-bottom:3px;">Risco $</div>
+          <div id="cp-risk" style="font-family:var(--font-num);font-size:16px;font-weight:700;color:var(--red2);">—</div>
+        </div>
+        <div>
+          <div style="font-family:var(--font-num);font-size:9px;color:var(--t2);letter-spacing:1px;text-transform:uppercase;margin-bottom:3px;">Ganho WIN</div>
+          <div id="cp-win" style="font-family:var(--font-num);font-size:16px;font-weight:700;color:var(--grn);">—</div>
+        </div>
+        <div>
+          <div style="font-family:var(--font-num);font-size:9px;color:var(--t2);letter-spacing:1px;text-transform:uppercase;margin-bottom:3px;">Perda LOSS</div>
+          <div id="cp-loss" style="font-family:var(--font-num);font-size:16px;font-weight:700;color:var(--red);">—</div>
+        </div>
+        <div>
+          <div style="font-family:var(--font-num);font-size:9px;color:var(--t2);letter-spacing:1px;text-transform:uppercase;margin-bottom:3px;">Break-Even</div>
+          <div id="cp-be" style="font-family:var(--font-num);font-size:16px;font-weight:700;color:var(--t2);">$0.00</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROW 4: outcome + resultado -->
+    <div class="fr c4">
+      <div class="fg"><label>Outcome</label>
+        <select id="f-out" onchange="autoFillResult()">
+          <option value="WIN">✅ WIN</option><option value="LOSS">❌ LOSS</option><option value="BE">🔄 BE</option>
+        </select>
+      </div>
       <div class="fg">
+        <label>Resultado ($) <span id="f-res-hint" style="font-size:9px;color:var(--t3);font-weight:400;">(preenchido automaticamente)</span></label>
+        <input type="number" step="any" id="f-res" placeholder="auto ou escreve manualmente"
+          style="border-color:rgba(201,162,39,.5);font-family:var(--font-num);font-size:15px;font-weight:700;">
+      </div>
+      <div class="fg" style="grid-column:span 2;">
         <label>Emoção</label>
         <div class="emorow">
           <span class="ep" onclick="pickEmo(this,'😌 Calmo')">😌 Calmo</span>
@@ -536,13 +585,24 @@ table.dt tbody tr:last-child td{border-bottom:none;}
         </div>
         <div id="emo-lbl" style="font-family:var(--font-num);font-size:10px;color:var(--cyan2);margin-top:5px;min-height:16px;"></div>
       </div>
-      <div class="fg"><label>Lição Aprendida</label>
-        <textarea id="f-lesson" rows="3" placeholder="O que aprendi com esta operação..."></textarea>
-      </div>
     </div>
-    <div style="display:flex;gap:10px;margin-top:8px;flex-wrap:wrap;">
+
+    <div class="fg" style="margin-bottom:10px;">
+      <label>Lição Aprendida</label>
+      <textarea id="f-lesson" rows="2" placeholder="O que aprendi com esta operação..."></textarea>
+    </div>
+
+    <div style="display:flex;gap:10px;margin-top:8px;flex-wrap:wrap;align-items:center;">
       <button class="btn btn-gld" onclick="addTrade()">➕ Adicionar Operação</button>
       <button class="btn btn-ghost" onclick="clearForm()">🗑️ Limpar</button>
+      <div style="margin-left:auto;display:flex;gap:8px;align-items:center;">
+        <button class="btn btn-sm" onclick="exportJSON()"
+          style="background:rgba(0,184,217,.08);border:1px solid rgba(0,184,217,.2);color:var(--cyan2);">💾 Backup JSON</button>
+        <label class="btn btn-sm" style="background:rgba(168,85,247,.08);border:1px solid rgba(168,85,247,.2);color:#a78bfa;cursor:pointer;margin:0;">
+          📂 Restaurar
+          <input type="file" accept=".json" onchange="importJSON(event)" style="display:none;">
+        </label>
+      </div>
     </div>
     <div id="f-msg" style="display:none;margin-top:10px;"></div>
   </div>
@@ -672,7 +732,86 @@ var weeks  = makeWeeks();
 var checks = makeChecks();
 var editId = null;
 var curEmo = '';
-var MONTHLY_GOAL = 500; // objectivo mensal em USD — personalizável
+var curBal = 10000;
+var MONTHLY_GOAL = 500;
+
+// Pip values per lot by instrument (USD per pip per standard lot)
+var PIP_VALUES = {
+  'XAU/USD': 10,    // Gold: $10/pip per lot (1pip=0.1)
+  'EUR/USD': 10, 'GBP/USD': 10, 'GBP/JPY': 6.9,
+  'USD/JPY': 6.9, 'NAS100': 1, 'US30': 1,
+  'US500': 1, 'BTC/USD': 1, 'Outro': 10
+};
+var PIP_SIZE = {
+  'XAU/USD': 0.1, 'EUR/USD': 0.0001, 'GBP/USD': 0.0001,
+  'GBP/JPY': 0.01, 'USD/JPY': 0.01,
+  'NAS100': 1, 'US30': 1, 'US500': 0.1, 'BTC/USD': 1, 'Outro': 0.0001
+};
+
+// ═══════════════════════════════════════════════════════
+// AUTO-CALCULATE LOT + R:R + RESULT
+// ═══════════════════════════════════════════════════════
+function autoCalc(){
+  var par   = document.getElementById('f-par').value;
+  var dir   = document.getElementById('f-dir').value;
+  var entry = parseFloat(document.getElementById('f-entry').value);
+  var sl    = parseFloat(document.getElementById('f-sl').value);
+  var tp    = parseFloat(document.getElementById('f-tp').value);
+  var riskp = parseFloat(document.getElementById('f-riskp').value) || 0.5;
+  var bal   = parseFloat(document.getElementById('f-bal').value) || curBal;
+
+  var pipSz  = PIP_SIZE[par]  || 0.0001;
+  var pipVal = PIP_VALUES[par] || 10;
+
+  var panel = document.getElementById('calc-panel');
+
+  if(!entry || !sl){ panel.style.display='none'; return; }
+
+  // Pips de SL e TP
+  var slPips = Math.abs(entry - sl) / pipSz;
+  var tpPips = tp ? Math.abs(tp - entry) / pipSz : 0;
+
+  // R:R
+  var rr = tpPips && slPips ? (tpPips / slPips) : 0;
+  document.getElementById('f-rr').value = rr ? rr.toFixed(2) : '';
+  document.getElementById('f-rr-auto').textContent = rr ? '(1:'+rr.toFixed(1)+')' : '';
+
+  // Risco em $
+  var riskUSD = bal * riskp / 100;
+
+  // Lote = risco$ / (slPips * pipValPorLote)
+  var lot = (slPips > 0 && pipVal > 0) ? riskUSD / (slPips * pipVal) : 0;
+  document.getElementById('f-lot').value = lot ? lot.toFixed(2) + ' lotes' : '—';
+
+  // Ganho / Perda esperados
+  var winUSD  = lot * tpPips * pipVal;
+  var lossUSD = riskUSD;
+
+  // Mostrar painel
+  panel.style.display = 'block';
+  document.getElementById('cp-risk').textContent = '$' + riskUSD.toFixed(2);
+  document.getElementById('cp-win').textContent  = tp ? '+$' + winUSD.toFixed(2) : '—';
+  document.getElementById('cp-loss').textContent = '-$' + lossUSD.toFixed(2);
+  document.getElementById('cp-be').textContent   = '$0.00';
+
+  // Store for autoFill
+  autoCalc._win  = winUSD;
+  autoCalc._loss = lossUSD;
+  autoCalc._rr   = rr;
+
+  autoFillResult();
+}
+
+function autoFillResult(){
+  var out = document.getElementById('f-out').value;
+  var win  = autoCalc._win  || 0;
+  var loss = autoCalc._loss || 0;
+  var res  = document.getElementById('f-res');
+  // Only auto-fill if field is empty or was previously auto-filled
+  if(out === 'WIN'  && win)  { res.value = win.toFixed(2);  res.style.color='var(--grn)'; }
+  if(out === 'LOSS' && loss) { res.value = (-loss).toFixed(2); res.style.color='var(--red)'; }
+  if(out === 'BE')           { res.value = '0'; res.style.color='var(--t2)'; }
+}
 
 // ═══════════════════════════════════════════════════════
 // UTILS
@@ -711,17 +850,33 @@ setInterval(updateClock, 1000);
 updateClock();
 
 // ═══════════════════════════════════════════════════════
-// SAVE / LOAD
+// SAVE / LOAD  — localStorage + JSON backup
 // ═══════════════════════════════════════════════════════
 function saveData(){
+  var ok = false;
   try{
+    var payload = {trades:trades, weeks:weeks, checks:checks, bal:curBal, v:1};
+    localStorage.setItem('ng_v1', JSON.stringify(payload));
+    // also keep old keys for compat
     localStorage.setItem('ng_t', JSON.stringify(trades));
-    localStorage.setItem('ng_w', JSON.stringify(weeks));
-    localStorage.setItem('ng_c', JSON.stringify(checks));
-  } catch(e){}
+    ok = true;
+  } catch(e){ ok = false; }
+  showSaveStatus(ok);
 }
+
 function loadData(){
   try{
+    // Try new unified key first
+    var raw = localStorage.getItem('ng_v1');
+    if(raw){
+      var p = JSON.parse(raw);
+      if(p.trades) trades = p.trades;
+      if(p.weeks)  weeks  = p.weeks;
+      if(p.checks) checks = p.checks;
+      if(p.bal)    curBal = p.bal;
+      return;
+    }
+    // Fallback to old keys
     var t = localStorage.getItem('ng_t');
     var w = localStorage.getItem('ng_w');
     var c = localStorage.getItem('ng_c');
@@ -729,6 +884,56 @@ function loadData(){
     if(w) weeks   = JSON.parse(w);
     if(c) checks  = JSON.parse(c);
   } catch(e){}
+}
+
+function showSaveStatus(ok){
+  var el = document.getElementById('save-status');
+  var dot = document.getElementById('save-dot');
+  var txt = document.getElementById('save-txt');
+  if(!el) return;
+  el.style.display = 'flex';
+  dot.style.background = ok ? 'var(--grn)' : 'var(--red)';
+  txt.textContent = ok ? 'GUARDADO' : 'ERRO AO GUARDAR';
+  txt.style.color = ok ? 'var(--grn)' : 'var(--red)';
+  clearTimeout(el._t);
+  el._t = setTimeout(function(){ el.style.display='none'; }, 3000);
+}
+
+function saveBal(){
+  var v = parseFloat(document.getElementById('f-bal').value);
+  if(!isNaN(v) && v>0){
+    curBal = v;
+    try{ localStorage.setItem('ng_bal', v); } catch(e){}
+  }
+}
+
+function exportJSON(){
+  var payload = {trades:trades, weeks:weeks, checks:checks, bal:curBal, exportedAt:new Date().toISOString()};
+  var a = document.createElement('a');
+  a.href = 'data:application/json;charset=utf-8,'+encodeURIComponent(JSON.stringify(payload,null,2));
+  a.download = 'nelly-g-backup-'+todayStr()+'.json';
+  a.click();
+}
+
+function importJSON(evt){
+  var file = evt.target.files[0];
+  if(!file) return;
+  var reader = new FileReader();
+  reader.onload = function(e){
+    try{
+      var p = JSON.parse(e.target.result);
+      if(p.trades){ trades=p.trades; }
+      if(p.weeks) { weeks=p.weeks; }
+      if(p.checks){ checks=p.checks; }
+      if(p.bal)   { curBal=p.bal; document.getElementById('f-bal').value=curBal; }
+      saveData();
+      renderDash(); renderDiaryKpis(); renderTable();
+      showMsg('ok','✅ Backup restaurado com '+trades.length+' operações!');
+    } catch(err){
+      showMsg('err','❌ Ficheiro inválido. Usa um backup JSON do NELLY-G.');
+    }
+  };
+  reader.readAsText(file);
 }
 
 // ═══════════════════════════════════════════════════════
@@ -844,13 +1049,18 @@ function clearForm(){
   document.getElementById('f-sl').value    = '';
   document.getElementById('f-tp').value    = '';
   document.getElementById('f-res').value   = '';
+  document.getElementById('f-res').style.color = '';
   document.getElementById('f-riskp').value = '0.5';
   document.getElementById('f-rr').value    = '';
+  document.getElementById('f-lot').value   = '';
+  document.getElementById('f-rr-auto').textContent = '';
   document.getElementById('f-lesson').value= '';
   document.getElementById('f-out').value   = 'WIN';
   document.getElementById('f-setup').value = 'BOS + CHoCH';
+  document.getElementById('calc-panel').style.display = 'none';
   document.querySelectorAll('.ep').forEach(function(e){ e.classList.remove('on'); });
   document.getElementById('emo-lbl').textContent = '';
+  autoCalc._win = 0; autoCalc._loss = 0;
   curEmo=''; editId=null;
 }
 
@@ -1525,7 +1735,11 @@ function exportCSV(){
 // BOOT
 // ═══════════════════════════════════════════════════════
 loadData();
+// Load saved balance
+try{ var b=localStorage.getItem('ng_bal'); if(b&&parseFloat(b)>0){ curBal=parseFloat(b); } } catch(e){}
 document.getElementById('f-date').value = todayStr();
+document.getElementById('f-bal').value  = curBal;
+autoCalc._win=0; autoCalc._loss=0;
 renderDash();
 renderDiaryKpis();
 renderTable();
