@@ -2,780 +2,1119 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NELLY-G TRADER — Calculadora de Demonstração</title>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>NELLY-G TRADER — Plano Diário</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg: #050810;
-    --bg2: #080d1a;
-    --bg3: #0c1326;
-    --panel: #0f1929;
-    --panel2: #132035;
-    --border: #1a2d4a;
-    --gold: #f0c040;
-    --gold2: #e8a800;
-    --cyan: #00d4ff;
-    --cyan2: #0099cc;
-    --green: #00e5a0;
-    --green2: #00b37d;
-    --red: #ff4d6a;
-    --red2: #cc2244;
-    --text: #e8f0ff;
-    --text2: #7a9cc4;
-    --text3: #3d5a80;
-  }
-
-  * { margin:0; padding:0; box-sizing:border-box; }
-
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'DM Sans', sans-serif;
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
-
-  /* Animated bg */
-  body::before {
-    content:'';
-    position:fixed;
-    inset:0;
-    background:
-      radial-gradient(ellipse 80% 50% at 50% -10%, rgba(0,180,255,0.06) 0%, transparent 60%),
-      radial-gradient(ellipse 60% 40% at 90% 80%, rgba(240,192,64,0.04) 0%, transparent 50%);
-    pointer-events:none;
-    z-index:0;
-  }
-
-  /* Grid lines */
-  body::after {
-    content:'';
-    position:fixed;
-    inset:0;
-    background-image:
-      linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px);
-    background-size: 40px 40px;
-    pointer-events:none;
-    z-index:0;
-  }
-
-  .wrapper { position:relative; z-index:1; max-width:1100px; margin:0 auto; padding:20px; }
-
-  /* ===== HEADER ===== */
-  header {
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:24px 32px;
-    background: linear-gradient(135deg, rgba(15,25,41,0.95) 0%, rgba(12,19,38,0.95) 100%);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    margin-bottom: 24px;
-    backdrop-filter: blur(20px);
-    position:relative;
-    overflow:hidden;
-  }
-
-  header::before {
-    content:'';
-    position:absolute;
-    top:0; left:0; right:0;
-    height:2px;
-    background: linear-gradient(90deg, transparent, var(--cyan), var(--gold), var(--cyan), transparent);
-    animation: shimmer 3s infinite;
-  }
-
-  @keyframes shimmer {
-    0%,100% { opacity:0.5; }
-    50% { opacity:1; }
-  }
-
-  .logo-wrap { display:flex; align-items:center; gap:16px; }
-
-  .logo-icon {
-    width:52px; height:52px;
-    background: linear-gradient(135deg, var(--gold), var(--gold2));
-    border-radius:12px;
-    display:flex; align-items:center; justify-content:center;
-    font-family:'Orbitron',sans-serif;
-    font-weight:900;
-    font-size:18px;
-    color:#050810;
-    box-shadow: 0 0 20px rgba(240,192,64,0.3);
-    position:relative;
-  }
-
-  .logo-icon::after {
-    content:'';
-    position:absolute;
-    inset:-3px;
-    border-radius:15px;
-    background: linear-gradient(135deg, rgba(240,192,64,0.3), transparent);
-    z-index:-1;
-  }
-
-  .logo-text h1 {
-    font-family:'Orbitron',sans-serif;
-    font-size:22px;
-    font-weight:900;
-    letter-spacing:3px;
-    background: linear-gradient(135deg, var(--gold), #fff8e0, var(--gold2));
-    -webkit-background-clip:text;
-    -webkit-text-fill-color:transparent;
-    background-clip:text;
-    line-height:1;
-  }
-
-  .logo-text p {
-    font-size:11px;
-    color:var(--text2);
-    letter-spacing:2px;
-    text-transform:uppercase;
-    margin-top:4px;
-  }
-
-  .badge {
-    display:inline-flex; align-items:center; gap:6px;
-    background: rgba(0,229,160,0.1);
-    border: 1px solid rgba(0,229,160,0.3);
-    border-radius:20px;
-    padding:6px 14px;
-    font-size:12px;
-    color:var(--green);
-    font-weight:500;
-  }
-
-  .badge::before {
-    content:'';
-    width:6px; height:6px;
-    background:var(--green);
-    border-radius:50%;
-    animation:pulse 2s infinite;
-  }
-
-  @keyframes pulse {
-    0%,100% { box-shadow:0 0 0 0 rgba(0,229,160,0.5); }
-    50% { box-shadow:0 0 0 6px rgba(0,229,160,0); }
-  }
-
-  /* ===== TABS ===== */
-  .tabs-row {
-    display:flex;
-    gap:8px;
-    margin-bottom:20px;
-    flex-wrap:wrap;
-  }
-
-  .tab-btn {
-    padding:10px 22px;
-    background: var(--panel);
-    border: 1px solid var(--border);
-    border-radius:10px;
-    color:var(--text2);
-    font-family:'DM Sans',sans-serif;
-    font-size:14px;
-    font-weight:500;
-    cursor:pointer;
-    transition: all 0.2s;
-    letter-spacing:1px;
-    position:relative;
-    overflow:hidden;
-  }
-
-  .tab-btn:hover { border-color:var(--cyan2); color:var(--text); }
-
-  .tab-btn.active {
-    background: linear-gradient(135deg, rgba(0,212,255,0.15), rgba(0,153,204,0.1));
-    border-color:var(--cyan);
-    color:var(--cyan);
-  }
-
-  .tab-btn.active::after {
-    content:'';
-    position:absolute;
-    bottom:0; left:0; right:0; height:2px;
-    background:var(--cyan);
-  }
-
-  /* ===== MAIN GRID ===== */
-  .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px; }
-  .grid-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; margin-bottom:16px; }
-  .grid-4 { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:16px; }
-
-  /* ===== CARDS ===== */
-  .card {
-    background: var(--panel);
-    border: 1px solid var(--border);
-    border-radius:14px;
-    padding:20px;
-    transition: border-color 0.2s, transform 0.2s;
-  }
-
-  .card:hover { border-color:rgba(0,212,255,0.3); transform:translateY(-2px); }
-
-  .card-title {
-    font-size:11px;
-    font-weight:600;
-    letter-spacing:2px;
-    text-transform:uppercase;
-    color:var(--text2);
-    margin-bottom:16px;
-    display:flex;
-    align-items:center;
-    gap:8px;
-  }
-
-  .card-title svg { opacity:0.6; }
-
-  /* ===== STAT CHIPS ===== */
-  .stat-chip {
-    background: var(--panel2);
-    border: 1px solid var(--border);
-    border-radius:10px;
-    padding:14px 16px;
-    text-align:center;
-    position:relative;
-    overflow:hidden;
-  }
-
-  .stat-chip.gold { border-color:rgba(240,192,64,0.3); }
-  .stat-chip.cyan { border-color:rgba(0,212,255,0.3); }
-  .stat-chip.green { border-color:rgba(0,229,160,0.3); }
-  .stat-chip.red { border-color:rgba(255,77,106,0.3); }
-
-  .stat-chip .label {
-    font-size:10px;
-    letter-spacing:1.5px;
-    text-transform:uppercase;
-    color:var(--text2);
-    margin-bottom:6px;
-    font-weight:600;
-  }
-
-  .stat-chip .value {
-    font-family:'Orbitron',sans-serif;
-    font-size:18px;
-    font-weight:700;
-    line-height:1;
-  }
-
-  .stat-chip.gold .value { color:var(--gold); }
-  .stat-chip.cyan .value { color:var(--cyan); }
-  .stat-chip.green .value { color:var(--green); }
-  .stat-chip.red .value { color:var(--red); }
-
-  .stat-chip .sub {
-    font-size:11px;
-    color:var(--text3);
-    margin-top:4px;
-  }
-
-  /* ===== PHASE CARDS ===== */
-  .phase-card {
-    background: var(--panel);
-    border: 1px solid var(--border);
-    border-radius:16px;
-    overflow:hidden;
-  }
-
-  .phase-header {
-    padding:16px 20px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    border-bottom:1px solid var(--border);
-  }
-
-  .phase-header.f1 { background: linear-gradient(135deg, rgba(240,192,64,0.12), rgba(240,160,0,0.06)); }
-  .phase-header.f2 { background: linear-gradient(135deg, rgba(0,212,255,0.12), rgba(0,153,204,0.06)); }
-
-  .phase-name {
-    font-family:'Orbitron',sans-serif;
-    font-size:16px;
-    font-weight:700;
-    letter-spacing:2px;
-  }
-
-  .phase-name.f1 { color:var(--gold); }
-  .phase-name.f2 { color:var(--cyan); }
-
-  .phase-meta {
-    font-size:12px;
-    font-weight:600;
-    padding:4px 12px;
-    border-radius:20px;
-  }
-
-  .phase-meta.f1 { background:rgba(240,192,64,0.15); color:var(--gold); border:1px solid rgba(240,192,64,0.3); }
-  .phase-meta.f2 { background:rgba(0,212,255,0.15); color:var(--cyan); border:1px solid rgba(0,212,255,0.3); }
-
-  .phase-body { padding:20px; }
-
-  .info-row {
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:10px 0;
-    border-bottom:1px solid rgba(26,45,74,0.5);
-    font-size:14px;
-  }
-
-  .info-row:last-child { border-bottom:none; }
-
-  .info-row .key { color:var(--text2); font-weight:500; }
-  .info-row .val { font-weight:600; font-family:'Orbitron',sans-serif; font-size:13px; }
-
-  /* ===== TAKES TABLE ===== */
-  .takes-title {
-    font-size:11px;
-    letter-spacing:2px;
-    text-transform:uppercase;
-    color:var(--text2);
-    font-weight:600;
-    margin:16px 0 10px;
-    padding-top:12px;
-    border-top:1px solid var(--border);
-  }
-
-  .takes-grid {
-    display:grid;
-    gap:8px;
-  }
-
-  .take-row {
-    display:grid;
-    grid-template-columns:80px 1fr 1fr;
-    gap:8px;
-    align-items:center;
-  }
-
-  .take-label {
-    font-size:11px;
-    color:var(--text3);
-    font-weight:600;
-    letter-spacing:1px;
-  }
-
-  .take-box {
-    background: var(--panel2);
-    border: 1px solid var(--border);
-    border-radius:8px;
-    padding:8px 10px;
-    text-align:center;
-  }
-
-  .take-box .tkey {
-    font-size:9px;
-    letter-spacing:1px;
-    text-transform:uppercase;
-    color:var(--text3);
-    margin-bottom:3px;
-    font-weight:600;
-  }
-
-  .take-box .tval {
-    font-family:'Orbitron',sans-serif;
-    font-size:13px;
-    font-weight:700;
-  }
-
-  .take-box.risk .tval { color:var(--red); }
-  .take-box.ret .tval { color:var(--green); }
-
-  /* ===== PROGRESS BAR ===== */
-  .progress-wrap { margin-top:16px; padding-top:16px; border-top:1px solid var(--border); }
-  .progress-label { display:flex; justify-content:space-between; font-size:12px; color:var(--text2); margin-bottom:8px; }
-  .progress-track { height:6px; background:rgba(255,255,255,0.06); border-radius:3px; overflow:hidden; }
-  .progress-fill { height:100%; border-radius:3px; transition:width 0.4s ease; }
-  .progress-fill.gold { background: linear-gradient(90deg, var(--gold2), var(--gold)); }
-  .progress-fill.cyan { background: linear-gradient(90deg, var(--cyan2), var(--cyan)); }
-
-  /* ===== OPERATIONS CARD ===== */
-  .ops-grid {
-    display:grid;
-    grid-template-columns:repeat(5,1fr);
-    gap:8px;
-    margin-top:4px;
-  }
-
-  .day-box {
-    background:var(--panel2);
-    border:1px solid var(--border);
-    border-radius:10px;
-    padding:12px 8px;
-    text-align:center;
-    transition: all 0.2s;
-    cursor:pointer;
-  }
-
-  .day-box:hover { border-color:var(--cyan2); }
-
-  .day-box.active {
-    background: linear-gradient(135deg, rgba(0,212,255,0.12), rgba(0,212,255,0.05));
-    border-color:var(--cyan);
-  }
-
-  .day-box.off {
-    opacity:0.4;
-  }
-
-  .day-name { font-size:10px; letter-spacing:1px; text-transform:uppercase; color:var(--text2); font-weight:700; margin-bottom:6px; }
-  .day-time { font-family:'Orbitron',sans-serif; font-size:11px; color:var(--cyan); font-weight:600; }
-  .day-time.off-text { color:var(--text3); }
-
-  /* ===== SELECTOR ===== */
-  .selector-wrap { margin-bottom:20px; }
-  .selector-label { font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--text2); font-weight:600; margin-bottom:10px; }
-  
-  select {
-    background: var(--panel);
-    border: 1px solid var(--border);
-    border-radius:10px;
-    color:var(--text);
-    font-family:'DM Sans',sans-serif;
-    font-size:14px;
-    padding:12px 16px;
-    cursor:pointer;
-    outline:none;
-    transition: border-color 0.2s;
-    width:100%;
-    max-width:260px;
-    appearance:none;
-    -webkit-appearance:none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237a9cc4' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-    background-repeat:no-repeat;
-    background-position: right 14px center;
-    padding-right: 36px;
-  }
-
-  select:focus { border-color:var(--cyan); }
-  select option { background:#0f1929; }
-
-  /* ===== SECTION HEADERS ===== */
-  .section-title {
-    font-size:11px;
-    letter-spacing:3px;
-    text-transform:uppercase;
-    color:var(--text3);
-    font-weight:700;
-    display:flex;
-    align-items:center;
-    gap:10px;
-    margin-bottom:12px;
-  }
-
-  .section-title::after {
-    content:'';
-    flex:1;
-    height:1px;
-    background:var(--border);
-  }
-
-  /* ===== RISK ALERT ===== */
-  .risk-alert {
-    background: linear-gradient(135deg, rgba(255,77,106,0.1), rgba(204,34,68,0.05));
-    border: 1px solid rgba(255,77,106,0.3);
-    border-radius:12px;
-    padding:14px 18px;
-    display:flex;
-    align-items:center;
-    gap:12px;
-    font-size:13px;
-  }
-
-  .risk-alert .icon { font-size:18px; flex-shrink:0; }
-  .risk-alert strong { color:var(--red); }
-
-  /* ===== ANIMATIONS ===== */
-  @keyframes fadeUp {
-    from { opacity:0; transform:translateY(16px); }
-    to { opacity:1; transform:translateY(0); }
-  }
-
-  .fade-in { animation: fadeUp 0.35s ease forwards; }
-
-  /* ===== FOOTER ===== */
-  footer {
-    text-align:center;
-    padding:20px;
-    color:var(--text3);
-    font-size:12px;
-    letter-spacing:1px;
-  }
-
-  footer span { color:var(--gold); font-family:'Orbitron',sans-serif; font-size:11px; }
-
-  @media(max-width:700px) {
-    .grid-2, .grid-3, .grid-4 { grid-template-columns:1fr; }
-    .ops-grid { grid-template-columns:repeat(3,1fr); }
-    header { flex-direction:column; gap:12px; text-align:center; }
-    .take-row { grid-template-columns:60px 1fr 1fr; }
-  }
+:root{
+  --bg:#050810;--bg2:#080d1a;--panel:#0f1929;--panel2:#132035;
+  --border:#1a2d4a;--border2:#243d5e;
+  --gold:#f0c040;--gold2:#e8a800;--gold3:#7a5c00;
+  --cyan:#00d4ff;--cyan2:#0099cc;
+  --green:#00e5a0;--green2:#00b37d;--green3:#003d2b;
+  --red:#ff4d6a;--red2:#cc2244;--red3:#3d0010;
+  --purple:#a855f7;--orange:#f97316;
+  --text:#e8f0ff;--text2:#7a9cc4;--text3:#3d5a80;--text4:#1e3a5a;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 100% 60% at 50% -5%,rgba(0,180,255,.07) 0%,transparent 55%),radial-gradient(ellipse 50% 40% at 90% 90%,rgba(240,192,64,.04) 0%,transparent 50%);pointer-events:none;z-index:0;}
+body::after{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(0,212,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,255,.025) 1px,transparent 1px);background-size:50px 50px;pointer-events:none;z-index:0;}
+.app{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:16px;}
+
+/* HEADER */
+.hdr{display:flex;align-items:center;justify-content:space-between;padding:20px 28px;background:linear-gradient(135deg,rgba(15,25,41,.97),rgba(8,13,26,.97));border:1px solid var(--border);border-radius:16px;margin-bottom:18px;position:relative;overflow:hidden;}
+.hdr::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--cyan),var(--gold),var(--cyan),transparent);animation:shim 3s infinite;}
+@keyframes shim{0%,100%{opacity:.4}50%{opacity:1}}
+.hdr-logo{display:flex;align-items:center;gap:14px;}
+.hdr-ico{width:48px;height:48px;background:linear-gradient(135deg,var(--gold),var(--gold2));border-radius:12px;display:flex;align-items:center;justify-content:center;font-family:'Orbitron';font-weight:900;font-size:16px;color:#050810;box-shadow:0 0 24px rgba(240,192,64,.35);}
+.hdr-title{font-family:'Orbitron';font-size:20px;font-weight:900;letter-spacing:3px;background:linear-gradient(135deg,var(--gold),#fff8e0,var(--gold2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;}
+.hdr-sub{font-size:10px;color:var(--text2);letter-spacing:2px;text-transform:uppercase;margin-top:3px;}
+.hdr-date{font-family:'Orbitron';font-size:11px;color:var(--text2);letter-spacing:1px;}
+.live-dot{display:inline-flex;align-items:center;gap:6px;background:rgba(0,229,160,.1);border:1px solid rgba(0,229,160,.3);border-radius:20px;padding:5px 12px;font-size:11px;color:var(--green);}
+.live-dot::before{content:'';width:6px;height:6px;background:var(--green);border-radius:50%;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(0,229,160,.5)}50%{box-shadow:0 0 0 6px rgba(0,229,160,0)}}
+
+/* NAV TABS */
+.nav{display:flex;gap:6px;margin-bottom:18px;flex-wrap:wrap;}
+.nav-btn{padding:10px 20px;background:var(--panel);border:1px solid var(--border);border-radius:10px;color:var(--text2);font-family:'DM Sans';font-size:13px;font-weight:500;cursor:pointer;transition:all .2s;letter-spacing:.5px;white-space:nowrap;}
+.nav-btn:hover{border-color:var(--cyan2);color:var(--text);}
+.nav-btn.on{background:linear-gradient(135deg,rgba(0,212,255,.15),rgba(0,153,204,.08));border-color:var(--cyan);color:var(--cyan);position:relative;}
+.nav-btn.on::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:2px;background:var(--cyan);}
+
+/* PAGES */
+.page{display:none;animation:fadeUp .3s ease;}
+.page.on{display:block;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
+/* SECTION TITLE */
+.sec{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--text3);font-weight:700;display:flex;align-items:center;gap:10px;margin-bottom:12px;}
+.sec::after{content:'';flex:1;height:1px;background:var(--border);}
+
+/* GRIDS */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:14px;}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px;}
+.g5{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:14px;}
+
+/* CARD */
+.card{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:20px;transition:border-color .2s;}
+.card:hover{border-color:rgba(0,212,255,.25);}
+.card-title{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text2);margin-bottom:14px;}
+
+/* KPI CHIPS */
+.kpi{background:var(--panel2);border:1px solid var(--border);border-radius:12px;padding:16px;text-align:center;}
+.kpi.gold{border-color:rgba(240,192,64,.3);}
+.kpi.cyan{border-color:rgba(0,212,255,.3);}
+.kpi.green{border-color:rgba(0,229,160,.3);}
+.kpi.red{border-color:rgba(255,77,106,.3);}
+.kpi.purple{border-color:rgba(168,85,247,.3);}
+.kpi-lbl{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text2);font-weight:700;margin-bottom:6px;}
+.kpi-val{font-family:'Orbitron';font-size:20px;font-weight:700;line-height:1.1;}
+.kpi.gold .kpi-val{color:var(--gold);}
+.kpi.cyan .kpi-val{color:var(--cyan);}
+.kpi.green .kpi-val{color:var(--green);}
+.kpi.red .kpi-val{color:var(--red);}
+.kpi.purple .kpi-val{color:var(--purple);}
+.kpi-sub{font-size:10px;color:var(--text3);margin-top:4px;}
+
+/* FORMS */
+input,select,textarea{background:var(--panel2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:'DM Sans';font-size:13px;padding:9px 12px;outline:none;transition:border-color .2s;width:100%;}
+input:focus,select:focus,textarea:focus{border-color:var(--cyan);}
+select option{background:#0f1929;}
+label{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--text2);font-weight:600;display:block;margin-bottom:5px;}
+.frow{display:grid;gap:10px;margin-bottom:10px;}
+.frow.c2{grid-template-columns:1fr 1fr;}
+.frow.c3{grid-template-columns:1fr 1fr 1fr;}
+.frow.c4{grid-template-columns:1fr 1fr 1fr 1fr;}
+.fgrp{display:flex;flex-direction:column;}
+
+/* BUTTONS */
+.btn{padding:10px 20px;border:none;border-radius:8px;font-family:'DM Sans';font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;letter-spacing:.5px;}
+.btn-pri{background:linear-gradient(135deg,var(--cyan2),var(--cyan));color:#050810;}
+.btn-pri:hover{box-shadow:0 0 16px rgba(0,212,255,.4);transform:translateY(-1px);}
+.btn-gld{background:linear-gradient(135deg,var(--gold2),var(--gold));color:#050810;}
+.btn-gld:hover{box-shadow:0 0 16px rgba(240,192,64,.4);transform:translateY(-1px);}
+.btn-red{background:rgba(255,77,106,.15);border:1px solid rgba(255,77,106,.4);color:var(--red);}
+.btn-red:hover{background:rgba(255,77,106,.25);}
+.btn-sm{padding:5px 12px;font-size:11px;}
+
+/* TABLE */
+.tbl-wrap{overflow-x:auto;border-radius:12px;border:1px solid var(--border);}
+table{width:100%;border-collapse:collapse;font-size:12px;}
+thead tr{background:var(--panel2);}
+th{padding:10px 12px;text-align:left;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text2);font-weight:700;white-space:nowrap;}
+td{padding:9px 12px;border-bottom:1px solid rgba(26,45,74,.5);vertical-align:middle;white-space:nowrap;}
+tbody tr:hover{background:rgba(0,212,255,.04);}
+tbody tr:last-child td{border-bottom:none;}
+.win-badge{background:rgba(0,229,160,.15);color:var(--green);border:1px solid rgba(0,229,160,.3);border-radius:6px;padding:2px 8px;font-size:10px;font-weight:700;}
+.loss-badge{background:rgba(255,77,106,.15);color:var(--red);border:1px solid rgba(255,77,106,.3);border-radius:6px;padding:2px 8px;font-size:10px;font-weight:700;}
+.be-badge{background:rgba(168,85,247,.15);color:var(--purple);border:1px solid rgba(168,85,247,.3);border-radius:6px;padding:2px 8px;font-size:10px;font-weight:700;}
+
+/* MINI BAR CHART */
+.bar-wrap{display:flex;align-items:flex-end;gap:3px;height:60px;margin-top:8px;}
+.bar{flex:1;border-radius:3px 3px 0 0;min-height:3px;transition:height .4s ease;}
+.bar.pos{background:linear-gradient(180deg,var(--green2),var(--green3));}
+.bar.neg{background:linear-gradient(180deg,var(--red2),var(--red3));}
+
+/* CHECKLIST */
+.chk-item{display:flex;align-items:flex-start;gap:12px;padding:11px 0;border-bottom:1px solid rgba(26,45,74,.4);}
+.chk-item:last-child{border-bottom:none;}
+.chk-box{width:20px;height:20px;border:1.5px solid var(--border2);border-radius:5px;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .2s;margin-top:1px;}
+.chk-box.done{background:var(--green2);border-color:var(--green);color:#050810;}
+.chk-txt{font-size:13px;color:var(--text);}
+.chk-txt.done{text-decoration:line-through;color:var(--text2);}
+.chk-date-inp{background:transparent;border:none;border-bottom:1px solid var(--border);color:var(--text2);font-size:11px;width:100px;padding:2px 4px;font-family:'DM Sans';}
+
+/* MONTH BADGE */
+.m-badge{display:inline-block;padding:6px 16px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:12px;}
+.m1{background:rgba(240,192,64,.12);color:var(--gold);border:1px solid rgba(240,192,64,.3);}
+.m2{background:rgba(0,212,255,.12);color:var(--cyan);border:1px solid rgba(0,212,255,.3);}
+.m3{background:rgba(0,229,160,.12);color:var(--green);border:1px solid rgba(0,229,160,.3);}
+.m4{background:rgba(168,85,247,.12);color:var(--purple);border:1px solid rgba(168,85,247,.3);}
+.m5{background:rgba(249,115,22,.12);color:var(--orange);border:1px solid rgba(249,115,22,.3);}
+.m6{background:rgba(255,77,106,.12);color:var(--red);border:1px solid rgba(255,77,106,.3);}
+
+/* WEEK TABLE */
+.week-tbl{width:100%;border-collapse:collapse;font-size:12px;}
+.week-tbl th{padding:8px 10px;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text2);font-weight:700;text-align:left;border-bottom:1px solid var(--border);}
+.week-tbl td{padding:6px 8px;border-bottom:1px solid rgba(26,45,74,.3);}
+.week-tbl td input,.week-tbl td select{padding:5px 8px;font-size:12px;}
+.week-tbl tr:last-child td{border-bottom:none;}
+.wnum{font-family:'Orbitron';font-size:11px;color:var(--text2);font-weight:600;}
+
+/* SIMULATOR */
+.sim-row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid rgba(26,45,74,.4);}
+.sim-row:last-child{border-bottom:none;}
+.sim-key{font-size:13px;color:var(--text2);}
+.sim-val{font-family:'Orbitron';font-size:14px;font-weight:700;color:var(--green);}
+.sim-inp-row{display:grid;grid-template-columns:1fr 160px;gap:0;align-items:center;padding:10px 0;border-bottom:1px solid rgba(26,45,74,.4);}
+.sim-inp-row .sim-key{font-size:12px;}
+
+/* PROGRESS */
+.prog-wrap{margin:6px 0;}
+.prog-label{display:flex;justify-content:space-between;font-size:11px;color:var(--text2);margin-bottom:5px;}
+.prog-track{height:5px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden;}
+.prog-fill{height:100%;border-radius:3px;transition:width .5s ease;}
+.prog-fill.gold{background:linear-gradient(90deg,var(--gold2),var(--gold));}
+.prog-fill.cyan{background:linear-gradient(90deg,var(--cyan2),var(--cyan));}
+.prog-fill.green{background:linear-gradient(90deg,var(--green2),var(--green));}
+
+/* ALERT */
+.alert{background:linear-gradient(135deg,rgba(255,77,106,.1),rgba(204,34,68,.05));border:1px solid rgba(255,77,106,.25);border-radius:10px;padding:12px 16px;font-size:12px;margin-bottom:14px;}
+.alert.info{background:linear-gradient(135deg,rgba(0,212,255,.08),rgba(0,153,204,.04));border-color:rgba(0,212,255,.25);}
+.alert.success{background:linear-gradient(135deg,rgba(0,229,160,.08),rgba(0,179,125,.04));border-color:rgba(0,229,160,.25);}
+
+/* EMOTION SELECTOR */
+.emo-sel{display:flex;gap:6px;flex-wrap:wrap;}
+.emo-opt{padding:4px 10px;background:var(--panel2);border:1px solid var(--border);border-radius:16px;cursor:pointer;font-size:12px;transition:all .2s;}
+.emo-opt.sel{background:rgba(0,212,255,.15);border-color:var(--cyan);color:var(--cyan);}
+
+/* EMPTY STATE */
+.empty{text-align:center;padding:40px 20px;color:var(--text3);}
+.empty svg{opacity:.3;margin-bottom:12px;}
+.empty p{font-size:13px;}
+
+/* SCALING TABLE */
+.scl-tbl{width:100%;border-collapse:collapse;}
+.scl-tbl tr{border-bottom:1px solid rgba(26,45,74,.4);}
+.scl-tbl tr:last-child{border-bottom:none;}
+.scl-tbl td{padding:10px 14px;font-size:13px;}
+.scl-tbl td:first-child{color:var(--text2);}
+.scl-tbl td:nth-child(2){color:var(--green);font-family:'Orbitron';font-size:12px;}
+.scl-tbl td:nth-child(3){color:var(--gold);font-size:12px;}
+
+/* RISK CALC */
+.risk-result{background:var(--panel2);border:1px solid var(--border2);border-radius:10px;padding:14px;margin-top:10px;}
+.risk-result .r-lbl{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text2);margin-bottom:4px;}
+.risk-result .r-val{font-family:'Orbitron';font-size:22px;color:var(--gold);font-weight:700;}
+
+/* SCROLL */
+::-webkit-scrollbar{width:5px;height:5px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px;}
+
+/* MODAL */
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(5,8,16,.85);backdrop-filter:blur(4px);z-index:100;align-items:center;justify-content:center;}
+.modal-bg.on{display:flex;}
+.modal{background:var(--panel);border:1px solid var(--border2);border-radius:16px;padding:24px;max-width:580px;width:95%;max-height:90vh;overflow-y:auto;}
+.modal-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;}
+.modal-title{font-family:'Orbitron';font-size:14px;font-weight:700;color:var(--cyan);letter-spacing:2px;}
+.modal-close{background:none;border:none;color:var(--text2);cursor:pointer;font-size:20px;line-height:1;}
+
+@media(max-width:700px){
+  .g2,.g3,.g4,.g5{grid-template-columns:1fr;}
+  .frow.c2,.frow.c3,.frow.c4{grid-template-columns:1fr;}
+  .hdr{flex-direction:column;gap:10px;text-align:center;}
+}
 </style>
 </head>
 <body>
-<div class="wrapper">
+<div class="app">
 
-  <!-- HEADER -->
-  <header>
-    <div class="logo-wrap">
-      <div class="logo-icon">NG</div>
-      <div class="logo-text">
-        <h1>NELLY-G TRADER</h1>
-        <p>Calculadora de Demonstração Prop</p>
+<!-- HEADER -->
+<header class="hdr">
+  <div class="hdr-logo">
+    <div class="hdr-ico">NG</div>
+    <div>
+      <div class="hdr-title">NELLY-G TRADER</div>
+      <div class="hdr-sub">Plano de Trading Diário — Sistema Completo</div>
+    </div>
+  </div>
+  <div style="display:flex;align-items:center;gap:12px;">
+    <div class="hdr-date" id="hdDate"></div>
+    <div class="live-dot">LIVE</div>
+  </div>
+</header>
+
+<!-- NAV -->
+<nav class="nav">
+  <button class="nav-btn on" onclick="goPage('p-dash',this)">📊 Dashboard</button>
+  <button class="nav-btn" onclick="goPage('p-diary',this)">📓 Diário</button>
+  <button class="nav-btn" onclick="goPage('p-plan',this)">🗓️ Plano 6 Meses</button>
+  <button class="nav-btn" onclick="goPage('p-check',this)">✅ Checklist</button>
+  <button class="nav-btn" onclick="goPage('p-sim',this)">💰 Simulador</button>
+  <button class="nav-btn" onclick="goPage('p-risk',this)">⚙️ Gestão de Risco</button>
+</nav>
+
+<!-- ======================================================= -->
+<!-- PAGE: DASHBOARD -->
+<!-- ======================================================= -->
+<div id="p-dash" class="page on">
+  <div class="sec">Resumo Geral</div>
+  <div class="g5" id="dash-kpis"></div>
+
+  <div class="g2">
+    <div class="card">
+      <div class="card-title">Últimas Operações</div>
+      <div id="dash-recent"></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Evolução P&L (últimas 20)</div>
+      <div id="dash-chart" style="height:120px;display:flex;align-items:flex-end;gap:3px;margin-top:8px;"></div>
+      <div style="margin-top:14px;">
+        <div class="prog-wrap">
+          <div class="prog-label"><span>Taxa de Acerto</span><span id="wr-pct" style="color:var(--green)">0%</span></div>
+          <div class="prog-track"><div class="prog-fill green" id="wr-bar" style="width:0%"></div></div>
+        </div>
+        <div class="prog-wrap" style="margin-top:8px;">
+          <div class="prog-label"><span>Operações esta semana</span><span id="ops-week" style="color:var(--cyan)">0 / 3</span></div>
+          <div class="prog-track"><div class="prog-fill cyan" id="ops-bar" style="width:0%"></div></div>
+        </div>
       </div>
     </div>
-    <div class="badge">SISTEMA ATIVO</div>
-  </header>
+  </div>
 
-  <!-- ACCOUNT SELECTOR -->
-  <div class="selector-wrap">
-    <div class="selector-label">Selecionar Conta</div>
-    <select id="accountSelect" onchange="update()">
-      <option value="5000">$5.000</option>
-      <option value="10000">$10.000</option>
-      <option value="20000">$20.000</option>
-      <option value="60000">$60.000</option>
-      <option value="100000" selected>$100.000</option>
+  <div class="g3">
+    <div class="card">
+      <div class="card-title">🔥 Série Atual</div>
+      <div id="dash-streak" style="font-family:'Orbitron';font-size:32px;font-weight:900;text-align:center;padding:10px 0;">0</div>
+      <div style="text-align:center;font-size:11px;color:var(--text3);" id="dash-streak-lbl">operações seguidas</div>
+    </div>
+    <div class="card">
+      <div class="card-title">📅 Hoje</div>
+      <div id="dash-today"></div>
+    </div>
+    <div class="card">
+      <div class="card-title">⚠️ Alertas de Risco</div>
+      <div id="dash-alerts"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ======================================================= -->
+<!-- PAGE: DIÁRIO DE OPERAÇÕES -->
+<!-- ======================================================= -->
+<div id="p-diary" class="page">
+  <div class="sec">Registar Operação</div>
+  <div class="card" style="margin-bottom:14px;">
+    <div class="frow c4">
+      <div class="fgrp"><label>Data</label><input type="date" id="t-date"></div>
+      <div class="fgrp"><label>Par</label>
+        <select id="t-par">
+          <option>XAUUSD</option><option>EURUSD</option><option>GBPUSD</option><option>USDJPY</option>
+          <option>GBPJPY</option><option>NASDAQ</option><option>US30</option><option>US500</option>
+          <option>BTCUSD</option><option>ETHUSD</option><option>Outro</option>
+        </select>
+      </div>
+      <div class="fgrp"><label>Direção</label>
+        <select id="t-dir">
+          <option value="BUY">📈 BUY</option><option value="SELL">📉 SELL</option>
+        </select>
+      </div>
+      <div class="fgrp"><label>Sessão</label>
+        <select id="t-sess">
+          <option>Londres</option><option>Nova York</option><option>Ásia</option><option>Overlap</option>
+        </select>
+      </div>
+    </div>
+    <div class="frow c4">
+      <div class="fgrp"><label>Entrada</label><input type="number" step="any" placeholder="0.00" id="t-entry"></div>
+      <div class="fgrp"><label>Stop Loss</label><input type="number" step="any" placeholder="0.00" id="t-sl"></div>
+      <div class="fgrp"><label>Take Profit</label><input type="number" step="any" placeholder="0.00" id="t-tp"></div>
+      <div class="fgrp"><label>Resultado ($)</label><input type="number" step="any" placeholder="0.00" id="t-res"></div>
+    </div>
+    <div class="frow c4">
+      <div class="fgrp"><label>Risco (%)</label><input type="number" step="0.1" placeholder="0.5" id="t-riskpct"></div>
+      <div class="fgrp"><label>R:R</label><input type="number" step="0.1" placeholder="2.0" id="t-rr"></div>
+      <div class="fgrp"><label>Resultado</label>
+        <select id="t-outcome">
+          <option value="WIN">✅ WIN</option><option value="LOSS">❌ LOSS</option><option value="BE">🔄 BE</option>
+        </select>
+      </div>
+      <div class="fgrp"><label>Setup</label>
+        <select id="t-setup">
+          <option>BOS + CHoCH</option><option>Order Block</option><option>FVG</option><option>Liquidity Sweep</option>
+          <option>Breakout</option><option>Pullback</option><option>Outro</option>
+        </select>
+      </div>
+    </div>
+    <div class="frow c2">
+      <div class="fgrp">
+        <label>Emoção</label>
+        <div class="emo-sel" id="emo-sel">
+          <span class="emo-opt" data-v="Calmo">😌 Calmo</span>
+          <span class="emo-opt" data-v="Confiante">💪 Confiante</span>
+          <span class="emo-opt" data-v="Ansioso">😰 Ansioso</span>
+          <span class="emo-opt" data-v="FOMO">🔥 FOMO</span>
+          <span class="emo-opt" data-v="Revenge">😤 Revenge</span>
+          <span class="emo-opt" data-v="Indeciso">🤔 Indeciso</span>
+        </div>
+      </div>
+      <div class="fgrp"><label>Lição Aprendida</label><textarea id="t-lesson" rows="2" placeholder="O que aprendi com esta operação..."></textarea></div>
+    </div>
+    <div style="display:flex;gap:10px;margin-top:4px;">
+      <button class="btn btn-gld" onclick="addTrade()" id="add-btn">➕ Adicionar Operação</button>
+      <button class="btn btn-pri" onclick="clearForm()" style="background:var(--panel2);color:var(--text2);border:1px solid var(--border);">Limpar</button>
+    </div>
+  </div>
+
+  <div class="sec">Histórico de Operações</div>
+  <div class="g4" style="margin-bottom:14px;" id="diary-kpis"></div>
+
+  <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
+    <input type="text" placeholder="🔍 Filtrar por par..." id="filter-par" style="max-width:180px;" oninput="renderTable()">
+    <select id="filter-out" onchange="renderTable()" style="max-width:140px;">
+      <option value="">Todos</option><option value="WIN">WIN</option><option value="LOSS">LOSS</option><option value="BE">BE</option>
     </select>
+    <button class="btn btn-sm" style="background:rgba(0,229,160,.1);border:1px solid rgba(0,229,160,.3);color:var(--green);" onclick="exportCSV()">⬇️ Exportar CSV</button>
   </div>
 
-  <!-- KPI ROW -->
-  <div class="section-title">Métricas da Conta</div>
-  <div class="grid-4" id="kpiRow"></div>
+  <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th><th>Data</th><th>Par</th><th>Dir.</th><th>Sessão</th><th>Entrada</th><th>SL</th><th>TP</th><th>Resultado$</th><th>Risco%</th><th>R:R</th><th>Resultado</th><th>Setup</th><th>Emoção</th><th>Lição</th><th>Ações</th>
+        </tr>
+      </thead>
+      <tbody id="trade-tbody"></tbody>
+    </table>
+  </div>
+  <div id="trade-empty" class="empty" style="display:none;">
+    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+    <p>Nenhuma operação registada ainda.<br>Adiciona a tua primeira operação acima!</p>
+  </div>
+</div>
 
-  <!-- PHASES -->
-  <div class="section-title">Fases de Avaliação</div>
-  <div class="grid-2" id="phasesRow"></div>
+<!-- ======================================================= -->
+<!-- PAGE: PLANO 6 MESES -->
+<!-- ======================================================= -->
+<div id="p-plan" class="page">
+  <div id="plan-content"></div>
+</div>
 
-  <!-- OPERATIONS -->
-  <div class="section-title">Horários de Operação</div>
-  <div class="card fade-in">
-    <div class="card-title">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-      Janelas de Mercado — Mínimo 3 operações/semana
+<!-- ======================================================= -->
+<!-- PAGE: CHECKLIST -->
+<!-- ======================================================= -->
+<div id="p-check" class="page">
+  <div id="chk-content"></div>
+</div>
+
+<!-- ======================================================= -->
+<!-- PAGE: SIMULADOR -->
+<!-- ======================================================= -->
+<div id="p-sim" class="page">
+  <div class="g2">
+    <div class="card">
+      <div class="card-title">⚙️ Parâmetros</div>
+      <div class="sim-inp-row"><div class="sim-key">Capital da Conta (USD)</div><input type="number" id="s-cap" value="10000" oninput="calcSim()"></div>
+      <div class="sim-inp-row"><div class="sim-key">Lucro Mensal Esperado (%)</div><input type="number" id="s-pct" value="5" step="0.5" oninput="calcSim()"></div>
+      <div class="sim-inp-row"><div class="sim-key">Percentagem para Ti (%)</div><input type="number" id="s-share" value="80" oninput="calcSim()"></div>
+      <div class="sim-inp-row"><div class="sim-key">Câmbio USD → MZN</div><input type="number" id="s-fx" value="64" oninput="calcSim()"></div>
+      <div class="sim-inp-row" style="border:none"><div class="sim-key">Meses a simular</div><input type="number" id="s-months" value="12" oninput="calcSim()"></div>
     </div>
-    <div class="ops-grid" id="opsGrid"></div>
-    <div style="margin-top:16px;">
-      <div class="risk-alert">
-        <span class="icon">⚠️</span>
-        <div>Disciplina operacional: <strong>no mínimo 3 operações por semana</strong>. Risco fixo de <strong id="riskPerTrade">$500</strong> por operação (0,5% da conta).</div>
+    <div class="card">
+      <div class="card-title">📊 Resultados</div>
+      <div id="sim-results"></div>
+    </div>
+  </div>
+  <div class="card" style="margin-bottom:14px;">
+    <div class="card-title">📈 Tabela de Escalonamento</div>
+    <table class="scl-tbl" id="scl-tbl"></table>
+  </div>
+  <div class="card">
+    <div class="card-title">📉 Projeção Mensal (Compound)</div>
+    <div id="compound-chart" style="display:flex;align-items:flex-end;gap:4px;height:100px;margin-top:8px;"></div>
+    <div id="compound-labels" style="display:flex;gap:4px;margin-top:4px;"></div>
+  </div>
+</div>
+
+<!-- ======================================================= -->
+<!-- PAGE: GESTÃO DE RISCO -->
+<!-- ======================================================= -->
+<div id="p-risk" class="page">
+  <div class="g2">
+    <div class="card">
+      <div class="card-title">🧮 Calculadora de Lote</div>
+      <div class="frow c2">
+        <div class="fgrp"><label>Saldo da Conta ($)</label><input type="number" id="rc-bal" value="10000" oninput="calcRisk()"></div>
+        <div class="fgrp"><label>Risco por Operação (%)</label><input type="number" id="rc-riskpct" value="0.5" step="0.1" oninput="calcRisk()"></div>
+      </div>
+      <div class="frow c2">
+        <div class="fgrp"><label>Stop Loss (pips)</label><input type="number" id="rc-sl" value="20" oninput="calcRisk()"></div>
+        <div class="fgrp"><label>Par</label>
+          <select id="rc-pair" onchange="calcRisk()">
+            <option value="forex">Forex (10$/pip std)</option>
+            <option value="xauusd">XAUUSD (10$/pip 0.01)</option>
+            <option value="us30">US30 / NAS100</option>
+          </select>
+        </div>
+      </div>
+      <div class="risk-result">
+        <div class="r-lbl">Valor em Risco ($)</div>
+        <div class="r-val" id="rc-val">$50.00</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px;">
+          <div><div class="r-lbl">Tamanho do Lote</div><div style="font-family:'Orbitron';font-size:16px;color:var(--cyan);" id="rc-lot">0.25</div></div>
+          <div><div class="r-lbl">R:R 1:2 = TP</div><div style="font-family:'Orbitron';font-size:16px;color:var(--green);" id="rc-tp">+$100</div></div>
+        </div>
       </div>
     </div>
+    <div class="card">
+      <div class="card-title">📋 Regras de Gestão NELLY-G</div>
+      <div id="risk-rules"></div>
+    </div>
   </div>
+  <div class="g2">
+    <div class="card">
+      <div class="card-title">🕐 Horários de Operação</div>
+      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;" id="ops-sched"></div>
+    </div>
+    <div class="card">
+      <div class="card-title">📊 Estatísticas de Risco</div>
+      <div id="risk-stats"></div>
+    </div>
+  </div>
+</div>
 
-  <footer>
-    <span>NELLY-G TRADER</span> &nbsp;·&nbsp; Sistema de Gestão de Risco Prop &nbsp;·&nbsp; 2025
-  </footer>
+</div><!-- /app -->
 
+<!-- MODAL EDIT TRADE -->
+<div class="modal-bg" id="editModal">
+  <div class="modal">
+    <div class="modal-hdr">
+      <span class="modal-title">EDITAR OPERAÇÃO</span>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div id="modal-body"></div>
+    <div style="display:flex;gap:10px;margin-top:16px;">
+      <button class="btn btn-gld" onclick="saveEdit()">💾 Guardar</button>
+      <button class="btn" onclick="closeModal()" style="background:var(--panel2);color:var(--text2);border:1px solid var(--border);">Cancelar</button>
+    </div>
+  </div>
 </div>
 
 <script>
-const accounts = {
-  5000:   { label:'$5.000',   value:5000   },
-  10000:  { label:'$10.000',  value:10000  },
-  20000:  { label:'$20.000',  value:20000  },
-  60000:  { label:'$60.000',  value:60000  },
-  100000: { label:'$100.000', value:100000 },
-};
+// ============================================================
+// DATA STORE
+// ============================================================
+let trades = JSON.parse(localStorage.getItem('ng_trades')||'[]');
+let weeks  = JSON.parse(localStorage.getItem('ng_weeks') ||JSON.stringify(initWeeks()));
+let chk    = JSON.parse(localStorage.getItem('ng_chk')  ||JSON.stringify(initChk()));
+let editId = null;
+let selEmo = '';
 
-const ops = [
-  { day:'Segunda', time:'10h', active:true },
-  { day:'Terça',   time:'10h', active:true },
-  { day:'Quarta',  time:'21h', active:true },
-  { day:'Quinta',  time:'21h', active:true },
-  { day:'Sexta',   time:'-',   active:false },
+function save(){ localStorage.setItem('ng_trades',JSON.stringify(trades)); }
+function saveW(){ localStorage.setItem('ng_weeks',JSON.stringify(weeks)); }
+function saveC(){ localStorage.setItem('ng_chk',JSON.stringify(chk)); }
+
+// ============================================================
+// INIT
+// ============================================================
+function initWeeks(){
+  const months=[
+    {n:'MÊS 1 · Fundamentos',cls:'m1',weeks:4},
+    {n:'MÊS 2 · Análise Técnica',cls:'m2',weeks:4},
+    {n:'MÊS 3 · Estratégia',cls:'m3',weeks:4},
+    {n:'MÊS 4 · Risco & Psicologia',cls:'m4',weeks:4},
+    {n:'MÊS 5 · Simulação Real',cls:'m5',weeks:4},
+    {n:'MÊS 6 · Prop Firm',cls:'m6',weeks:4},
+  ];
+  let w=[];let wn=1;
+  months.forEach((m,mi)=>{
+    for(let i=0;i<m.weeks;i++){
+      w.push({id:wn,month:mi+1,mName:m.n,cls:m.cls,label:'Semana '+wn,dateStart:'',dateEnd:'',study:'',ops:'',acerto:'',status:'pending',notes:''});
+      wn++;
+    }
+  });
+  return w;
+}
+
+const chkData = [
+  {m:1,cls:'m1',title:'MÊS 1 — Fundamentos',items:[
+    'Completar o curso BabyPips (Pré-escola e Escola Primária)',
+    'Abrir conta demo no Exness ou XM',
+    'Instalar e aprender a usar o MT5',
+    'Conseguir explicar o que são pips, lotes e alavancagem',
+    'Identificar as 3 principais sessões do mercado',
+    'Observar o mercado 30 min por dia durante 20 dias',
+  ]},
+  {m:2,cls:'m2',title:'MÊS 2 — Análise Técnica',items:[
+    'Completar BabyPips Escola Secundária',
+    'Identificar suporte e resistência em 10 gráficos diferentes',
+    'Usar RSI, MACD e Médias Móveis correctamente',
+    'Fazer 20 operações na conta demo',
+    'Criar um diário de trading e registar todas as operações',
+    'Conseguir identificar uma tendência em qualquer timeframe',
+  ]},
+  {m:3,cls:'m3',title:'MÊS 3 — Estratégia',items:[
+    'Escolher UMA estratégia e documentar as regras',
+    'Aprender Price Action: Pin Bar, Engulfing, Doji',
+    'Fazer backtesting de 50 operações históricas',
+    'Fazer 30 operações na demo com a estratégia escolhida',
+    'Criar plano de trading escrito com regras claras',
+    'Taxa de acerto acima de 45% nas operações demo',
+  ]},
+  {m:4,cls:'m4',title:'MÊS 4 — Risco & Psicologia',items:[
+    "Ler 'Trading in the Zone' de Mark Douglas",
+    'Calcular correctamente o tamanho do lote em 10 exemplos',
+    'Nunca arriscar mais de 1% por operação durante 30 dias',
+    'Manter rácio Risco:Recompensa mínimo de 1:2',
+    'Identificar e registar momentos de overtrading ou revenge trading',
+    '100 operações totais no diário de trading',
+  ]},
+  {m:5,cls:'m5',title:'MÊS 5 — Simulação Real',items:[
+    'Criar conta demo com exactamente 10.000 USD',
+    'Definir e respeitar: máx. 5% perda diária, máx. 10% total',
+    'Operar 30 dias como se fosse o desafio FTMO real',
+    'Registar o teu histórico no Myfxbook',
+    'Atingir 10% de lucro sem violar regras de risco',
+    "Completar o 'desafio simulado' com sucesso",
+  ]},
+  {m:6,cls:'m6',title:'MÊS 6 — Preparação Final',items:[
+    'Rever todo o diário de trading dos 5 meses anteriores',
+    'Identificar os pares e sessões onde és mais lucrativo',
+    'Ter taxa de acerto acima de 50% de forma consistente',
+    'Ter 3 semanas consecutivas de resultados positivos',
+    'Poupar 155–250 USD para o desafio FTMO',
+    'Submeter o desafio FTMO de 10.000 USD',
+  ]},
 ];
 
-function fmt(n, decimals=0) {
-  return n.toLocaleString('pt-BR', { minimumFractionDigits:decimals, maximumFractionDigits:decimals });
+function initChk(){
+  let o={};
+  chkData.forEach((m,mi)=>{
+    m.items.forEach((itm,ii)=>{
+      o[`${mi}-${ii}`]={done:false,date:''};
+    });
+  });
+  return o;
 }
 
-function fmtR(n) {
-  return 'R$' + fmt(n);
+// ============================================================
+// NAV
+// ============================================================
+function goPage(id,btn){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('on'));
+  document.getElementById(id).classList.add('on');
+  btn.classList.add('on');
+  if(id==='p-dash') renderDash();
+  if(id==='p-plan') renderPlan();
+  if(id==='p-check') renderChk();
+  if(id==='p-sim') {calcSim();}
+  if(id==='p-risk') {calcRisk();renderRisk();}
 }
 
-function fmtD(n) {
-  return '$' + fmt(n);
+// ============================================================
+// HEADER DATE
+// ============================================================
+function setDate(){
+  const d=new Date();
+  const opts={weekday:'long',year:'numeric',month:'long',day:'numeric'};
+  document.getElementById('hdDate').textContent=d.toLocaleDateString('pt-BR',opts);
+  document.getElementById('t-date').value=d.toISOString().split('T')[0];
 }
 
-function update() {
-  const bal = parseFloat(document.getElementById('accountSelect').value);
+// ============================================================
+// EMOTION SELECTOR
+// ============================================================
+document.querySelectorAll('.emo-opt').forEach(e=>{
+  e.addEventListener('click',()=>{
+    document.querySelectorAll('.emo-opt').forEach(x=>x.classList.remove('sel'));
+    e.classList.add('sel');
+    selEmo=e.dataset.v;
+  });
+});
+
+// ============================================================
+// TRADE CRUD
+// ============================================================
+function addTrade(){
+  const t={
+    id:Date.now(),
+    date:document.getElementById('t-date').value,
+    par:document.getElementById('t-par').value,
+    dir:document.getElementById('t-dir').value,
+    sess:document.getElementById('t-sess').value,
+    entry:parseFloat(document.getElementById('t-entry').value)||0,
+    sl:parseFloat(document.getElementById('t-sl').value)||0,
+    tp:parseFloat(document.getElementById('t-tp').value)||0,
+    res:parseFloat(document.getElementById('t-res').value)||0,
+    riskpct:parseFloat(document.getElementById('t-riskpct').value)||0.5,
+    rr:parseFloat(document.getElementById('t-rr').value)||0,
+    outcome:document.getElementById('t-outcome').value,
+    setup:document.getElementById('t-setup').value,
+    emo:selEmo||'—',
+    lesson:document.getElementById('t-lesson').value,
+  };
+  if(!t.date||!t.par){alert('Preenche a data e o par!');return;}
+  trades.push(t);
+  save();
+  clearForm();
+  renderTable();
+  renderDash();
+  renderDiaryKpis();
+}
+
+function clearForm(){
+  ['t-entry','t-sl','t-tp','t-res','t-riskpct','t-rr','t-lesson'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('t-outcome').value='WIN';
+  document.getElementById('t-setup').value='BOS + CHoCH';
+  document.querySelectorAll('.emo-opt').forEach(x=>x.classList.remove('sel'));
+  selEmo='';
+  editId=null;
+  document.getElementById('add-btn').textContent='➕ Adicionar Operação';
+}
+
+function deleteTrade(id){
+  if(!confirm('Apagar esta operação?'))return;
+  trades=trades.filter(t=>t.id!==id);
+  save();renderTable();renderDash();renderDiaryKpis();
+}
+
+function editTrade(id){
+  const t=trades.find(x=>x.id===id);if(!t)return;
+  document.getElementById('modal-body').innerHTML=`
+    <div class="frow c2">
+      <div class="fgrp"><label>Data</label><input id="e-date" type="date" value="${t.date}"></div>
+      <div class="fgrp"><label>Par</label><input id="e-par" value="${t.par}"></div>
+    </div>
+    <div class="frow c3">
+      <div class="fgrp"><label>Direção</label><select id="e-dir"><option ${t.dir=='BUY'?'selected':''}>BUY</option><option ${t.dir=='SELL'?'selected':''}>SELL</option></select></div>
+      <div class="fgrp"><label>Resultado ($)</label><input id="e-res" type="number" value="${t.res}"></div>
+      <div class="fgrp"><label>R:R</label><input id="e-rr" type="number" step="0.1" value="${t.rr}"></div>
+    </div>
+    <div class="frow c2">
+      <div class="fgrp"><label>Resultado</label>
+        <select id="e-out">
+          <option ${t.outcome=='WIN'?'selected':''} value="WIN">✅ WIN</option>
+          <option ${t.outcome=='LOSS'?'selected':''} value="LOSS">❌ LOSS</option>
+          <option ${t.outcome=='BE'?'selected':''} value="BE">🔄 BE</option>
+        </select>
+      </div>
+      <div class="fgrp"><label>Emoção</label><input id="e-emo" value="${t.emo}"></div>
+    </div>
+    <div class="fgrp"><label>Lição</label><textarea id="e-lesson" rows="2">${t.lesson}</textarea></div>
+  `;
+  editId=id;
+  document.getElementById('editModal').classList.add('on');
+}
+
+function saveEdit(){
+  const t=trades.find(x=>x.id===editId);if(!t)return;
+  t.date=document.getElementById('e-date').value;
+  t.par=document.getElementById('e-par').value;
+  t.dir=document.getElementById('e-dir').value;
+  t.res=parseFloat(document.getElementById('e-res').value)||0;
+  t.rr=parseFloat(document.getElementById('e-rr').value)||0;
+  t.outcome=document.getElementById('e-out').value;
+  t.emo=document.getElementById('e-emo').value;
+  t.lesson=document.getElementById('e-lesson').value;
+  save();closeModal();renderTable();renderDash();renderDiaryKpis();
+}
+
+function closeModal(){document.getElementById('editModal').classList.remove('on');editId=null;}
+
+// ============================================================
+// RENDER TABLE
+// ============================================================
+function renderTable(){
+  const fPar=(document.getElementById('filter-par').value||'').toLowerCase();
+  const fOut=document.getElementById('filter-out').value;
+  let filtered=trades.filter(t=>{
+    if(fPar&&!t.par.toLowerCase().includes(fPar))return false;
+    if(fOut&&t.outcome!==fOut)return false;
+    return true;
+  }).sort((a,b)=>new Date(b.date)-new Date(a.date));
+
+  const tb=document.getElementById('trade-tbody');
+  const emp=document.getElementById('trade-empty');
+
+  if(!filtered.length){tb.innerHTML='';emp.style.display='block';return;}
+  emp.style.display='none';
+
+  tb.innerHTML=filtered.map((t,i)=>{
+    const badge=t.outcome==='WIN'?'win-badge':t.outcome==='LOSS'?'loss-badge':'be-badge';
+    const resColor=t.res>0?'var(--green)':t.res<0?'var(--red)':'var(--text2)';
+    return `<tr>
+      <td style="color:var(--text3)">${filtered.length-i}</td>
+      <td>${t.date}</td>
+      <td style="font-weight:600;color:var(--gold)">${t.par}</td>
+      <td style="color:${t.dir==='BUY'?'var(--green)':'var(--red)'}">${t.dir==='BUY'?'▲':'▼'} ${t.dir}</td>
+      <td style="color:var(--text2)">${t.sess||'—'}</td>
+      <td>${t.entry||'—'}</td>
+      <td style="color:var(--red)">${t.sl||'—'}</td>
+      <td style="color:var(--green)">${t.tp||'—'}</td>
+      <td style="color:${resColor};font-family:'Orbitron';font-size:12px">${t.res>=0?'+':''}${t.res.toFixed(2)}</td>
+      <td>${t.riskpct}%</td>
+      <td style="color:var(--cyan)">${t.rr||'—'}</td>
+      <td><span class="${badge}">${t.outcome}</span></td>
+      <td style="color:var(--text2);font-size:11px">${t.setup||'—'}</td>
+      <td style="font-size:11px">${t.emo||'—'}</td>
+      <td style="max-width:140px;overflow:hidden;text-overflow:ellipsis;font-size:11px;color:var(--text2)">${t.lesson||'—'}</td>
+      <td>
+        <button class="btn btn-sm" style="background:rgba(0,212,255,.1);border:1px solid rgba(0,212,255,.3);color:var(--cyan);margin-right:4px;" onclick="editTrade(${t.id})">✏️</button>
+        <button class="btn btn-sm btn-red" onclick="deleteTrade(${t.id})">🗑️</button>
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+// ============================================================
+// DIARY KPIs
+// ============================================================
+function renderDiaryKpis(){
+  const total=trades.length;
+  const wins=trades.filter(t=>t.outcome==='WIN').length;
+  const losses=trades.filter(t=>t.outcome==='LOSS').length;
+  const wr=total?((wins/total)*100).toFixed(1):0;
+  const pnl=trades.reduce((s,t)=>s+t.res,0);
+  const best=trades.length?Math.max(...trades.map(t=>t.res)):0;
+  const worst=trades.length?Math.min(...trades.map(t=>t.res)):0;
+  document.getElementById('diary-kpis').innerHTML=`
+    <div class="kpi cyan"><div class="kpi-lbl">Total Ops</div><div class="kpi-val">${total}</div><div class="kpi-sub">${wins}W · ${losses}L</div></div>
+    <div class="kpi ${parseFloat(wr)>=50?'green':'red'}"><div class="kpi-lbl">Taxa Acerto</div><div class="kpi-val">${wr}%</div><div class="kpi-sub">wins / total</div></div>
+    <div class="kpi ${pnl>=0?'green':'red'}"><div class="kpi-lbl">P&L Total</div><div class="kpi-val">${pnl>=0?'+':''}$${pnl.toFixed(2)}</div><div class="kpi-sub">acumulado</div></div>
+    <div class="kpi gold"><div class="kpi-lbl">Melhor / Pior</div><div class="kpi-val" style="font-size:14px">+$${best.toFixed(0)}</div><div class="kpi-sub" style="color:var(--red)">-$${Math.abs(worst).toFixed(0)}</div></div>
+  `;
+}
+
+// ============================================================
+// DASHBOARD
+// ============================================================
+function renderDash(){
+  const total=trades.length;
+  const wins=trades.filter(t=>t.outcome==='WIN').length;
+  const losses=trades.filter(t=>t.outcome==='LOSS').length;
+  const wr=total?((wins/total)*100).toFixed(1):0;
+  const pnl=trades.reduce((s,t)=>s+t.res,0);
+  const avgRR=trades.filter(t=>t.rr>0).length?
+    (trades.filter(t=>t.rr>0).reduce((s,t)=>s+t.rr,0)/trades.filter(t=>t.rr>0).length).toFixed(2):0;
+
+  // Streak
+  const sorted=[...trades].sort((a,b)=>new Date(b.date)-new Date(a.date));
+  let streak=0,streakType='';
+  for(let t of sorted){
+    if(streak===0){streakType=t.outcome;streak=1;}
+    else if(t.outcome===streakType)streak++;
+    else break;
+  }
+  const streakEl=document.getElementById('dash-streak');
+  const streakLbl=document.getElementById('dash-streak-lbl');
+  streakEl.textContent=streak;
+  streakEl.style.color=streakType==='WIN'?'var(--green)':streakType==='LOSS'?'var(--red)':'var(--gold)';
+  streakLbl.textContent=streakType==='WIN'?`🔥 vitórias seguidas`:streakType==='LOSS'?`❌ derrotas seguidas`:`operações`;
+
+  // This week ops
+  const now=new Date();
+  const wd=now.getDay();const diff=now.getDate()-wd+(wd===0?-6:1);
+  const weekStart=new Date(now.setDate(diff));weekStart.setHours(0,0,0,0);
+  const weekOps=trades.filter(t=>new Date(t.date)>=weekStart).length;
+  const weekPct=Math.min((weekOps/3)*100,100);
+  document.getElementById('ops-week').textContent=`${weekOps} / 3`;
+  document.getElementById('ops-bar').style.width=weekPct+'%';
+  document.getElementById('wr-pct').textContent=wr+'%';
+  document.getElementById('wr-bar').style.width=wr+'%';
 
   // KPIs
-  const meta_f1  = bal * 0.08;
-  const meta_f2  = bal * 0.05;
-  const dd_daily = bal * 0.05;
-  const dd_total = bal * 0.10;
-  const risk_per = bal * 0.005;
-
-  document.getElementById('riskPerTrade').textContent = fmtD(risk_per);
-
-  const kpiRow = document.getElementById('kpiRow');
-  kpiRow.innerHTML = `
-    <div class="stat-chip gold fade-in">
-      <div class="label">Banca Inicial</div>
-      <div class="value">${fmtD(bal)}</div>
-      <div class="sub">Capital de demonstração</div>
-    </div>
-    <div class="stat-chip cyan fade-in" style="animation-delay:.05s">
-      <div class="label">DD Diário Máx</div>
-      <div class="value">${fmtD(dd_daily)}</div>
-      <div class="sub">5% da banca</div>
-    </div>
-    <div class="stat-chip red fade-in" style="animation-delay:.1s">
-      <div class="label">DD Total Máx</div>
-      <div class="value">${fmtD(dd_total)}</div>
-      <div class="sub">10% da banca</div>
-    </div>
-    <div class="stat-chip green fade-in" style="animation-delay:.15s">
-      <div class="label">Risco / Op</div>
-      <div class="value">${fmtD(risk_per)}</div>
-      <div class="sub">0,5% por trade</div>
-    </div>
+  document.getElementById('dash-kpis').innerHTML=`
+    <div class="kpi gold"><div class="kpi-lbl">Total Operações</div><div class="kpi-val">${total}</div><div class="kpi-sub">${wins}W · ${losses}L</div></div>
+    <div class="kpi ${parseFloat(wr)>=50?'green':'red'}"><div class="kpi-lbl">Taxa de Acerto</div><div class="kpi-val">${wr}%</div><div class="kpi-sub">winrate</div></div>
+    <div class="kpi ${pnl>=0?'green':'red'}"><div class="kpi-lbl">P&L Total</div><div class="kpi-val">${pnl>=0?'+':''}$${pnl.toFixed(2)}</div><div class="kpi-sub">acumulado</div></div>
+    <div class="kpi cyan"><div class="kpi-lbl">R:R Médio</div><div class="kpi-val">${avgRR}</div><div class="kpi-sub">risco:recompensa</div></div>
+    <div class="kpi purple"><div class="kpi-lbl">Esta Semana</div><div class="kpi-val">${weekOps}</div><div class="kpi-sub">ops / mín 3</div></div>
   `;
 
-  // Phases
-  // F1: 3 takes — risk 1%/2%, 1%/2%, 2%/4%
-  const f1_takes = [
-    { risk:0.01, ret:0.02 },
-    { risk:0.01, ret:0.02 },
-    { risk:0.02, ret:0.04 },
-  ];
-  // F2: 2 takes — risk 1%/2%, 1.5%/3%
-  const f2_takes = [
-    { risk:0.01,  ret:0.02 },
-    { risk:0.015, ret:0.03 },
-  ];
-
-  const phasesRow = document.getElementById('phasesRow');
-
-  function buildTakes(takes) {
-    return takes.map((t,i) => `
-      <div class="take-row">
-        <div class="take-label">Take ${i+1}</div>
-        <div class="take-box risk">
-          <div class="tkey">Risco</div>
-          <div class="tval">${fmtD(bal * t.risk)}</div>
+  // Recent trades
+  const recent=[...trades].sort((a,b)=>new Date(b.date)-new Date(a.date)).slice(0,5);
+  if(!recent.length){
+    document.getElementById('dash-recent').innerHTML='<div class="empty"><p>Nenhuma operação ainda.</p></div>';
+  } else {
+    document.getElementById('dash-recent').innerHTML=recent.map(t=>{
+      const c=t.outcome==='WIN'?'var(--green)':t.outcome==='LOSS'?'var(--red)':'var(--purple)';
+      return `<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(26,45,74,.4);">
+        <div>
+          <span style="font-weight:600;color:var(--gold)">${t.par}</span>
+          <span style="font-size:11px;color:var(--text2);margin-left:8px">${t.date}</span>
         </div>
-        <div class="take-box ret">
-          <div class="tkey">Retorno</div>
-          <div class="tval">${fmtD(bal * t.ret)}</div>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span style="font-size:11px;color:var(--text2)">${t.dir}</span>
+          <span style="font-family:'Orbitron';font-size:12px;color:${t.res>=0?'var(--green)':'var(--red)'}">${t.res>=0?'+':''}$${t.res.toFixed(2)}</span>
+          <span style="font-size:10px;background:${c}22;color:${c};border:1px solid ${c}44;border-radius:4px;padding:1px 6px">${t.outcome}</span>
         </div>
-      </div>
-    `).join('');
+      </div>`;
+    }).join('');
   }
 
-  // Calculate accumulated balances
-  const f1_acc1 = bal + (bal * f1_takes[0].ret);
-  const f1_acc2 = f1_acc1 + (f1_acc1 * f1_takes[1].ret);
-  const f1_acc3 = f1_acc2 + (f1_acc2 * f1_takes[2].ret);
+  // Chart
+  const chartData=[...trades].sort((a,b)=>new Date(a.date)-new Date(b.date)).slice(-20);
+  const maxAbs=Math.max(...chartData.map(t=>Math.abs(t.res)),1);
+  document.getElementById('dash-chart').innerHTML=chartData.map(t=>{
+    const h=Math.max((Math.abs(t.res)/maxAbs)*100,3);
+    return `<div style="flex:1;height:${h}px;border-radius:3px 3px 0 0;background:${t.res>=0?'var(--green2)':'var(--red2)'};min-width:8px;" title="${t.date}: ${t.res>=0?'+':''}$${t.res.toFixed(2)}"></div>`;
+  }).join('');
 
-  const f2_acc1 = bal + (bal * f2_takes[0].ret);
-  const f2_acc2 = f2_acc1 + (f2_acc1 * f2_takes[1].ret);
+  // Today
+  const today=new Date().toISOString().split('T')[0];
+  const todayT=trades.filter(t=>t.date===today);
+  const todayPnl=todayT.reduce((s,t)=>s+t.res,0);
+  document.getElementById('dash-today').innerHTML=todayT.length?`
+    <div style="font-family:'Orbitron';font-size:24px;font-weight:700;text-align:center;color:${todayPnl>=0?'var(--green)':'var(--red)'};">${todayPnl>=0?'+':''}$${todayPnl.toFixed(2)}</div>
+    <div style="text-align:center;font-size:11px;color:var(--text2);margin-top:4px">${todayT.length} operação(ões) hoje</div>
+    ${todayT.map(t=>`<div style="font-size:12px;padding:5px 0;border-bottom:1px solid rgba(26,45,74,.3)">${t.par} ${t.dir} <span style="color:${t.res>=0?'var(--green)':'var(--red)'}">${t.res>=0?'+':''}$${t.res.toFixed(2)}</span></div>`).join('')}
+  `:'<div class="empty" style="padding:20px"><p>Sem operações hoje.</p></div>';
 
-  const f1_pct = ((meta_f1/bal)*100).toFixed(0);
-  const f2_pct = ((meta_f2/bal)*100).toFixed(0);
+  // Alerts
+  const alerts=[];
+  if(weekOps<3){
+    const remaining=3-weekOps;
+    alerts.push({type:'warn',msg:`Precisas de mais <strong>${remaining}</strong> operação(ões) esta semana!`});
+  }
+  const todayLoss=todayT.filter(t=>t.outcome==='LOSS').reduce((s,t)=>s+Math.abs(t.res),0);
+  if(todayLoss>0) alerts.push({type:'warn',msg:`Perda de hoje: <strong>$${todayLoss.toFixed(2)}</strong> — cuidado com DD diário!`});
+  if(streak>=3&&streakType==='WIN') alerts.push({type:'ok',msg:`🔥 Série de <strong>${streak} wins</strong>! Mantém a disciplina.`});
+  if(streak>=3&&streakType==='LOSS') alerts.push({type:'err',msg:`⚠️ <strong>${streak} perdas</strong> consecutivas. Pausa e revê a estratégia!`});
 
-  phasesRow.innerHTML = `
-    <div class="phase-card fade-in">
-      <div class="phase-header f1">
-        <span class="phase-name f1">FASE 1</span>
-        <span class="phase-meta f1">META ${f1_pct}% · ${fmtD(meta_f1)}</span>
-      </div>
-      <div class="phase-body">
-        <div class="info-row">
-          <span class="key">Saldo Inicial</span>
-          <span class="val" style="color:var(--gold)">${fmtD(bal)}</span>
-        </div>
-        <div class="info-row">
-          <span class="key">Meta de Lucro</span>
-          <span class="val" style="color:var(--green)">${fmtD(meta_f1)}</span>
-        </div>
-        <div class="info-row">
-          <span class="key">DD Diário Máx</span>
-          <span class="val" style="color:var(--red)">${fmtD(dd_daily)}</span>
-        </div>
-        <div class="info-row">
-          <span class="key">DD Total Máx</span>
-          <span class="val" style="color:var(--red)">${fmtD(dd_total)}</span>
-        </div>
-        <div class="info-row">
-          <span class="key">Saldo Mínimo</span>
-          <span class="val" style="color:var(--text2)">${fmtD(bal - dd_total)}</span>
-        </div>
-        <div class="takes-title">Simulação de Takes (2:1)</div>
-        <div class="takes-grid">
-          ${buildTakes(f1_takes)}
-        </div>
-        <div class="progress-wrap">
-          <div class="progress-label">
-            <span>Progresso simulado</span>
-            <span style="color:var(--gold)">3 takes aprovado</span>
-          </div>
-          <div class="progress-track">
-            <div class="progress-fill gold" style="width:100%"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="phase-card fade-in" style="animation-delay:.1s">
-      <div class="phase-header f2">
-        <span class="phase-name f2">FASE 2</span>
-        <span class="phase-meta f2">META ${f2_pct}% · ${fmtD(meta_f2)}</span>
-      </div>
-      <div class="phase-body">
-        <div class="info-row">
-          <span class="key">Saldo Inicial</span>
-          <span class="val" style="color:var(--cyan)">${fmtD(bal)}</span>
-        </div>
-        <div class="info-row">
-          <span class="key">Meta de Lucro</span>
-          <span class="val" style="color:var(--green)">${fmtD(meta_f2)}</span>
-        </div>
-        <div class="info-row">
-          <span class="key">DD Diário Máx</span>
-          <span class="val" style="color:var(--red)">${fmtD(dd_daily)}</span>
-        </div>
-        <div class="info-row">
-          <span class="key">DD Total Máx</span>
-          <span class="val" style="color:var(--red)">${fmtD(dd_total)}</span>
-        </div>
-        <div class="info-row">
-          <span class="key">Saldo Mínimo</span>
-          <span class="val" style="color:var(--text2)">${fmtD(bal - dd_total)}</span>
-        </div>
-        <div class="takes-title">Simulação de Takes (2:1 / 3:1)</div>
-        <div class="takes-grid">
-          ${buildTakes(f2_takes)}
-        </div>
-        <div class="progress-wrap">
-          <div class="progress-label">
-            <span>Progresso simulado</span>
-            <span style="color:var(--cyan)">2 takes aprovado</span>
-          </div>
-          <div class="progress-track">
-            <div class="progress-fill cyan" style="width:100%"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  `;
-
-  // Ops grid
-  const opsGrid = document.getElementById('opsGrid');
-  opsGrid.innerHTML = ops.map(o => `
-    <div class="day-box ${o.active ? 'active' : 'off'}">
-      <div class="day-name">${o.day}</div>
-      <div class="day-time ${!o.active ? 'off-text' : ''}">${o.time === '-' ? 'FOLGA' : o.time}</div>
-    </div>
-  `).join('');
+  document.getElementById('dash-alerts').innerHTML=alerts.length?
+    alerts.map(a=>`<div class="alert ${a.type==='ok'?'success':a.type==='err'?'':'info'}" style="margin-bottom:6px;font-size:12px">${a.msg}</div>`).join(''):
+    '<div class="alert success" style="font-size:12px">✅ Tudo dentro dos parâmetros de risco!</div>';
 }
 
-update();
+// ============================================================
+// PLAN 6 MONTHS
+// ============================================================
+function renderPlan(){
+  const months=[...new Set(weeks.map(w=>w.month))];
+  let html='';
+  months.forEach(m=>{
+    const mWeeks=weeks.filter(w=>w.month===m);
+    const cls=mWeeks[0].cls;
+    const mName=mWeeks[0].mName;
+    const done=mWeeks.filter(w=>w.status==='done').length;
+    const pct=Math.round((done/mWeeks.length)*100);
+    html+=`
+      <div class="card" style="margin-bottom:14px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+          <span class="m-badge ${cls}">${mName}</span>
+          <span style="font-size:11px;color:var(--text2)">${done}/${mWeeks.length} semanas · ${pct}%</span>
+        </div>
+        <div class="prog-wrap" style="margin-bottom:14px;">
+          <div class="prog-track"><div class="prog-fill ${cls==='m1'?'gold':cls==='m2'?'cyan':'green'}" style="width:${pct}%"></div></div>
+        </div>
+        <div class="tbl-wrap">
+          <table class="week-tbl">
+            <thead><tr><th>Semana</th><th>Data Início</th><th>Data Fim</th><th>Estudo (h)</th><th>Ops Demo</th><th>Acerto %</th><th>Status</th><th>Notas</th></tr></thead>
+            <tbody>
+              ${mWeeks.map(w=>`
+                <tr>
+                  <td><span class="wnum">${w.label}</span></td>
+                  <td><input type="date" value="${w.dateStart}" onchange="updateWeek(${w.id},'dateStart',this.value)"></td>
+                  <td><input type="date" value="${w.dateEnd}" onchange="updateWeek(${w.id},'dateEnd',this.value)"></td>
+                  <td><input type="number" min="0" max="60" value="${w.study}" placeholder="0" onchange="updateWeek(${w.id},'study',this.value)" style="max-width:70px"></td>
+                  <td><input type="number" min="0" value="${w.ops}" placeholder="0" onchange="updateWeek(${w.id},'ops',this.value)" style="max-width:70px"></td>
+                  <td><input type="number" min="0" max="100" value="${w.acerto}" placeholder="0" onchange="updateWeek(${w.id},'acerto',this.value)" style="max-width:70px"></td>
+                  <td>
+                    <select onchange="updateWeek(${w.id},'status',this.value)" style="font-size:11px">
+                      <option value="pending" ${w.status==='pending'?'selected':''}>⬜ Pendente</option>
+                      <option value="progress" ${w.status==='progress'?'selected':''}>🔄 Em Progresso</option>
+                      <option value="done" ${w.status==='done'?'selected':''}>✅ Concluído</option>
+                      <option value="fail" ${w.status==='fail'?'selected':''}>❌ Falhado</option>
+                    </select>
+                  </td>
+                  <td><input type="text" value="${w.notes}" placeholder="Notas..." onchange="updateWeek(${w.id},'notes',this.value)"></td>
+                </tr>`).join('')}
+            </tbody>
+          </table>
+        </div>
+      </div>`;
+  });
+  document.getElementById('plan-content').innerHTML=html;
+}
+
+function updateWeek(id,field,val){
+  const w=weeks.find(x=>x.id===id);if(!w)return;
+  w[field]=val;
+  saveW();
+}
+
+// ============================================================
+// CHECKLIST
+// ============================================================
+function renderChk(){
+  let html='';
+  const total=Object.keys(chk).length;
+  const done=Object.values(chk).filter(v=>v.done).length;
+  const pct=total?Math.round((done/total)*100):0;
+
+  html+=`<div class="card" style="margin-bottom:16px;">
+    <div style="display:flex;justify-content:space-between;margin-bottom:8px;">
+      <span style="font-size:13px;font-weight:600">Progresso Total: ${done}/${total} objectivos</span>
+      <span style="font-family:'Orbitron';font-size:14px;color:var(--gold)">${pct}%</span>
+    </div>
+    <div class="prog-track" style="height:8px;"><div class="prog-fill gold" style="width:${pct}%"></div></div>
+  </div>`;
+
+  chkData.forEach((m,mi)=>{
+    const mDone=m.items.filter((_,ii)=>chk[`${mi}-${ii}`]?.done).length;
+    html+=`<div class="card" style="margin-bottom:14px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+        <span class="m-badge ${m.cls}">${m.title}</span>
+        <span style="font-size:11px;color:var(--text2)">${mDone}/${m.items.length}</span>
+      </div>
+      <div>
+        ${m.items.map((itm,ii)=>{
+          const key=`${mi}-${ii}`;
+          const d=chk[key]?.done;
+          const dt=chk[key]?.date||'';
+          return `<div class="chk-item">
+            <div class="chk-box ${d?'done':''}" onclick="toggleChk('${key}')">
+              ${d?'<svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>':''}
+            </div>
+            <div style="flex:1">
+              <div class="chk-txt ${d?'done':''}">${itm}</div>
+              ${d?`<input class="chk-date-inp" type="date" value="${dt}" onchange="setChkDate('${key}',this.value)" placeholder="Data de conclusão">`:'' }
+            </div>
+          </div>`;
+        }).join('')}
+      </div>
+    </div>`;
+  });
+  document.getElementById('chk-content').innerHTML=html;
+}
+
+function toggleChk(key){
+  chk[key].done=!chk[key].done;
+  if(!chk[key].done)chk[key].date='';
+  else chk[key].date=new Date().toISOString().split('T')[0];
+  saveC();renderChk();
+}
+function setChkDate(key,val){chk[key].date=val;saveC();}
+
+// ============================================================
+// SIMULATOR
+// ============================================================
+function calcSim(){
+  const cap=parseFloat(document.getElementById('s-cap').value)||10000;
+  const pct=parseFloat(document.getElementById('s-pct').value)||5;
+  const share=parseFloat(document.getElementById('s-share').value)||80;
+  const fx=parseFloat(document.getElementById('s-fx').value)||64;
+  const months=parseInt(document.getElementById('s-months').value)||12;
+
+  const gross=cap*pct/100;
+  const yours=gross*share/100;
+  const yoursMZN=yours*fx;
+  const annualUSD=yours*12;
+  const annualMZN=annualUSD*fx;
+
+  document.getElementById('sim-results').innerHTML=`
+    <div class="sim-row"><span class="sim-key">Lucro Bruto / Mês</span><span class="sim-val">$${gross.toFixed(2)}</span></div>
+    <div class="sim-row"><span class="sim-key">Teu Ganho / Mês (USD)</span><span class="sim-val">$${yours.toFixed(2)}</span></div>
+    <div class="sim-row"><span class="sim-key">Teu Ganho / Mês (MZN)</span><span class="sim-val">${yoursMZN.toLocaleString('pt-BR',{maximumFractionDigits:0})} MZN</span></div>
+    <div class="sim-row"><span class="sim-key">Teu Ganho / Ano (USD)</span><span class="sim-val" style="color:var(--gold)">$${annualUSD.toFixed(2)}</span></div>
+    <div class="sim-row" style="border:none"><span class="sim-key">Teu Ganho / Ano (MZN)</span><span class="sim-val" style="color:var(--gold)">${annualMZN.toLocaleString('pt-BR',{maximumFractionDigits:0})} MZN</span></div>
+  `;
+
+  // Scaling table
+  const tiers=[10000,25000,50000,100000,200000];
+  document.getElementById('scl-tbl').innerHTML=
+    '<tr style="border-bottom:1px solid var(--border);"><th style="padding:8px 14px;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text2);font-weight:700">Conta</th><th style="padding:8px 14px;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text2);font-weight:700">Ganho/Mês (USD)</th><th style="padding:8px 14px;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text2);font-weight:700">Ganho/Mês (MZN)</th></tr>'+
+    tiers.map(t=>`<tr>
+      <td>$${t.toLocaleString()}</td>
+      <td>$${(t*pct/100*share/100).toFixed(2)}</td>
+      <td>${((t*pct/100*share/100)*fx).toLocaleString('pt-BR',{maximumFractionDigits:0})} MZN</td>
+    </tr>`).join('');
+
+  // Compound chart
+  let bal=cap;const data=[];
+  for(let i=0;i<=months;i++){data.push(bal);if(i<months)bal+=bal*pct/100;}
+  const maxV=Math.max(...data);
+  const chart=document.getElementById('compound-chart');
+  const labels=document.getElementById('compound-labels');
+  chart.innerHTML=data.map((v,i)=>`<div style="flex:1;height:${(v/maxV)*95}px;min-height:4px;border-radius:3px 3px 0 0;background:linear-gradient(180deg,var(--cyan),var(--cyan2));min-width:16px;" title="Mês ${i}: $${v.toFixed(0)}"></div>`).join('');
+  labels.innerHTML=data.map((_,i)=>`<div style="flex:1;text-align:center;font-size:9px;color:var(--text3);min-width:16px;">${i}</div>`).join('');
+}
+
+// ============================================================
+// RISK PAGE
+// ============================================================
+function calcRisk(){
+  const bal=parseFloat(document.getElementById('rc-bal').value)||10000;
+  const riskPct=parseFloat(document.getElementById('rc-riskpct').value)||0.5;
+  const sl=parseFloat(document.getElementById('rc-sl').value)||20;
+  const pair=document.getElementById('rc-pair').value;
+
+  const riskVal=bal*riskPct/100;
+  let lot=0;
+  if(pair==='forex') lot=riskVal/(sl*10);
+  else if(pair==='xauusd') lot=riskVal/(sl*10);
+  else lot=riskVal/sl;
+
+  document.getElementById('rc-val').textContent='$'+riskVal.toFixed(2);
+  document.getElementById('rc-lot').textContent=lot.toFixed(2)+' lotes';
+  document.getElementById('rc-tp').textContent='+$'+(riskVal*2).toFixed(2)+' (1:2)';
+}
+
+function renderRisk(){
+  const rules=[
+    {icon:'🎯',title:'Risco por Operação','desc':'Máximo 0,5% da banca por trade'},
+    {icon:'📉',title:'DD Diário','desc':'Máximo 5% de perda no mesmo dia'},
+    {icon:'⛔',title:'DD Total','desc':'Máximo 10% de perda total — conta encerrada'},
+    {icon:'📊',title:'R:R Mínimo','desc':'Nunca entrar com R:R inferior a 1:2'},
+    {icon:'🔢',title:'Operações/Semana','desc':'Mínimo 3 operações por semana'},
+    {icon:'⏰',title:'Horários','desc':'Operar apenas nas janelas definidas'},
+    {icon:'🧠',title:'Regra Mental','desc':'Se LOSS 2x seguidos no dia, parar imediatamente'},
+    {icon:'📓',title:'Diário Obrigatório','desc':'Registar 100% das operações no diário'},
+  ];
+  document.getElementById('risk-rules').innerHTML=rules.map(r=>`
+    <div style="display:flex;gap:12px;padding:10px 0;border-bottom:1px solid rgba(26,45,74,.4);align-items:flex-start;">
+      <span style="font-size:18px;flex-shrink:0">${r.icon}</span>
+      <div>
+        <div style="font-size:13px;font-weight:600;color:var(--text)">${r.title}</div>
+        <div style="font-size:12px;color:var(--text2);margin-top:2px">${r.desc}</div>
+      </div>
+    </div>
+  `).join('');
+
+  const sched=[
+    {day:'Seg',time:'10h',on:true},{day:'Ter',time:'10h',on:true},
+    {day:'Qua',time:'21h',on:true},{day:'Qui',time:'21h',on:true},{day:'Sex',time:'—',on:false}
+  ];
+  document.getElementById('ops-sched').innerHTML=sched.map(s=>`
+    <div style="background:${s.on?'rgba(0,212,255,.08)':'rgba(255,255,255,.02)'};border:1px solid ${s.on?'rgba(0,212,255,.3)':'var(--border)'};border-radius:10px;padding:12px 8px;text-align:center;">
+      <div style="font-size:10px;letter-spacing:1px;text-transform:uppercase;color:${s.on?'var(--text2)':'var(--text3)'};font-weight:700;margin-bottom:6px">${s.day}</div>
+      <div style="font-family:'Orbitron';font-size:12px;color:${s.on?'var(--cyan)':'var(--text3)'}">${s.time}</div>
+    </div>
+  `).join('');
+
+  const total=trades.length;
+  const wins=trades.filter(t=>t.outcome==='WIN').length;
+  const totalRisk=trades.reduce((s,t)=>s+t.riskpct,0);
+  const avgRisk=total?totalRisk/total:0;
+  const maxRisk=total?Math.max(...trades.map(t=>t.riskpct)):0;
+  const pnl=trades.reduce((s,t)=>s+t.res,0);
+
+  document.getElementById('risk-stats').innerHTML=`
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+      <div class="kpi cyan"><div class="kpi-lbl">Total Trades</div><div class="kpi-val">${total}</div></div>
+      <div class="kpi ${wins/Math.max(total,1)>=0.5?'green':'red'}"><div class="kpi-lbl">Win Rate</div><div class="kpi-val">${total?(wins/total*100).toFixed(1):0}%</div></div>
+      <div class="kpi gold"><div class="kpi-lbl">Risco Médio</div><div class="kpi-val">${avgRisk.toFixed(2)}%</div></div>
+      <div class="kpi ${pnl>=0?'green':'red'}"><div class="kpi-lbl">P&L Total</div><div class="kpi-val">${pnl>=0?'+':''}$${pnl.toFixed(2)}</div></div>
+    </div>
+  `;
+}
+
+// ============================================================
+// EXPORT CSV
+// ============================================================
+function exportCSV(){
+  if(!trades.length){alert('Nenhuma operação para exportar!');return;}
+  const header='Data,Par,Direcao,Sessao,Entrada,SL,TP,Resultado,Risco%,RR,Outcome,Setup,Emocao,Licao';
+  const rows=trades.map(t=>[t.date,t.par,t.dir,t.sess||'',t.entry,t.sl,t.tp,t.res,t.riskpct,t.rr,t.outcome,t.setup||'',t.emo||'',`"${(t.lesson||'').replace(/"/g,"'")}"`].join(','));
+  const csv=header+'\n'+rows.join('\n');
+  const a=document.createElement('a');
+  a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);
+  a.download='nelly-g-diario.csv';a.click();
+}
+
+// ============================================================
+// BOOT
+// ============================================================
+setDate();
+renderDash();
+renderDiaryKpis();
+renderTable();
+setInterval(()=>{document.getElementById('hdDate').textContent=new Date().toLocaleDateString('pt-BR',{weekday:'long',year:'numeric',month:'long',day:'numeric'});},60000);
 </script>
 </body>
 </html>
