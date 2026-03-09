@@ -623,7 +623,8 @@ function addTrade(){
   };
 
   trades.push(trade);
-  showMsg('ok', '✅ Operação adicionada com sucesso! (' + par + ' ' + dir + ' → ' + (res>=0?'+':'') + '$' + res.toFixed(2) + ')');
+  saveAll();
+  showMsg('ok', '✅ Operação adicionada! ' + par + ' ' + dir + ' → ' + (res>=0?'+':'') + '$' + res.toFixed(2));
   clearForm();
   renderTable();
   renderDash();
@@ -661,6 +662,7 @@ function clearForm(){
 function deleteTrade(id){
   if(!confirm('Apagar esta operação?')) return;
   trades = trades.filter(t=>t.id!==id);
+  saveAll();
   renderTable();
   renderDash();
   renderDiaryKpis();
@@ -714,6 +716,7 @@ function saveEdit(){
   t.out    = document.getElementById('e-out').value;
   t.emo    = document.getElementById('e-emo').value;
   t.lesson = document.getElementById('e-lesson').value;
+  saveAll();
   closeModal();
   renderTable();
   renderDash();
@@ -948,7 +951,7 @@ function renderPlan(){
 
 function updW(id, field, val){
   const w = weeks.find(x=>x.id===id);
-  if(w) w[field] = val;
+  if(w){ w[field] = val; saveAll(); }
 }
 
 // ============================================================
@@ -1000,6 +1003,7 @@ function renderChk(){
 function toggleChk(key){
   checks[key].done = !checks[key].done;
   checks[key].date = checks[key].done ? today() : '';
+  saveAll();
   renderChk();
 }
 function setChkDate(key,val){ checks[key].date = val; }
@@ -1143,14 +1147,14 @@ function exportCSV(){
 }
 
 // ============================================================
-// SAVE / LOAD — localStorage para guardar dados entre sessões
+// SAVE / LOAD
 // ============================================================
 function saveAll(){
   try{
     localStorage.setItem('ng_trades', JSON.stringify(trades));
     localStorage.setItem('ng_weeks',  JSON.stringify(weeks));
     localStorage.setItem('ng_checks', JSON.stringify(checks));
-  } catch(e){ /* ignore se não disponível */ }
+  } catch(e){}
 }
 
 function loadAll(){
@@ -1161,29 +1165,7 @@ function loadAll(){
     if(t) trades  = JSON.parse(t);
     if(w) weeks   = JSON.parse(w);
     if(c) checks  = JSON.parse(c);
-  } catch(e){ /* ignore */ }
-}
-
-// Patch addTrade, deleteTrade, saveEdit, updW, toggleChk to auto-save
-const _origAdd = addTrade;
-function addTrade(){
-  _origAdd(); saveAll();
-}
-const _origDel = deleteTrade;
-function deleteTrade(id){
-  _origDel(id); saveAll();
-}
-const _origSave = saveEdit;
-function saveEdit(){
-  _origSave(); saveAll();
-}
-const _origUpdW = updW;
-function updW(id,field,val){
-  _origUpdW(id,field,val); saveAll();
-}
-const _origToggle = toggleChk;
-function toggleChk(key){
-  _origToggle(key); saveAll();
+  } catch(e){}
 }
 
 // ============================================================
