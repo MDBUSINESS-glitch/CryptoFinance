@@ -523,7 +523,7 @@ table.dt tbody tr:last-child td{border-bottom:none;}
     <div class="fr c4">
       <div class="fg"><label>Risco (%)</label><input type="number" step="0.1" id="f-riskp" value="0.5" oninput="autoCalc()"></div>
       <div class="fg"><label>R:R <span id="f-rr-auto" style="color:var(--cyan2);font-size:10px;margin-left:4px;"></span></label>
-        <input type="number" step="0.01" id="f-rr" placeholder="auto" readonly
+        <input type="number" step="0.01" id="f-rr" placeholder="auto"
           style="background:rgba(0,184,217,.06);border-color:rgba(0,184,217,.3);font-family:var(--font-num);font-weight:700;color:var(--cyan2);">
       </div>
       <div class="fg"><label>Lote Calculado</label>
@@ -735,82 +735,116 @@ var curEmo = '';
 var curBal = 10000;
 var MONTHLY_GOAL = 500;
 
-// Pip values per lot by instrument (USD per pip per standard lot)
-var PIP_VALUES = {
-  'XAU/USD': 10,    // Gold: $10/pip per lot (1pip=0.1)
-  'EUR/USD': 10, 'GBP/USD': 10, 'GBP/JPY': 6.9,
-  'USD/JPY': 6.9, 'NAS100': 1, 'US30': 1,
-  'US500': 1, 'BTC/USD': 1, 'Outro': 10
-};
-var PIP_SIZE = {
-  'XAU/USD': 0.1, 'EUR/USD': 0.0001, 'GBP/USD': 0.0001,
-  'GBP/JPY': 0.01, 'USD/JPY': 0.01,
-  'NAS100': 1, 'US30': 1, 'US500': 0.1, 'BTC/USD': 1, 'Outro': 0.0001
-};
-
 // ═══════════════════════════════════════════════════════
 // AUTO-CALCULATE LOT + R:R + RESULT
 // ═══════════════════════════════════════════════════════
+// For each instrument: [pip_size, usd_per_pip_per_lot]
+// pip_size   = minimum price movement
+// pip_value  = USD value of 1 pip per 1 standard lot
+// lot calc:  lots = riskUSD / (sl_distance / pip_size * pip_value)
+//            simplifies to: lots = riskUSD / (sl_distance * pip_value / pip_size)
+//            or even simpler for most pairs: lots = riskUSD / (sl_pips * pip_value_per_lot)
+var INST = {
+  // [pip_size,  usd_per_pip_per_lot]
+  'XAU/USD': [0.01,  1   ],   // Gold 100oz/lot, pip=$0.01, val=$1/pip/lot
+  'EUR/USD': [0.0001,10  ],   // 100k units, pip=0.0001, val=$10
+  'GBP/USD': [0.0001,10  ],
+  'GBP/JPY': [0.01,  6.7 ],   // approx at 150 JPY/USD
+  'USD/JPY': [0.01,  6.7 ],
+  'NAS100':  [0.1,   1   ],   // $1 per 0.1 point per lot
+  'US30':    [1,     1   ],   // $1 per point per lot
+  'US500':   [0.1,   1   ],
+  'BTC/USD': [1,     1   ],
+  'Outro':   [0.0001,10  ]
+};
+
+autoCalc._win  = 0;
+autoCalc._loss = 0;
+
 function autoCalc(){
   var par   = document.getElementById('f-par').value;
-  var dir   = document.getElementById('f-dir').value;
   var entry = parseFloat(document.getElementById('f-entry').value);
   var sl    = parseFloat(document.getElementById('f-sl').value);
   var tp    = parseFloat(document.getElementById('f-tp').value);
-  var riskp = parseFloat(document.getElementById('f-riskp').value) || 0.5;
-  var bal   = parseFloat(document.getElementById('f-bal').value) || curBal;
-
-  var pipSz  = PIP_SIZE[par]  || 0.0001;
-  var pipVal = PIP_VALUES[par] || 10;
+  var riskp = parseFloat(document.getElementById('f-riskp').value);
+  var balEl = document.getElementById('f-bal');
+  var bal   = parseFloat(balEl.value);
 
   var panel = document.getElementById('calc-panel');
 
-  if(!entry || !sl){ panel.style.display='none'; return; }
+  // Need at least entry and SL with valid positive numbers
+  if(!entry || !sl || isNaN(entry) || isNaN(sl) || entry <= 0 || sl <= 0){
+    panel.style.display = 'none';
+    return;
+  }
 
-  // Pips de SL e TP
-  var slPips = Math.abs(entry - sl) / pipSz;
-  var tpPips = tp ? Math.abs(tp - entry) / pipSz : 0;
+  if(isNaN(riskp) || riskp <= 0) riskp = 0.5;
+  if(isNaN(bal)   || bal   <= 0) bal   = curBal;
 
-  // R:R
-  var rr = tpPips && slPips ? (tpPips / slPips) : 0;
-  document.getElementById('f-rr').value = rr ? rr.toFixed(2) : '';
-  document.getElementById('f-rr-auto').textContent = rr ? '(1:'+rr.toFixed(1)+')' : '';
+  var inst    = INST[par] || INST['Outro'];
+  var pipSz   = inst[0];
+  var pipVal  = inst[1];  // USD per pip per 1 standard lot
 
-  // Risco em $
+  // Distance in price units
+  var slDist  = Math.abs(entry - sl);
+  var tpDist  = (tp && !isNaN(tp) && tp > 0) ? Math.abs(tp - entry) : 0;
+
+  // Convert to pips
+  var slPips  = slDist / pipSz;
+  var tpPips  = tpDist > 0 ? tpDist / pipSz : 0;
+
+  // R:R — only fill if user hasn't typed manually
+  var rrEl = document.getElementById('f-rr');
+  var rr   = (slPips > 0 && tpPips > 0) ? tpPips / slPips : 0;
+  // Only overwrite if field is empty or was auto-set
+  if(!rrEl._userEdited){
+    rrEl.value = rr > 0 ? rr.toFixed(2) : '';
+  } else {
+    rr = parseFloat(rrEl.value) || rr;
+  }
+  document.getElementById('f-rr-auto').textContent = rr > 0 ? '1:' + rr.toFixed(1) : '(preenche TP)';
+
+  // Risk in USD
   var riskUSD = bal * riskp / 100;
 
-  // Lote = risco$ / (slPips * pipValPorLote)
-  var lot = (slPips > 0 && pipVal > 0) ? riskUSD / (slPips * pipVal) : 0;
-  document.getElementById('f-lot').value = lot ? lot.toFixed(2) + ' lotes' : '—';
+  // Lot size
+  var lot = (slPips > 0) ? riskUSD / (slPips * pipVal) : 0;
+  document.getElementById('f-lot').value = lot > 0 ? lot.toFixed(2) + ' lotes' : '—';
 
-  // Ganho / Perda esperados
-  var winUSD  = lot * tpPips * pipVal;
+  // Expected P&L
+  var winUSD  = tpPips > 0 ? lot * tpPips * pipVal : (riskUSD * rr);
   var lossUSD = riskUSD;
 
-  // Mostrar painel
-  panel.style.display = 'block';
-  document.getElementById('cp-risk').textContent = '$' + riskUSD.toFixed(2);
-  document.getElementById('cp-win').textContent  = tp ? '+$' + winUSD.toFixed(2) : '—';
-  document.getElementById('cp-loss').textContent = '-$' + lossUSD.toFixed(2);
-  document.getElementById('cp-be').textContent   = '$0.00';
-
-  // Store for autoFill
+  // Store for autoFillResult
   autoCalc._win  = winUSD;
   autoCalc._loss = lossUSD;
-  autoCalc._rr   = rr;
+
+  // Show panel
+  panel.style.display = 'block';
+  document.getElementById('cp-risk').textContent  = '$' + riskUSD.toFixed(2);
+  document.getElementById('cp-win').textContent   = winUSD  > 0 ? '+$' + winUSD.toFixed(2)  : '—';
+  document.getElementById('cp-loss').textContent  = lossUSD > 0 ? '−$' + lossUSD.toFixed(2) : '—';
+  document.getElementById('cp-be').textContent    = '$0.00';
 
   autoFillResult();
 }
 
+// Mark R:R as user-edited so autoCalc doesn't overwrite it
+document.addEventListener('DOMContentLoaded', function(){
+  var rrEl = document.getElementById('f-rr');
+  if(rrEl){
+    rrEl.addEventListener('input', function(){ rrEl._userEdited = true; });
+  }
+});
+
 function autoFillResult(){
-  var out = document.getElementById('f-out').value;
+  var out  = document.getElementById('f-out').value;
+  var resEl = document.getElementById('f-res');
   var win  = autoCalc._win  || 0;
   var loss = autoCalc._loss || 0;
-  var res  = document.getElementById('f-res');
-  // Only auto-fill if field is empty or was previously auto-filled
-  if(out === 'WIN'  && win)  { res.value = win.toFixed(2);  res.style.color='var(--grn)'; }
-  if(out === 'LOSS' && loss) { res.value = (-loss).toFixed(2); res.style.color='var(--red)'; }
-  if(out === 'BE')           { res.value = '0'; res.style.color='var(--t2)'; }
+  if(out === 'WIN'  && win  > 0){ resEl.value = win.toFixed(2);   resEl.style.color='var(--grn)'; }
+  if(out === 'LOSS' && loss > 0){ resEl.value = (-loss).toFixed(2); resEl.style.color='var(--red)'; }
+  if(out === 'BE')               { resEl.value = '0';               resEl.style.color='var(--t2)'; }
 }
 
 // ═══════════════════════════════════════════════════════
@@ -1051,7 +1085,8 @@ function clearForm(){
   document.getElementById('f-res').value   = '';
   document.getElementById('f-res').style.color = '';
   document.getElementById('f-riskp').value = '0.5';
-  document.getElementById('f-rr').value    = '';
+  document.getElementById('f-rr').value   = '';
+  document.getElementById('f-rr')._userEdited = false;
   document.getElementById('f-lot').value   = '';
   document.getElementById('f-rr-auto').textContent = '';
   document.getElementById('f-lesson').value= '';
