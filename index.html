@@ -1,297 +1,781 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
- <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>CryptoFinance Pro - NELLY-G TRADER</title>
-  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
-  <style>
-    :root{--promoH:0px;}
-    *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Tahoma,Verdana,sans-serif;}
-    body{background:linear-gradient(135deg,#0D0D0D,#1A1A1A);color:#fff;line-height:1.6;}
-    a{text-decoration:none;color:inherit;}
-    nav{position:fixed;top:0;left:0;width:100%;background:#0D0D0D;display:flex;justify-content:space-between;align-items:center;padding:1rem 2rem;z-index:1000;transition:top .2s ease;}
-    nav .logo{font-size:1.5rem;font-weight:700;color:#FFD700;}
-    nav ul{list-style:none;display:flex;gap:1.5rem;}
-    nav ul li a{color:#fff;font-weight:600;transition:.3s;}
-    nav ul li a:hover{color:#FFD700;}
-    .hero{padding:8rem 2rem 5rem;text-align:center;background:linear-gradient(90deg,#0055FF,#7B2FF7);}
-    .hero h1{font-size:2.8rem;margin-bottom:1rem;}
-    .hero p{font-size:1.2rem;margin-bottom:2rem;}
-    .cta-btn{display:inline-block;padding:1rem 2rem;background:linear-gradient(90deg,#FFD700,#FFAA00);color:#000;border-radius:50px;font-weight:700;transition:.3s;animation:pulse 2s infinite;}
-    .cta-btn:hover{background:linear-gradient(90deg,#7B2FF7,#0055FF);color:#fff;}
-    @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,215,0,.6);}70%{box-shadow:0 0 0 20px rgba(255,215,0,0);}100%{box-shadow:0 0 0 0 rgba(255,215,0,0);}}
-    section{padding:4rem 2rem;max-width:1100px;margin:auto;opacity:0;animation:fadeIn 1s forwards;}
-    @keyframes fadeIn{to{opacity:1;}}
-    h2{text-align:center;color:#FFD700;margin-bottom:2rem;font-size:2rem;}
-    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.5rem;}
-    .card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:15px;padding:1.5rem;text-align:center;transition:.3s;}
-    .card:hover{transform:translateY(-5px) scale(1.02);border-color:#FFD700;}
-    .card i{font-size:2rem;color:#FFD700;margin-bottom:.8rem;}
-    a.card{display:block;color:#fff;}
-    iframe{border-radius:10px;}
-    .steps{text-align:left;max-width:650px;margin:2rem auto;background:rgba(255,255,255,0.05);padding:2rem;border-radius:12px;}
-    .steps h2{color:#FFD700;margin-bottom:1rem;text-align:center;}
-    .newsletter{text-align:center;margin-top:2rem;}
-    .newsletter input{padding:.8rem;width:250px;border:none;border-radius:6px;margin-right:.5rem;}
-    .newsletter button{padding:.9rem 1.5rem;background:#FFD700;border:none;border-radius:6px;cursor:pointer;font-weight:bold;}
-    .newsletter button:hover{background:#FFAA00;color:#000;}
-    .vip{text-align:center;margin-top:3rem;}
-    .vip h3{color:#FFD700;font-size:1.8rem;margin-bottom:1rem;}
-    .faq-item{background:rgba(255,255,255,.05);padding:1rem 1.5rem;border-radius:10px;margin-bottom:1rem;}
-    .faq-item h4{color:#FFD700;margin-bottom:.5rem;}
-    .social-share{text-align:center;margin:2rem 0;}
-    .social-share a{margin:0 .5rem;color:#FFD700;font-size:1.5rem;}
-    footer{text-align:center;padding:2rem;background:#111;color:#aaa;font-size:.9rem;}
-    footer a{color:#FFD700;margin:0 1rem;}
-    footer nav a:hover{text-decoration:underline;}
-    .referral-container {position:fixed;right:20px;bottom:20px;display:flex;gap:20px;flex-wrap:wrap;}
-    .referral{text-align:center;}
-    .referral p{margin:0;font-size:.9rem;color:#FFD700;font-weight:bold;}
-    .referral code{background:rgba(255,215,0,.15);padding:.3rem .5rem;border-radius:5px;display:block;margin-bottom:5px;color:#FFD700;}
-    .qr img{width:100px;border:2px solid #FFD700;border-radius:8px;}
-    .notification {background:#111; color:#FFD700; padding:1rem 1.5rem; margin-top:0.5rem; border-radius:12px; box-shadow:0 5px 15px rgba(0,0,0,0.3); opacity:0; transform:translateY(50px); transition: all 0.5s ease; font-weight:bold;}
-    .notification.show { opacity:1; transform:translateY(0); }
-  </style>
- </head>
- <body class="has-promo">
-  <!-- Navbar -->
-  <nav>
-    <div class="logo">CryptoFinance Pro</div>
-    <ul>
-      <li><a href="#hero">Home</a></li>
-      <li><a href="#mexc">MEXC</a></li>
-      <li><a href="#icmarkets">IC Markets</a></li>
-      <li><a href="#beneficios">Benefícios</a></li>
-      <li><a href="#servicos">Serviços</a></li>
-      <li><a href="#academia">Academia</a></li>
-      <li><a href="#youtube">Tutoriais</a></li>
-      <li><a href="#vip">VIP</a></li>
-      <li><a href="#ebook">Ebook</a></li>
-    </ul>
-  </nav>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NELLY-G TRADER — Calculadora de Demonstração</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #050810;
+    --bg2: #080d1a;
+    --bg3: #0c1326;
+    --panel: #0f1929;
+    --panel2: #132035;
+    --border: #1a2d4a;
+    --gold: #f0c040;
+    --gold2: #e8a800;
+    --cyan: #00d4ff;
+    --cyan2: #0099cc;
+    --green: #00e5a0;
+    --green2: #00b37d;
+    --red: #ff4d6a;
+    --red2: #cc2244;
+    --text: #e8f0ff;
+    --text2: #7a9cc4;
+    --text3: #3d5a80;
+  }
 
-  <!-- Hero -->
-  <div class="hero" id="hero">
-    <h1>O Futuro das Criptomoedas Começa Aqui 🚀</h1>
-    <p>Plataforma completa com análises, estratégias e ferramentas profissionais.</p>
-    <a href="#vip" class="cta-btn">Quero Começar Agora</a>
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Animated bg */
+  body::before {
+    content:'';
+    position:fixed;
+    inset:0;
+    background:
+      radial-gradient(ellipse 80% 50% at 50% -10%, rgba(0,180,255,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 90% 80%, rgba(240,192,64,0.04) 0%, transparent 50%);
+    pointer-events:none;
+    z-index:0;
+  }
+
+  /* Grid lines */
+  body::after {
+    content:'';
+    position:fixed;
+    inset:0;
+    background-image:
+      linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events:none;
+    z-index:0;
+  }
+
+  .wrapper { position:relative; z-index:1; max-width:1100px; margin:0 auto; padding:20px; }
+
+  /* ===== HEADER ===== */
+  header {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:24px 32px;
+    background: linear-gradient(135deg, rgba(15,25,41,0.95) 0%, rgba(12,19,38,0.95) 100%);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    margin-bottom: 24px;
+    backdrop-filter: blur(20px);
+    position:relative;
+    overflow:hidden;
+  }
+
+  header::before {
+    content:'';
+    position:absolute;
+    top:0; left:0; right:0;
+    height:2px;
+    background: linear-gradient(90deg, transparent, var(--cyan), var(--gold), var(--cyan), transparent);
+    animation: shimmer 3s infinite;
+  }
+
+  @keyframes shimmer {
+    0%,100% { opacity:0.5; }
+    50% { opacity:1; }
+  }
+
+  .logo-wrap { display:flex; align-items:center; gap:16px; }
+
+  .logo-icon {
+    width:52px; height:52px;
+    background: linear-gradient(135deg, var(--gold), var(--gold2));
+    border-radius:12px;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Orbitron',sans-serif;
+    font-weight:900;
+    font-size:18px;
+    color:#050810;
+    box-shadow: 0 0 20px rgba(240,192,64,0.3);
+    position:relative;
+  }
+
+  .logo-icon::after {
+    content:'';
+    position:absolute;
+    inset:-3px;
+    border-radius:15px;
+    background: linear-gradient(135deg, rgba(240,192,64,0.3), transparent);
+    z-index:-1;
+  }
+
+  .logo-text h1 {
+    font-family:'Orbitron',sans-serif;
+    font-size:22px;
+    font-weight:900;
+    letter-spacing:3px;
+    background: linear-gradient(135deg, var(--gold), #fff8e0, var(--gold2));
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    background-clip:text;
+    line-height:1;
+  }
+
+  .logo-text p {
+    font-size:11px;
+    color:var(--text2);
+    letter-spacing:2px;
+    text-transform:uppercase;
+    margin-top:4px;
+  }
+
+  .badge {
+    display:inline-flex; align-items:center; gap:6px;
+    background: rgba(0,229,160,0.1);
+    border: 1px solid rgba(0,229,160,0.3);
+    border-radius:20px;
+    padding:6px 14px;
+    font-size:12px;
+    color:var(--green);
+    font-weight:500;
+  }
+
+  .badge::before {
+    content:'';
+    width:6px; height:6px;
+    background:var(--green);
+    border-radius:50%;
+    animation:pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%,100% { box-shadow:0 0 0 0 rgba(0,229,160,0.5); }
+    50% { box-shadow:0 0 0 6px rgba(0,229,160,0); }
+  }
+
+  /* ===== TABS ===== */
+  .tabs-row {
+    display:flex;
+    gap:8px;
+    margin-bottom:20px;
+    flex-wrap:wrap;
+  }
+
+  .tab-btn {
+    padding:10px 22px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius:10px;
+    color:var(--text2);
+    font-family:'DM Sans',sans-serif;
+    font-size:14px;
+    font-weight:500;
+    cursor:pointer;
+    transition: all 0.2s;
+    letter-spacing:1px;
+    position:relative;
+    overflow:hidden;
+  }
+
+  .tab-btn:hover { border-color:var(--cyan2); color:var(--text); }
+
+  .tab-btn.active {
+    background: linear-gradient(135deg, rgba(0,212,255,0.15), rgba(0,153,204,0.1));
+    border-color:var(--cyan);
+    color:var(--cyan);
+  }
+
+  .tab-btn.active::after {
+    content:'';
+    position:absolute;
+    bottom:0; left:0; right:0; height:2px;
+    background:var(--cyan);
+  }
+
+  /* ===== MAIN GRID ===== */
+  .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px; }
+  .grid-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; margin-bottom:16px; }
+  .grid-4 { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:16px; }
+
+  /* ===== CARDS ===== */
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius:14px;
+    padding:20px;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+
+  .card:hover { border-color:rgba(0,212,255,0.3); transform:translateY(-2px); }
+
+  .card-title {
+    font-size:11px;
+    font-weight:600;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    color:var(--text2);
+    margin-bottom:16px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+
+  .card-title svg { opacity:0.6; }
+
+  /* ===== STAT CHIPS ===== */
+  .stat-chip {
+    background: var(--panel2);
+    border: 1px solid var(--border);
+    border-radius:10px;
+    padding:14px 16px;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+  }
+
+  .stat-chip.gold { border-color:rgba(240,192,64,0.3); }
+  .stat-chip.cyan { border-color:rgba(0,212,255,0.3); }
+  .stat-chip.green { border-color:rgba(0,229,160,0.3); }
+  .stat-chip.red { border-color:rgba(255,77,106,0.3); }
+
+  .stat-chip .label {
+    font-size:10px;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    color:var(--text2);
+    margin-bottom:6px;
+    font-weight:600;
+  }
+
+  .stat-chip .value {
+    font-family:'Orbitron',sans-serif;
+    font-size:18px;
+    font-weight:700;
+    line-height:1;
+  }
+
+  .stat-chip.gold .value { color:var(--gold); }
+  .stat-chip.cyan .value { color:var(--cyan); }
+  .stat-chip.green .value { color:var(--green); }
+  .stat-chip.red .value { color:var(--red); }
+
+  .stat-chip .sub {
+    font-size:11px;
+    color:var(--text3);
+    margin-top:4px;
+  }
+
+  /* ===== PHASE CARDS ===== */
+  .phase-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius:16px;
+    overflow:hidden;
+  }
+
+  .phase-header {
+    padding:16px 20px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    border-bottom:1px solid var(--border);
+  }
+
+  .phase-header.f1 { background: linear-gradient(135deg, rgba(240,192,64,0.12), rgba(240,160,0,0.06)); }
+  .phase-header.f2 { background: linear-gradient(135deg, rgba(0,212,255,0.12), rgba(0,153,204,0.06)); }
+
+  .phase-name {
+    font-family:'Orbitron',sans-serif;
+    font-size:16px;
+    font-weight:700;
+    letter-spacing:2px;
+  }
+
+  .phase-name.f1 { color:var(--gold); }
+  .phase-name.f2 { color:var(--cyan); }
+
+  .phase-meta {
+    font-size:12px;
+    font-weight:600;
+    padding:4px 12px;
+    border-radius:20px;
+  }
+
+  .phase-meta.f1 { background:rgba(240,192,64,0.15); color:var(--gold); border:1px solid rgba(240,192,64,0.3); }
+  .phase-meta.f2 { background:rgba(0,212,255,0.15); color:var(--cyan); border:1px solid rgba(0,212,255,0.3); }
+
+  .phase-body { padding:20px; }
+
+  .info-row {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:10px 0;
+    border-bottom:1px solid rgba(26,45,74,0.5);
+    font-size:14px;
+  }
+
+  .info-row:last-child { border-bottom:none; }
+
+  .info-row .key { color:var(--text2); font-weight:500; }
+  .info-row .val { font-weight:600; font-family:'Orbitron',sans-serif; font-size:13px; }
+
+  /* ===== TAKES TABLE ===== */
+  .takes-title {
+    font-size:11px;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    color:var(--text2);
+    font-weight:600;
+    margin:16px 0 10px;
+    padding-top:12px;
+    border-top:1px solid var(--border);
+  }
+
+  .takes-grid {
+    display:grid;
+    gap:8px;
+  }
+
+  .take-row {
+    display:grid;
+    grid-template-columns:80px 1fr 1fr;
+    gap:8px;
+    align-items:center;
+  }
+
+  .take-label {
+    font-size:11px;
+    color:var(--text3);
+    font-weight:600;
+    letter-spacing:1px;
+  }
+
+  .take-box {
+    background: var(--panel2);
+    border: 1px solid var(--border);
+    border-radius:8px;
+    padding:8px 10px;
+    text-align:center;
+  }
+
+  .take-box .tkey {
+    font-size:9px;
+    letter-spacing:1px;
+    text-transform:uppercase;
+    color:var(--text3);
+    margin-bottom:3px;
+    font-weight:600;
+  }
+
+  .take-box .tval {
+    font-family:'Orbitron',sans-serif;
+    font-size:13px;
+    font-weight:700;
+  }
+
+  .take-box.risk .tval { color:var(--red); }
+  .take-box.ret .tval { color:var(--green); }
+
+  /* ===== PROGRESS BAR ===== */
+  .progress-wrap { margin-top:16px; padding-top:16px; border-top:1px solid var(--border); }
+  .progress-label { display:flex; justify-content:space-between; font-size:12px; color:var(--text2); margin-bottom:8px; }
+  .progress-track { height:6px; background:rgba(255,255,255,0.06); border-radius:3px; overflow:hidden; }
+  .progress-fill { height:100%; border-radius:3px; transition:width 0.4s ease; }
+  .progress-fill.gold { background: linear-gradient(90deg, var(--gold2), var(--gold)); }
+  .progress-fill.cyan { background: linear-gradient(90deg, var(--cyan2), var(--cyan)); }
+
+  /* ===== OPERATIONS CARD ===== */
+  .ops-grid {
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:8px;
+    margin-top:4px;
+  }
+
+  .day-box {
+    background:var(--panel2);
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:12px 8px;
+    text-align:center;
+    transition: all 0.2s;
+    cursor:pointer;
+  }
+
+  .day-box:hover { border-color:var(--cyan2); }
+
+  .day-box.active {
+    background: linear-gradient(135deg, rgba(0,212,255,0.12), rgba(0,212,255,0.05));
+    border-color:var(--cyan);
+  }
+
+  .day-box.off {
+    opacity:0.4;
+  }
+
+  .day-name { font-size:10px; letter-spacing:1px; text-transform:uppercase; color:var(--text2); font-weight:700; margin-bottom:6px; }
+  .day-time { font-family:'Orbitron',sans-serif; font-size:11px; color:var(--cyan); font-weight:600; }
+  .day-time.off-text { color:var(--text3); }
+
+  /* ===== SELECTOR ===== */
+  .selector-wrap { margin-bottom:20px; }
+  .selector-label { font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--text2); font-weight:600; margin-bottom:10px; }
+  
+  select {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius:10px;
+    color:var(--text);
+    font-family:'DM Sans',sans-serif;
+    font-size:14px;
+    padding:12px 16px;
+    cursor:pointer;
+    outline:none;
+    transition: border-color 0.2s;
+    width:100%;
+    max-width:260px;
+    appearance:none;
+    -webkit-appearance:none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237a9cc4' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;
+    background-position: right 14px center;
+    padding-right: 36px;
+  }
+
+  select:focus { border-color:var(--cyan); }
+  select option { background:#0f1929; }
+
+  /* ===== SECTION HEADERS ===== */
+  .section-title {
+    font-size:11px;
+    letter-spacing:3px;
+    text-transform:uppercase;
+    color:var(--text3);
+    font-weight:700;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:12px;
+  }
+
+  .section-title::after {
+    content:'';
+    flex:1;
+    height:1px;
+    background:var(--border);
+  }
+
+  /* ===== RISK ALERT ===== */
+  .risk-alert {
+    background: linear-gradient(135deg, rgba(255,77,106,0.1), rgba(204,34,68,0.05));
+    border: 1px solid rgba(255,77,106,0.3);
+    border-radius:12px;
+    padding:14px 18px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    font-size:13px;
+  }
+
+  .risk-alert .icon { font-size:18px; flex-shrink:0; }
+  .risk-alert strong { color:var(--red); }
+
+  /* ===== ANIMATIONS ===== */
+  @keyframes fadeUp {
+    from { opacity:0; transform:translateY(16px); }
+    to { opacity:1; transform:translateY(0); }
+  }
+
+  .fade-in { animation: fadeUp 0.35s ease forwards; }
+
+  /* ===== FOOTER ===== */
+  footer {
+    text-align:center;
+    padding:20px;
+    color:var(--text3);
+    font-size:12px;
+    letter-spacing:1px;
+  }
+
+  footer span { color:var(--gold); font-family:'Orbitron',sans-serif; font-size:11px; }
+
+  @media(max-width:700px) {
+    .grid-2, .grid-3, .grid-4 { grid-template-columns:1fr; }
+    .ops-grid { grid-template-columns:repeat(3,1fr); }
+    header { flex-direction:column; gap:12px; text-align:center; }
+    .take-row { grid-template-columns:60px 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <!-- HEADER -->
+  <header>
+    <div class="logo-wrap">
+      <div class="logo-icon">NG</div>
+      <div class="logo-text">
+        <h1>NELLY-G TRADER</h1>
+        <p>Calculadora de Demonstração Prop</p>
+      </div>
+    </div>
+    <div class="badge">SISTEMA ATIVO</div>
+  </header>
+
+  <!-- ACCOUNT SELECTOR -->
+  <div class="selector-wrap">
+    <div class="selector-label">Selecionar Conta</div>
+    <select id="accountSelect" onchange="update()">
+      <option value="5000">$5.000</option>
+      <option value="10000">$10.000</option>
+      <option value="20000">$20.000</option>
+      <option value="60000">$60.000</option>
+      <option value="100000" selected>$100.000</option>
+    </select>
   </div>
 
-  <!-- Seção MEXC -->
-  <section id="mexc" class="mexc-promo">
-    <h3>🎁 Promo MEXC: Bônus de Boas-Vindas</h3>
-    <p>⚡️ Últimos dias para aproveitar! Cadastre-se e receba bônus exclusivos de boas-vindas.</p>
-    <a class="cta-btn" href="https://www.mexc.com/pt-PT/acquisition/custom-sign-up?shareCode=mexc-3UbJJ" target="_blank">Cadastrar na MEXC</a>
-  </section>
+  <!-- KPI ROW -->
+  <div class="section-title">Métricas da Conta</div>
+  <div class="grid-4" id="kpiRow"></div>
 
-  <!-- Seção IC Markets (somente Banner + Widget) -->
-  <section id="icmarkets">
-    <h2>IC Markets — Referral e Ferramentas</h2>
-    <p style="text-align:center; margin-bottom:1rem;">Abra sua conta usando nosso link (via banner) e acompanhe os preços em tempo real.</p>
-    <div class="grid">
-      <div class="card">
-        <h3>Banner</h3>
-        <a href='https://icmarkets.com/?camp=61871' target='_blank'>
-          <img class='img-fluid' src='https://promo.icmarkets.com/Banners/2021/English/EN_300x600_Cellphon_FSA.jpg' width='300' height='600' alt="IC Markets Banner"/>
-        </a>
-      </div>
-      <div class="card">
-        <h3>Widget de Preços</h3>
-        <iframe src="https://secure.icmarkets.com//Partner/Widget/PriceWidget/61871" width="273" frameborder="0" height="480"></iframe>
-      </div>
+  <!-- PHASES -->
+  <div class="section-title">Fases de Avaliação</div>
+  <div class="grid-2" id="phasesRow"></div>
+
+  <!-- OPERATIONS -->
+  <div class="section-title">Horários de Operação</div>
+  <div class="card fade-in">
+    <div class="card-title">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      Janelas de Mercado — Mínimo 3 operações/semana
     </div>
-  </section>
-
-  <!-- Benefícios -->
-  <section id="beneficios">
-    <h2>Benefícios Incríveis</h2>
-    <div class="grid">
-      <a class="card" href="https://www.tradingview.com/" target="_blank"><i class="ri-bar-chart-box-line"></i><h3>Análises Avançadas</h3></a>
-      <a class="card" href="https://www.investopedia.com/articles/technical/02/121702.asp" target="_blank"><i class="ri-stock-line"></i><h3>Estratégias de Trading</h3></a>
-      <a class="card" href="https://t.me/+wcLnHa3UUIhhNGY0" target="_blank"><i class="ri-team-line"></i><h3>Grupo VIP</h3></a>
-      <a class="card" href="https://academy.binance.com/pt" target="_blank"><i class="ri-book-2-line"></i><h3>Conteúdo Premium</h3></a>
-    </div>
-  </section>
-
-  <!-- Serviços -->
-  <section id="servicos">
-    <h2>Serviços da Oferta VIP</h2>
-    <div class="grid">
-      <a class="card" href="https://coinmarketcap.com/alexandria/" target="_blank">📊 Relatórios Premium</a>
-      <a class="card" href="https://www.tradingview.com/markets/cryptocurrencies/ideas/" target="_blank">📈 Sinais de Trading</a>
-      <a class="card" href="https://www.youtube.com/c/binance" target="_blank">🎥 Aulas ao Vivo</a>
-      <a class="card" href="https://www.glassnode.com/" target="_blank">📂 Dashboards On-chain</a>
-      <a class="card" href="https://discord.gg/binance" target="_blank">💬 Suporte Personalizado</a>
-    </div>
-  </section>
-
-  <!-- Tutoriais -->
-  <section id="youtube">
-    <h2>🎥 Tutoriais Exclusivos</h2>
-    <div class="grid">
-      <div class="card">
-        <iframe width="100%" height="200" src="https://www.youtube.com/embed/RgEnAgfVCds" frameborder="0" allowfullscreen></iframe>
-        <p>👉 Criar conta na Binance</p>
-      </div>
-      <div class="card">
-        <iframe width="100%" height="200" src="https://www.youtube.com/embed/6E4omURMAGM" frameborder="0" allowfullscreen></iframe>
-        <p>📈 Estratégias básicas: RSI, EMAs, Bollinger</p>
+    <div class="ops-grid" id="opsGrid"></div>
+    <div style="margin-top:16px;">
+      <div class="risk-alert">
+        <span class="icon">⚠️</span>
+        <div>Disciplina operacional: <strong>no mínimo 3 operações por semana</strong>. Risco fixo de <strong id="riskPerTrade">$500</strong> por operação (0,5% da conta).</div>
       </div>
     </div>
-  </section>
+  </div>
 
-  <!-- Academia -->
-  <section id="academia">
-    <h2>📚 Academia Exclusiva</h2>
-    <div class="grid">
-      <a class="card" href="https://academy.binance.com/pt" target="_blank"><i class="ri-book-open-line"></i><h3>Binance Academy</h3></a>
-      <a class="card" href="https://www.investopedia.com/" target="_blank"><i class="ri-book-line"></i><h3>Investopedia</h3></a>
-    </div>
-  </section>
-
-  <!-- VIP -->
-  <section id="vip" class="vip">
-    <h3>💎 Entre para o VIP</h3>
-    <p>Receba sinais, análises e estratégias exclusivas para investidores sérios.</p>
-    <a href="https://t.me/+wcLnHa3UUIhhNGY0" class="cta-btn" target="_blank">Entrar no VIP</a>
-  </section>
-
-  <!-- Ebook com cadastro -->
-  <section id="ebook">
-    <h2>📘 COMPRE SEU EBOOK</h2>
-    <div class="steps">
-      <h3>Nome do eBook:</h3>
-      <p style="font-weight:bold; font-size:1.3rem; color:#FFD700;"> CONSTRUA SEU IMPÉRIO DIGITAL: DA IDEIA AO LANÇAMENTO DO SEU PRODUTO ONLINE </p>
-      <h3>Descrição resumida:</h3>
-      <p style="color:#ccc;"> Transforme suas ideias em renda! Este guia prático leva você do zero ao lançamento do seu produto digital. Inclui exercício prático passo a passo e modelos de ação rápida. </p>
-
-      text
-
-      <h3>Cadastro do Cliente:</h3>
-      <form id="customerForm" style="max-width:400px; margin:auto; display:flex; flex-direction:column; gap:1rem;">
-        <input type="text" id="fullName" placeholder="Nome completo" required style="padding:.8rem;border-radius:6px;border:none;">
-        <input type="email" id="email" placeholder="E-mail" required style="padding:.8rem;border-radius:6px;border:none;">
-        <input type="tel" id="phone" placeholder="Número de telemóvel" required style="padding:.8rem;border-radius:6px;border:none;">
-        <button type="submit" class="cta-btn">Cadastrar Cliente</button>
-      </form>
-
-      <div id="paymentSection" style="display:none; margin-top:2rem; text-align:center;">
-        <h3>Instruções de pagamento:</h3>
-        <p style="color:#FFD700; font-weight:bold;">
-          💳 M-Pesa: 840330540<br>
-          💳 eMola: 877480775<br>
-          💰 Valor: 99,9 MT
-        </p>
-        <p>Envie comprovativo para WhatsApp: 📲</p>
-        <button id="sendWhatsApp" class="cta-btn" style="margin:1rem 0;">Enviar Comprovativo pelo WhatsApp</button>
-
-        <div id="countdown" style="display:none; margin-top:1rem; font-size:1.1rem; font-weight:bold; color:#FFD700;">
-          ⏳ Preparando seu ebook... <span id="seconds">10</span>s
-        </div>
-
-        <div id="downloadLink" style="display:none; margin-top:1rem; text-align:center;">
-          <h3>Entrega do ebook e exercício prático:</h3>
-          <p>📘 <strong>Ebook Principal:</strong><br>
-          <a href="https://drive.google.com/file/d/1zAhbLDIdZgfASULt9_E2XBgNEW-j7DBQ/view?usp=sharing" target="_blank" class="cta-btn">Baixar Ebook</a></p>
-          <p>📝 <strong>Exercício Prático:</strong><br>
-          <a href="https://drive.google.com/file/d/1vOwKjA9lNu8ohXOfp1UG1fOQsc4nGF0h/view?usp=sharing" target="_blank" class="cta-btn">Baixar Exercício Prático</a></p>
-          <p style="margin-top:1rem; font-size:1.2rem; color:#FFD700; font-weight:bold;">Preço: 99,9 MT</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Notificações -->
-  <div id="notificationContainer" style="position:fixed; bottom:20px; right:20px; z-index:9999;"></div>
-
-  <!-- Footer -->
   <footer>
-    <p>© 2025 CryptoFinance Pro | Desenvolvido por Manuel Antonio Danca</p>
-    <nav><a href="#hero">Home</a><a href="#vip">VIP</a><a href="#faq">FAQ</a></nav>
+    <span>NELLY-G TRADER</span> &nbsp;·&nbsp; Sistema de Gestão de Risco Prop &nbsp;·&nbsp; 2025
   </footer>
 
-  <!-- Referral QR -->
-  <div class="referral-container">
-    <div class="referral">
-      <p>Ref. M-Pesa</p>
-      <code>840330540</code>
-      <div class="qr"><img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=840330540" alt="QR M-Pesa"></div>
+</div>
+
+<script>
+const accounts = {
+  5000:   { label:'$5.000',   value:5000   },
+  10000:  { label:'$10.000',  value:10000  },
+  20000:  { label:'$20.000',  value:20000  },
+  60000:  { label:'$60.000',  value:60000  },
+  100000: { label:'$100.000', value:100000 },
+};
+
+const ops = [
+  { day:'Segunda', time:'10h', active:true },
+  { day:'Terça',   time:'10h', active:true },
+  { day:'Quarta',  time:'21h', active:true },
+  { day:'Quinta',  time:'21h', active:true },
+  { day:'Sexta',   time:'-',   active:false },
+];
+
+function fmt(n, decimals=0) {
+  return n.toLocaleString('pt-BR', { minimumFractionDigits:decimals, maximumFractionDigits:decimals });
+}
+
+function fmtR(n) {
+  return 'R$' + fmt(n);
+}
+
+function fmtD(n) {
+  return '$' + fmt(n);
+}
+
+function update() {
+  const bal = parseFloat(document.getElementById('accountSelect').value);
+
+  // KPIs
+  const meta_f1  = bal * 0.08;
+  const meta_f2  = bal * 0.05;
+  const dd_daily = bal * 0.05;
+  const dd_total = bal * 0.10;
+  const risk_per = bal * 0.005;
+
+  document.getElementById('riskPerTrade').textContent = fmtD(risk_per);
+
+  const kpiRow = document.getElementById('kpiRow');
+  kpiRow.innerHTML = `
+    <div class="stat-chip gold fade-in">
+      <div class="label">Banca Inicial</div>
+      <div class="value">${fmtD(bal)}</div>
+      <div class="sub">Capital de demonstração</div>
     </div>
-    <div class="referral">
-      <p>Ref. eMola</p>
-      <code>877480775</code>
-      <div class="qr"><img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=877480775" alt="QR eMola"></div>
+    <div class="stat-chip cyan fade-in" style="animation-delay:.05s">
+      <div class="label">DD Diário Máx</div>
+      <div class="value">${fmtD(dd_daily)}</div>
+      <div class="sub">5% da banca</div>
     </div>
-  </div>
+    <div class="stat-chip red fade-in" style="animation-delay:.1s">
+      <div class="label">DD Total Máx</div>
+      <div class="value">${fmtD(dd_total)}</div>
+      <div class="sub">10% da banca</div>
+    </div>
+    <div class="stat-chip green fade-in" style="animation-delay:.15s">
+      <div class="label">Risco / Op</div>
+      <div class="value">${fmtD(risk_per)}</div>
+      <div class="sub">0,5% por trade</div>
+    </div>
+  `;
 
-  <script>
-    const customerForm = document.getElementById('customerForm');
-    const paymentSection = document.getElementById('paymentSection');
-    const sendBtn = document.getElementById('sendWhatsApp');
-    const countdownEl = document.getElementById('countdown');
-    const secondsEl = document.getElementById('seconds');
-    const downloadLink = document.getElementById('downloadLink');
-    const notificationContainer = document.getElementById('notificationContainer');
+  // Phases
+  // F1: 3 takes — risk 1%/2%, 1%/2%, 2%/4%
+  const f1_takes = [
+    { risk:0.01, ret:0.02 },
+    { risk:0.01, ret:0.02 },
+    { risk:0.02, ret:0.04 },
+  ];
+  // F2: 2 takes — risk 1%/2%, 1.5%/3%
+  const f2_takes = [
+    { risk:0.01,  ret:0.02 },
+    { risk:0.015, ret:0.03 },
+  ];
 
-    function showNotification(message){
-      const notif = document.createElement('div');
-      notif.className='notification';
-      notif.innerText=message;
-      notificationContainer.appendChild(notif);
-      setTimeout(()=>notif.classList.add('show'),50);
-      setTimeout(()=>{
-        notif.classList.remove('show');
-        setTimeout(()=>notif.remove(),500);
-      },4000);
-    }
+  const phasesRow = document.getElementById('phasesRow');
 
-    // Cadastro do cliente
-    customerForm.addEventListener('submit', function(e){
-      e.preventDefault();
-      const fullName = document.getElementById('fullName').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const phone = document.getElementById('phone').value.trim();
-      if(fullName && email && phone){
-        showNotification(`✅ Cliente ${fullName} cadastrado com sucesso!`);
-        customerForm.style.display='none';
-        paymentSection.style.display='block';
-      } else {
-        showNotification('⚠️ Por favor, preencha todos os campos.');
-      }
-    });
+  function buildTakes(takes) {
+    return takes.map((t,i) => `
+      <div class="take-row">
+        <div class="take-label">Take ${i+1}</div>
+        <div class="take-box risk">
+          <div class="tkey">Risco</div>
+          <div class="tval">${fmtD(bal * t.risk)}</div>
+        </div>
+        <div class="take-box ret">
+          <div class="tkey">Retorno</div>
+          <div class="tval">${fmtD(bal * t.ret)}</div>
+        </div>
+      </div>
+    `).join('');
+  }
 
-    // Envio do comprovativo
-    sendBtn.addEventListener('click', function(){
-      const waNumber='258877480775';
-      const message=encodeURIComponent("Olá! Acabei de efetuar o pagamento de 99,9 MT do ebook 'CONSTRUA SEU IMPÉRIO DIGITAL'. Segue o comprovativo.");
-      window.open(`https://wa.me/${waNumber}?text=${message}`,'_blank');
-      showNotification('✅ Comprovativo enviado para WhatsApp!');
-      countdownEl.style.display='block';
-      countdownEl.style.opacity=0;
-      setTimeout(()=>countdownEl.style.opacity=1,50);
-      let seconds=10;
-      secondsEl.innerText=seconds;
-      const timer = setInterval(()=>{
-        seconds--;
-        secondsEl.innerText=seconds;
-        if(seconds<=0){
-          clearInterval(timer);
-          countdownEl.style.display='none';
-          downloadLink.style.display='block';
-          downloadLink.style.opacity=0;
-          setTimeout(()=>downloadLink.style.opacity=1,50);
-          showNotification('📥 Links do ebook e exercício prático disponíveis!');
-          sendBtn.disabled=true;
-          sendBtn.innerText='✅ Comprovativo Enviado';
-          sendBtn.style.background='linear-gradient(90deg,#00FF00,#00AA00)';
-          sendBtn.style.color='#000';
-          sendBtn.style.cursor='default';
-          sendBtn.style.transform='scale(1.1)';
-          setTimeout(()=>sendBtn.style.transform='scale(1)',300);
-        }
-      },1000);
-    });
-  </script>
- </body>
+  // Calculate accumulated balances
+  const f1_acc1 = bal + (bal * f1_takes[0].ret);
+  const f1_acc2 = f1_acc1 + (f1_acc1 * f1_takes[1].ret);
+  const f1_acc3 = f1_acc2 + (f1_acc2 * f1_takes[2].ret);
+
+  const f2_acc1 = bal + (bal * f2_takes[0].ret);
+  const f2_acc2 = f2_acc1 + (f2_acc1 * f2_takes[1].ret);
+
+  const f1_pct = ((meta_f1/bal)*100).toFixed(0);
+  const f2_pct = ((meta_f2/bal)*100).toFixed(0);
+
+  phasesRow.innerHTML = `
+    <div class="phase-card fade-in">
+      <div class="phase-header f1">
+        <span class="phase-name f1">FASE 1</span>
+        <span class="phase-meta f1">META ${f1_pct}% · ${fmtD(meta_f1)}</span>
+      </div>
+      <div class="phase-body">
+        <div class="info-row">
+          <span class="key">Saldo Inicial</span>
+          <span class="val" style="color:var(--gold)">${fmtD(bal)}</span>
+        </div>
+        <div class="info-row">
+          <span class="key">Meta de Lucro</span>
+          <span class="val" style="color:var(--green)">${fmtD(meta_f1)}</span>
+        </div>
+        <div class="info-row">
+          <span class="key">DD Diário Máx</span>
+          <span class="val" style="color:var(--red)">${fmtD(dd_daily)}</span>
+        </div>
+        <div class="info-row">
+          <span class="key">DD Total Máx</span>
+          <span class="val" style="color:var(--red)">${fmtD(dd_total)}</span>
+        </div>
+        <div class="info-row">
+          <span class="key">Saldo Mínimo</span>
+          <span class="val" style="color:var(--text2)">${fmtD(bal - dd_total)}</span>
+        </div>
+        <div class="takes-title">Simulação de Takes (2:1)</div>
+        <div class="takes-grid">
+          ${buildTakes(f1_takes)}
+        </div>
+        <div class="progress-wrap">
+          <div class="progress-label">
+            <span>Progresso simulado</span>
+            <span style="color:var(--gold)">3 takes aprovado</span>
+          </div>
+          <div class="progress-track">
+            <div class="progress-fill gold" style="width:100%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase-card fade-in" style="animation-delay:.1s">
+      <div class="phase-header f2">
+        <span class="phase-name f2">FASE 2</span>
+        <span class="phase-meta f2">META ${f2_pct}% · ${fmtD(meta_f2)}</span>
+      </div>
+      <div class="phase-body">
+        <div class="info-row">
+          <span class="key">Saldo Inicial</span>
+          <span class="val" style="color:var(--cyan)">${fmtD(bal)}</span>
+        </div>
+        <div class="info-row">
+          <span class="key">Meta de Lucro</span>
+          <span class="val" style="color:var(--green)">${fmtD(meta_f2)}</span>
+        </div>
+        <div class="info-row">
+          <span class="key">DD Diário Máx</span>
+          <span class="val" style="color:var(--red)">${fmtD(dd_daily)}</span>
+        </div>
+        <div class="info-row">
+          <span class="key">DD Total Máx</span>
+          <span class="val" style="color:var(--red)">${fmtD(dd_total)}</span>
+        </div>
+        <div class="info-row">
+          <span class="key">Saldo Mínimo</span>
+          <span class="val" style="color:var(--text2)">${fmtD(bal - dd_total)}</span>
+        </div>
+        <div class="takes-title">Simulação de Takes (2:1 / 3:1)</div>
+        <div class="takes-grid">
+          ${buildTakes(f2_takes)}
+        </div>
+        <div class="progress-wrap">
+          <div class="progress-label">
+            <span>Progresso simulado</span>
+            <span style="color:var(--cyan)">2 takes aprovado</span>
+          </div>
+          <div class="progress-track">
+            <div class="progress-fill cyan" style="width:100%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+
+  // Ops grid
+  const opsGrid = document.getElementById('opsGrid');
+  opsGrid.innerHTML = ops.map(o => `
+    <div class="day-box ${o.active ? 'active' : 'off'}">
+      <div class="day-name">${o.day}</div>
+      <div class="day-time ${!o.active ? 'off-text' : ''}">${o.time === '-' ? 'FOLGA' : o.time}</div>
+    </div>
+  `).join('');
+}
+
+update();
+</script>
+</body>
 </html>
