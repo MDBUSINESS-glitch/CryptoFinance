@@ -564,7 +564,7 @@ table.dt tbody tr:last-child td{border-bottom:none;}
     <!-- ROW 4: outcome + resultado -->
     <div class="fr c4">
       <div class="fg"><label>Outcome</label>
-        <select id="f-out" onchange="autoFillResult()">
+        <select id="f-out" onchange="autoCalc();autoFillResult()">
           <option value="WIN">✅ WIN</option><option value="LOSS">❌ LOSS</option><option value="BE">🔄 BE</option>
         </select>
       </div>
@@ -838,11 +838,20 @@ function autoCalc(){
 }
 
 function autoFillResult(){
+  // Se os valores ainda não foram calculados, recalcula primeiro
+  if(_calcWin === 0 && _calcLoss === 0){
+    var e = parseFloat(document.getElementById('f-entry').value);
+    var s = parseFloat(document.getElementById('f-sl').value);
+    if(!isNaN(e) && !isNaN(s) && e > 0 && s > 0 && e !== s){
+      autoCalc();
+      return; // autoCalc já chama autoFillResult no fim
+    }
+  }
   var out   = document.getElementById('f-out').value;
   var resEl = document.getElementById('f-res');
-  if(out === 'WIN'  && _calcWin  > 0){ resEl.value = _calcWin.toFixed(2);    resEl.style.color='var(--grn)'; }
+  if(out === 'WIN'  && _calcWin  > 0){ resEl.value = _calcWin.toFixed(2);     resEl.style.color='var(--grn)'; }
   if(out === 'LOSS' && _calcLoss > 0){ resEl.value = (-_calcLoss).toFixed(2); resEl.style.color='var(--red)'; }
-  if(out === 'BE')                   { resEl.value = '0';                      resEl.style.color='var(--t2)'; }
+  if(out === 'BE')                   { resEl.value = '0';                       resEl.style.color='var(--t2)'; }
 }
 
 // ═══════════════════════════════════════════════════════
@@ -1094,7 +1103,7 @@ function clearForm(){
   document.getElementById('calc-panel').style.display = 'none';
   document.querySelectorAll('.ep').forEach(function(e){ e.classList.remove('on'); });
   document.getElementById('emo-lbl').textContent = '';
-  autoCalc._win = 0; autoCalc._loss = 0;
+  _calcWin = 0; _calcLoss = 0;
   curEmo=''; editId=null;
 }
 
@@ -1768,12 +1777,35 @@ function exportCSV(){
 // ═══════════════════════════════════════════════════════
 // BOOT
 // ═══════════════════════════════════════════════════════
+// ── BOOT ──────────────────────────────────────────────
 loadData();
 try{ var b=localStorage.getItem('ng_bal'); if(b&&parseFloat(b)>0){ curBal=parseFloat(b); } } catch(e){}
 document.getElementById('f-date').value = todayStr();
 document.getElementById('f-bal').value  = curBal;
-// R:R manual edit detection (DOM already ready at bottom of body)
+
+// R:R manual edit detection
 document.getElementById('f-rr').addEventListener('input', function(){ _rrManual = true; });
+
+// ── BUG 3 FIX: guardar antes de fechar o browser ──
+window.addEventListener('beforeunload', function(){ saveData(); });
+
+// ── BUG 3 FIX: autosave a cada 60 segundos ──
+setInterval(function(){ if(trades.length){ saveData(); } }, 60000);
+
+// ── TEST: verificar se localStorage está disponível ──
+(function(){
+  try{
+    localStorage.setItem('ng_test','1');
+    localStorage.removeItem('ng_test');
+  } catch(e){
+    // localStorage bloqueado — mostrar aviso
+    var warn = document.createElement('div');
+    warn.style.cssText='position:fixed;bottom:14px;left:50%;transform:translateX(-50%);z-index:9999;background:#e63946;color:#fff;font-size:12px;padding:10px 20px;border-radius:8px;font-family:monospace;letter-spacing:1px;box-shadow:0 4px 20px rgba(0,0,0,.5);';
+    warn.textContent='⚠️ ATENÇÃO: localStorage bloqueado — os dados NÃO serão guardados! Abre em modo normal (não anónimo).';
+    document.body.appendChild(warn);
+  }
+})();
+
 renderDash();
 renderDiaryKpis();
 renderTable();
