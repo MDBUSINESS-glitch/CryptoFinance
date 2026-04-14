@@ -99,7 +99,7 @@ body::after{content:'';position:fixed;inset:0;background-image:linear-gradient(r
 .ch-stat-val{font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:700;color:var(--t0);}
 .ch-stat-sub{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t2);margin-top:2px;}
 /* FIRM TILES */
-.firm-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:14px;}
+.firm-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px;}
 .firm-tile{background:var(--surf);border:1px solid var(--b1);border-radius:12px;padding:14px;cursor:pointer;transition:all .2s;position:relative;overflow:hidden;}
 .firm-tile:hover{border-color:var(--b2);transform:translateY(-2px);}
 .firm-tile.active{box-shadow:0 0 20px rgba(0,212,255,.08);}
@@ -337,7 +337,7 @@ label{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--t2
 </div>
 <!-- PROP FIRMS -->
 <div id="pg-firms" class="pg">
-  <div class="sec-lbl">Prop Firms Suportadas (10)</div>
+  <div class="sec-lbl">Prop Firms Suportadas (11)</div>
   <div class="firm-grid" id="firm-grid"></div>
   <div id="firm-detail-wrap"></div>
   <div class="sec-lbl">Activar Challenge</div>
@@ -481,7 +481,8 @@ const FIRMS = {
   fundingpips:{id:'fundingpips',name:'Funding Pips',emoji:'💧',color:'#db2777',url:'https://fundingpips.com',split:'80%→95%',accounts:[10000,25000,50000,100000,200000],fees:{10000:99,25000:199,50000:299,100000:499,200000:799},phases:['Phase 1','Phase 2','Funded'],rules:{challenge:{profitTarget:8,maxDailyLoss:4,maxLoss:8,minDays:5,maxDays:35},verification:{profitTarget:5,maxDailyLoss:4,maxLoss:8,minDays:5,maxDays:60},funded:{split:80,scalingTo:95,payoutFreq:'Quinzenal'}},notes:'EA e copy trading OK. Split cresce com desempenho. Sem restrições de estilo.',tags:['EA & Copy OK','Split até 95%','Sem Restrições']},
   trueforex:{id:'trueforex',name:'True Forex Funds',emoji:'💹',color:'#4f46e5',url:'https://trueforexfunds.com',split:'75%→80%',accounts:[10000,25000,50000,100000],fees:{10000:129,25000:249,50000:389,100000:599},phases:['Phase 1','Phase 2','Funded'],rules:{challenge:{profitTarget:8,maxDailyLoss:5,maxLoss:10,minDays:0,maxDays:null},verification:{profitTarget:5,maxDailyLoss:5,maxLoss:10,minDays:0,maxDays:null},funded:{split:75,scalingTo:80,payoutFreq:'Mensal'}},notes:'Sem limite de tempo. Swap-free disponível. Suporte 24/7.',tags:['Swap-Free','Suporte 24/7','Sem Limite Tempo']},
   alphacapital:{id:'alphacapital',name:'Alpha Capital',emoji:'🔺',color:'#059669',url:'https://alphacapitalgroup.uk',split:'80%→90%',accounts:[10000,25000,50000,100000,200000],fees:{10000:149,25000:259,50000:399,100000:699,200000:1099},phases:['Phase 1','Phase 2','Funded'],rules:{challenge:{profitTarget:10,maxDailyLoss:5,maxLoss:10,minDays:5,maxDays:30},verification:{profitTarget:5,maxDailyLoss:5,maxLoss:10,minDays:5,maxDays:60},funded:{split:80,scalingTo:90,payoutFreq:'Semanal'}},notes:'Empresa britânica. Withdrawals semanais. EA e news trading OK.',tags:['Regulada UK','Payout Semanal','News OK']},
-  blueguardian:{id:'blueguardian',name:'Blue Guardian',emoji:'🛡️',color:'#0284c7',url:'https://blueguardian.co',split:'85%→90%',accounts:[10000,25000,50000,100000,200000],fees:{10000:99,25000:199,50000:299,100000:449,200000:799},phases:['Guardian Challenge','Funded'],rules:{challenge:{profitTarget:8,maxDailyLoss:5,maxLoss:8,minDays:0,maxDays:null},verification:null,funded:{split:85,scalingTo:90,payoutFreq:'Mensal'}},notes:'APENAS 1 FASE! Split 85% = melhor do mercado. Sem tempo mínimo. Melhor custo-benefício.',tags:['1 FASE APENAS','Split 85%','Melhor Valor']}
+  blueguardian:{id:'blueguardian',name:'Blue Guardian',emoji:'🛡️',color:'#0284c7',url:'https://blueguardian.co',split:'85%→90%',accounts:[10000,25000,50000,100000,200000],fees:{10000:99,25000:199,50000:299,100000:449,200000:799},phases:['Guardian Challenge','Funded'],rules:{challenge:{profitTarget:8,maxDailyLoss:5,maxLoss:8,minDays:0,maxDays:null},verification:null,funded:{split:85,scalingTo:90,payoutFreq:'Mensal'}},notes:'APENAS 1 FASE! Split 85% = melhor do mercado. Sem tempo mínimo. Melhor custo-benefício.',tags:['1 FASE APENAS','Split 85%','Melhor Valor']},
+  fundednext:{id:'fundednext',name:'FundedNext',emoji:'🚀',color:'#6366f1',url:'https://fundednext.com',split:'90%→95%',accounts:[6000,15000,25000,50000,100000,200000],fees:{6000:59,15000:129,25000:199,50000:299,100000:499,200000:859},phases:['Challenge','Verification','Funded'],rules:{challenge:{profitTarget:10,maxDailyLoss:5,maxLoss:10,minDays:5,maxDays:35},verification:{profitTarget:5,maxDailyLoss:5,maxLoss:10,minDays:5,maxDays:60},funded:{split:90,scalingTo:95,payoutFreq:'Mensal (14 dias)'}},notes:'Conta mínima de $6k — mais acessível do mercado. Split de 90% + bónus de 15% sobre lucros. Conta Stellar com regras mais flexíveis disponível. Sem restrições de estilo (EA, news, copy OK).',tags:['Conta $6k','Split 95%','Bónus Lucro','EA & Copy OK']}
 };
 const LOT_VAL={'XAU/USD':100,'EUR/USD':100000,'GBP/USD':100000,'GBP/JPY':100000,'USD/JPY':100000,'NAS100':1,'US30':1,'US500':1,'BTC/USD':1,'Outro':100000};
 const PIP_SZ={'XAU/USD':.01,'EUR/USD':.0001,'GBP/USD':.0001,'GBP/JPY':.01,'USD/JPY':.01,'NAS100':.1,'US30':1,'US500':.1,'BTC/USD':1,'Outro':.0001};
