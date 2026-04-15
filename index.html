@@ -220,6 +220,7 @@ label{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--t2
       <span id="save-dot" style="width:5px;height:5px;border-radius:50%;display:inline-block;background:var(--grn);"></span>
       <span id="save-txt" style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1px;color:var(--grn);">GUARDADO</span>
     </div>
+    <button onclick="showResetModal()" style="display:inline-flex;align-items:center;gap:5px;border-radius:20px;padding:5px 12px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1px;cursor:pointer;border:1px solid rgba(239,68,68,.25);background:rgba(239,68,68,.06);color:#f87171;transition:all .2s;" onmouseover="this.style.background='rgba(239,68,68,.14)'" onmouseout="this.style.background='rgba(239,68,68,.06)'">🗑️ RESET</button>
     <button class="mt5-pill disconnected" id="mt5-pill" onclick="toggleMT5Panel()">
       <span class="mt5-dot" id="mt5-dot"></span>
       <span id="mt5-pill-txt">MT5 OFFLINE</span>
@@ -548,9 +549,9 @@ function renderChallengeCard(){const ch=calcChallengeStatus();const card=qs('cha
 function renderDash(){const n=trades.length,wins=trades.filter(t=>t.out==='WIN').length,losses=trades.filter(t=>t.out==='LOSS').length,be=trades.filter(t=>t.out==='BE').length;const wr=n?(wins/n*100).toFixed(1):0,pnl=trades.reduce((s,t)=>s+t.res,0);const rrArr=trades.filter(t=>t.rr>0);const avgRR=rrArr.length?(rrArr.reduce((s,t)=>s+t.rr,0)/rrArr.length).toFixed(2):'—';const best=n?Math.max(...trades.map(t=>t.res)):0;const sorted=trades.slice().sort((a,b)=>new Date(a.date)-new Date(b.date));let peak=0,dd=0,cum=0;for(const t of sorted){cum+=t.res;if(cum>peak)peak=cum;const d=peak-cum;if(d>dd)dd=d;}const now=new Date(),wd=now.getDay();const wStart=new Date(now);wStart.setDate(now.getDate()-wd+(wd===0?-6:1));wStart.setHours(0,0,0,0);const wOps=trades.filter(t=>new Date(t.date+'T12:00:00')>=wStart).length;const desc=trades.slice().sort((a,b)=>new Date(b.date)-new Date(a.date));let streak=0,sType='';for(const t of desc){if(!streak){sType=t.out;streak=1;}else if(t.out===sType)streak++;else break;}
 qs('dash-kpis').innerHTML=[{l:'Total Ops',v:''+n,s:wins+'W · '+losses+'L · '+be+'BE',c:'c-cyan'},{l:'Win Rate',v:wr+'%',s:'taxa de acerto',c:+wr>=50?'c-grn':'c-red'},{l:'P&L Total',v:(pnl>=0?'+':'')+'$'+pnl.toFixed(2),s:'acumulado USD',c:pnl>=0?'c-grn':'c-red'},{l:'R:R Médio',v:''+avgRR,s:'risco:recompensa',c:'c-gold'},{l:'Max Drawdown',v:dd>0?'−$'+dd.toFixed(0):'—',s:'pico→vale',c:'c-red'},{l:'Melhor Trade',v:best>0?'+$'+best.toFixed(0):'—',s:'operação',c:'c-grn'}].map(k=>`<div class="kpi ${k.c}"><div class="kpi-glow"></div><div class="kpi-label">${k.l}</div><div class="kpi-val">${k.v}</div><div class="kpi-sub">${k.s}</div></div>`).join('');
 qs('eq-total').textContent=(pnl>=0?'+':'')+'$'+pnl.toFixed(2);qs('eq-total').style.color=pnl>=0?'var(--grn)':'var(--red)';
-setTimeout(()=>{drawEquityChart();},50);
+// charts drawn by safeDrawCharts()
 renderRadial(wins,losses,be,n);
-const ms=getMonthlyStats();setTimeout(()=>{drawMonthChart(ms);},50);
+const ms=getMonthlyStats();safeDrawCharts();
 renderMonthTable(ms);
 const recent=desc.slice(0,6);
 qs('dash-recent').innerHTML=recent.length?recent.map(t=>{const rc=t.res>0?'var(--grn)':t.res<0?'var(--red)':'var(--t2)';const dc=t.dir==='BUY'?'var(--grn)':'var(--red)';const bd=t.out==='WIN'?'bw':t.out==='LOSS'?'bl':'bb';const src=t.source==='mt5'?' <span class="mt5-badge">MT5</span>':'';return`<div class="trade-row"><div><div class="trade-par">${t.par}${src}</div><div class="trade-meta" style="color:${dc};">${t.dir} · ${t.date}${t.sess?' · '+t.sess:''}</div></div><div style="display:flex;align-items:center;gap:8px;"><span style="font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:700;color:${rc};">${t.res>=0?'+':''}$${t.res.toFixed(2)}</span><span class="badge ${bd}">${t.out}</span></div></div>`;}).join(''):'<div class="empty">Sem operações.</div>';
@@ -598,11 +599,67 @@ function exportJSON(){const a=document.createElement('a');a.href='data:applicati
 function importJSON(evt){const file=evt.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=e=>{try{const p=JSON.parse(e.target.result);if(p.trades)trades=p.trades;if(p.weeks)weeks=p.weeks;if(p.checks)checks=p.checks;if(p.bal)curBal=p.bal;if(p.challenge)activeChallenge={...activeChallenge,...p.challenge};saveData();renderAll();showMsg('f-msg','ok','✅ Backup restaurado com '+trades.length+' operações!');}catch(err){showMsg('f-msg','err','❌ Ficheiro inválido.');}};reader.readAsText(file);}
 function exportCSV(){if(!trades.length){alert('Sem operações!');return;}const h='Data,Par,Direcao,Sessao,Entrada,SL,TP,Resultado,Risco%,RR,Outcome,Setup,Emocao,Origem,Licao';const rows=trades.map(t=>[t.date,t.par,t.dir,t.sess||'',t.entry,t.sl,t.tp,t.res,t.riskp,t.rr,t.out,t.setup||'',t.emo||'',t.source||'manual','"'+(t.less||'').replace(/"/g,"'")+'"'].join(',')).join('\n');const a=document.createElement('a');a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(h+'\n'+rows);a.download='nelly-g-trades.csv';a.click();}
 // ═══ NAV ═══
-function goTo(id,btn){document.querySelectorAll('.pg').forEach(p=>p.classList.remove('on'));document.querySelectorAll('.nb').forEach(b=>b.classList.remove('on'));qs('pg-'+id).classList.add('on');if(btn)btn.classList.add('on');if(id==='dash')renderDash();if(id==='firms')renderFirms();if(id==='diary'){renderDiaryKpis();renderTable();}if(id==='risk'){calcRisk();renderRisk();}if(id==='plan')renderPlan();if(id==='chk')renderChk();if(id==='sim')calcSim();}
+function goTo(id,btn){_livePageId=id;document.querySelectorAll('.pg').forEach(p=>p.classList.remove('on'));document.querySelectorAll('.nb').forEach(b=>b.classList.remove('on'));qs('pg-'+id).classList.add('on');if(btn)btn.classList.add('on');if(id==='dash'){renderDash();requestAnimationFrame(()=>safeDrawCharts());}if(id==='firms')renderFirms();if(id==='diary'){renderDiaryKpis();renderTable();}if(id==='risk'){calcRisk();renderRisk();}if(id==='plan')renderPlan();if(id==='chk')renderChk();if(id==='sim')calcSim();}
 // ═══ RENDER ALL ═══
 function renderAll(){renderDash();renderDiaryKpis();renderTable();}
+
+// ── RESET ──
+function showResetModal(){qs('reset-modal').classList.add('on');}
+function doReset(){
+  const newBal=parseFloat(qs('reset-bal').value)||10000;
+  trades=[];weeks=makeWeeks();checks=makeChecks();
+  curBal=newBal;activeChallenge={firmId:'',phase:0,accountSize:newBal,startDate:''};
+  // clear all known localStorage keys
+  ['ngpro_v2','ngpro_v1','ng_v1','ng_t','ng_w','ng_c','ng_bal'].forEach(k=>{
+    try{localStorage.removeItem(k);}catch(e){}
+  });
+  saveData();
+  qs('reset-modal').classList.remove('on');
+  qs('f-bal').value=newBal;qs('rc-bal').value=newBal;
+  renderAll();renderFirms();
+  // Show toast
+  const n=document.createElement('div');
+  n.style.cssText='position:fixed;top:80px;left:50%;transform:translateX(-50%);z-index:9999;background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.35);color:var(--grn);padding:12px 24px;border-radius:10px;font-family:JetBrains Mono,monospace;font-size:12px;letter-spacing:1px;box-shadow:0 8px 24px rgba(0,0,0,.4);';
+  n.textContent='✅ Reset completo — conta nova de $'+newBal.toLocaleString();
+  document.body.appendChild(n);setTimeout(()=>n.remove(),3500);
+}
+
+// ── CANVAS FIX: draw only when element has real width ──
+function safeDrawCharts(){
+  const eq=qs('eq-canvas');
+  const bar=qs('bar-canvas');
+  const ms=getMonthlyStats();
+  // requestAnimationFrame ensures DOM is painted
+  requestAnimationFrame(()=>{
+    if(eq && eq.parentElement && eq.parentElement.getBoundingClientRect().width > 0){
+      drawEquityChart();
+    }
+    if(bar && bar.parentElement && bar.parentElement.getBoundingClientRect().width > 0){
+      drawMonthChart(ms);
+    }
+  });
+}
+
+// ── LIVE POLL: refresh active page every 5 seconds ──
+let _livePageId = 'dash';
+function startLivePoll(){
+  setInterval(()=>{
+    if(document.visibilityState !== 'visible') return;
+    if(_livePageId === 'dash'){
+      renderChallengeCard();
+      const ms=getMonthlyStats();
+      safeDrawCharts();
+      // refresh KPIs and today without full re-render (cheaper)
+      const n=trades.length, wins=trades.filter(t=>t.out==='WIN').length;
+      const losses=trades.filter(t=>t.out==='LOSS').length, be=trades.filter(t=>t.out==='BE').length;
+      const wr=n?(wins/n*100).toFixed(1):0, pnl=trades.reduce((s,t)=>s+t.res,0);
+      const eq=qs('eq-total');
+      if(eq){eq.textContent=(pnl>=0?'+':'')+'$'+pnl.toFixed(2);eq.style.color=pnl>=0?'var(--grn)':'var(--red)';}
+    }
+  }, 5000);
+}
 // ═══ RESIZE CHARTS ═══
-let resizeTimer;window.addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>{const ms=getMonthlyStats();drawEquityChart();drawMonthChart(ms);},200);});
+let resizeTimer;window.addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>{safeDrawCharts();},200);});
 // ═══ BOOT ═══
 loadData();
 try{const b=localStorage.getItem('ng_bal');if(b&&parseFloat(b)>0)curBal=parseFloat(b);}catch(e){}
@@ -616,6 +673,34 @@ setInterval(()=>{if(trades.length)saveData();},60000);
 (function(){try{localStorage.setItem('ng_test','1');localStorage.removeItem('ng_test');}catch(e){const w=document.createElement('div');w.style.cssText='position:fixed;bottom:14px;left:50%;transform:translateX(-50%);z-index:9999;background:#ef4444;color:#fff;font-size:12px;padding:10px 20px;border-radius:8px;font-family:monospace;letter-spacing:1px;';w.textContent='⚠️ localStorage bloqueado — dados não serão guardados! Abre em modo normal.';document.body.appendChild(w);}})();
 renderAll();
 renderFirms();
+// Draw charts after layout settles
+requestAnimationFrame(()=>{ requestAnimationFrame(()=>{ safeDrawCharts(); }); });
+// Start live refresh
+startLivePoll();
 </script>
+
+<!-- RESET MODAL -->
+<div class="modal-overlay" id="reset-modal">
+  <div class="modal-box" style="max-width:460px;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;">
+      <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:2.5px;font-weight:700;color:var(--red2);text-transform:uppercase;">⚠️ Reset / Nova Demo</span>
+      <button onclick="qs('reset-modal').classList.remove('on')" style="background:none;border:none;color:var(--t2);cursor:pointer;font-size:20px;">✕</button>
+    </div>
+    <div style="background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.18);border-radius:10px;padding:14px;margin-bottom:16px;font-size:13px;color:var(--t1);line-height:1.6;">
+      Esta acção <strong style="color:var(--red2);">apaga TODOS os trades e gráficos</strong> do localStorage.<br>
+      Usa isto para iniciar um novo ciclo de conta demo.
+      <div style="margin-top:10px;font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t2);letter-spacing:1px;">💡 Faz primeiro um <strong>Backup JSON</strong> se quiseres guardar o histórico actual.</div>
+    </div>
+    <div class="fg" style="margin-bottom:14px;">
+      <label>Novo Saldo Inicial da Conta ($)</label>
+      <input type="number" id="reset-bal" value="10000" style="font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:700;border-color:rgba(245,158,11,.4);color:var(--gold2);">
+    </div>
+    <div style="display:flex;gap:8px;">
+      <button onclick="doReset()" class="btn btn-del" style="flex:1;font-size:13px;padding:10px;">🗑️ Confirmar Reset</button>
+      <button onclick="exportJSON();showMsg('reset-info','ok','✅ Backup guardado! Agora podes fazer reset com segurança.')" class="btn btn-ghost">💾 Backup primeiro</button>
+    </div>
+    <div id="reset-info" style="display:none;margin-top:10px;"></div>
+  </div>
+</div>
 </body>
 </html>
