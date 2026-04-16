@@ -336,6 +336,51 @@ label{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--t2
     <div class="card" style="margin-bottom:0;"><div class="card-hd">Alertas &amp; Objectivos</div><div id="dash-alerts"></div><div class="divider"></div><div id="dash-goals"></div></div>
   </div>
 </div>
+
+<!-- OPEN POSITIONS + ADVANCED STATS ROW -->
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;" id="dash-bottom-extra">
+
+  <!-- OPEN POSITIONS PANEL -->
+  <div class="card" style="margin-bottom:0;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+      <span class="card-hd" style="margin-bottom:0;">📡 Posições Abertas</span>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <span id="open-pos-count" style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t2);">0 abertas</span>
+        <button onclick="renderOpenPositions()" style="font-family:'JetBrains Mono',monospace;font-size:9px;padding:3px 8px;background:rgba(0,212,255,.06);border:1px solid rgba(0,212,255,.2);color:var(--cyan);border-radius:5px;cursor:pointer;">↻</button>
+      </div>
+    </div>
+    <!-- QUICK ADD OPEN POSITION -->
+    <div style="background:rgba(0,212,255,.03);border:1px solid rgba(0,212,255,.08);border-radius:10px;padding:12px;margin-bottom:10px;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--t3);text-transform:uppercase;margin-bottom:8px;">Nova Posição Aberta</div>
+      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-bottom:8px;">
+        <select id="op-par" style="font-size:11px;padding:5px 6px;grid-column:span 1;">
+          <option>XAU/USD</option><option>EUR/USD</option><option>GBP/USD</option><option>USD/JPY</option><option>GBP/JPY</option><option>NAS100</option><option>US30</option><option>BTC/USD</option>
+        </select>
+        <select id="op-dir" style="font-size:11px;padding:5px 6px;">
+          <option value="BUY">▲ BUY</option><option value="SELL">▼ SELL</option>
+        </select>
+        <input type="number" id="op-entry" placeholder="Entrada" step="any" style="font-size:11px;padding:5px 6px;">
+        <input type="number" id="op-lot" placeholder="Lotes" step="any" style="font-size:11px;padding:5px 6px;" value="0.1">
+        <input type="number" id="op-sl" placeholder="SL" step="any" style="font-size:11px;padding:5px 6px;">
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:6px;">
+        <input type="number" id="op-tp" placeholder="TP (opcional)" step="any" style="font-size:11px;padding:5px 6px;">
+        <input type="number" id="op-cur" placeholder="Preço Actual" step="any" style="font-size:11px;padding:5px 6px;" oninput="calcOpenPnL()">
+        <button onclick="addOpenPosition()" style="font-size:11px;padding:5px 8px;background:linear-gradient(135deg,#064e2e,var(--grn));color:#fff;border:none;border-radius:7px;cursor:pointer;font-weight:700;">+ Adicionar</button>
+      </div>
+      <!-- Live calc preview -->
+      <div id="op-preview" style="display:none;font-family:'JetBrains Mono',monospace;font-size:10px;display:flex;gap:14px;padding-top:4px;flex-wrap:wrap;"></div>
+    </div>
+    <div id="open-pos-list"><div class="empty" style="padding:16px;">Sem posições abertas registadas.</div></div>
+  </div>
+
+  <!-- ADVANCED PERFORMANCE STATS -->
+  <div class="card" style="margin-bottom:0;">
+    <div class="card-hd">🏆 Análise de Performance</div>
+    <div id="adv-stats"></div>
+  </div>
+
+</div>
 <!-- PROP FIRMS -->
 <div id="pg-firms" class="pg">
   <div class="sec-lbl">Prop Firms Suportadas (11)</div>
@@ -498,6 +543,7 @@ const CHK_DATA=[
 ];
 // ═══ STATE ═══
 let trades=[], weeks=makeWeeks(), checks=makeChecks(), editId=null, curEmo='', curBal=10000;
+let _wasReset=false;
 let _calcWin=0, _calcLoss=0, _rrManual=false;
 let activeChallenge={firmId:'',phase:0,accountSize:10000,startDate:''};
 let mt5WS=null, mt5Status='disconnected';
@@ -601,7 +647,7 @@ function exportCSV(){if(!trades.length){alert('Sem operações!');return;}const 
 // ═══ NAV ═══
 function goTo(id,btn){_livePageId=id;document.querySelectorAll('.pg').forEach(p=>p.classList.remove('on'));document.querySelectorAll('.nb').forEach(b=>b.classList.remove('on'));qs('pg-'+id).classList.add('on');if(btn)btn.classList.add('on');if(id==='dash'){renderDash();requestAnimationFrame(()=>safeDrawCharts());}if(id==='firms')renderFirms();if(id==='diary'){renderDiaryKpis();renderTable();}if(id==='risk'){calcRisk();renderRisk();}if(id==='plan')renderPlan();if(id==='chk')renderChk();if(id==='sim')calcSim();}
 // ═══ RENDER ALL ═══
-function renderAll(){renderDash();renderDiaryKpis();renderTable();}
+function renderAll(){renderDash();renderDiaryKpis();renderTable();renderOpenPositions();renderAdvStats();}
 
 // ── RESET ──
 function showResetModal(){qs('reset-modal').classList.add('on');}
@@ -610,9 +656,14 @@ function doReset(){
   trades=[];weeks=makeWeeks();checks=makeChecks();
   curBal=newBal;activeChallenge={firmId:'',phase:0,accountSize:newBal,startDate:''};
   // clear all known localStorage keys
+  _wasReset=true;
+  openPositions=[];
+  try{localStorage.removeItem('ng_openpos');}catch(e){}
   ['ngpro_v2','ngpro_v1','ng_v1','ng_t','ng_w','ng_c','ng_bal'].forEach(k=>{
     try{localStorage.removeItem(k);}catch(e){}
   });
+  // Save clean state immediately
+  try{localStorage.setItem('ngpro_v2',JSON.stringify({trades:[],weeks,checks,bal:curBal,challenge:activeChallenge}));}catch(e){}
   saveData();
   qs('reset-modal').classList.remove('on');
   qs('f-bal').value=newBal;qs('rc-bal').value=newBal;
@@ -622,6 +673,337 @@ function doReset(){
   n.style.cssText='position:fixed;top:80px;left:50%;transform:translateX(-50%);z-index:9999;background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.35);color:var(--grn);padding:12px 24px;border-radius:10px;font-family:JetBrains Mono,monospace;font-size:12px;letter-spacing:1px;box-shadow:0 8px 24px rgba(0,0,0,.4);';
   n.textContent='✅ Reset completo — conta nova de $'+newBal.toLocaleString();
   document.body.appendChild(n);setTimeout(()=>n.remove(),3500);
+}
+
+
+// ═══════════════════════════════════════════════════════════
+//  OPEN POSITIONS ENGINE
+// ═══════════════════════════════════════════════════════════
+let openPositions = [];
+const OP_PIP = {'XAU/USD':.01,'EUR/USD':.0001,'GBP/USD':.0001,'GBP/JPY':.01,'USD/JPY':.01,'NAS100':.1,'US30':1,'US500':.1,'BTC/USD':1,'Outro':.0001};
+const OP_LOT_USD = {'XAU/USD':100,'EUR/USD':10,'GBP/USD':10,'GBP/JPY':10,'USD/JPY':10,'NAS100':10,'US30':10,'US500':10,'BTC/USD':10,'Outro':10};
+
+function calcPnLOpenPos(op, curPrice){
+  if(!curPrice || !op.entry || !op.lot) return {pnl:0,pips:0};
+  const pip = OP_PIP[op.par] || 0.0001;
+  const lotUSD = OP_LOT_USD[op.par] || 10;
+  const pips = op.dir==='BUY' ? (curPrice - op.entry)/pip : (op.entry - curPrice)/pip;
+  const pnl  = pips * lotUSD * op.lot;
+  return {pnl: parseFloat(pnl.toFixed(2)), pips: parseFloat(pips.toFixed(1))};
+}
+
+function calcPipsToTarget(op, targetPrice){
+  if(!targetPrice || !op.entry) return 0;
+  const pip = OP_PIP[op.par] || 0.0001;
+  if(op.dir==='BUY') return ((targetPrice - op.entry)/pip).toFixed(1);
+  return ((op.entry - targetPrice)/pip).toFixed(1);
+}
+
+function calcOpenPnL(){
+  const entry = parseFloat(qs('op-entry').value);
+  const lot   = parseFloat(qs('op-lot').value) || 0.1;
+  const cur   = parseFloat(qs('op-cur').value);
+  const sl    = parseFloat(qs('op-sl').value);
+  const tp    = parseFloat(qs('op-tp').value);
+  const par   = qs('op-par').value;
+  const dir   = qs('op-dir').value;
+  const prev  = qs('op-preview');
+
+  if(!entry || !cur){ prev.style.display='none'; return; }
+  const pip    = OP_PIP[par] || 0.0001;
+  const lotUSD = OP_LOT_USD[par] || 10;
+  const pips   = dir==='BUY' ? (cur-entry)/pip : (entry-cur)/pip;
+  const pnl    = pips * lotUSD * lot;
+  const isPos  = pnl >= 0;
+
+  let html = `<span style="color:${isPos?'var(--grn)':'var(--red)'};">P&L: ${pnl>=0?'+':''}$${pnl.toFixed(2)}</span>`;
+  html += `<span style="color:var(--cyan);">Pips: ${pips>=0?'+':''}${pips.toFixed(1)}</span>`;
+  if(sl){ const slPips = dir==='BUY'?(entry-sl)/pip:(sl-entry)/pip; const slUSD=slPips*lotUSD*lot; html+=`<span style="color:var(--red);">SL: -$${Math.abs(slUSD).toFixed(2)} (${slPips.toFixed(0)}p)</span>`; }
+  if(tp){ const tpPips = dir==='BUY'?(tp-entry)/pip:(entry-tp)/pip; const tpUSD=tpPips*lotUSD*lot; html+=`<span style="color:var(--grn);">TP: +$${tpUSD.toFixed(2)} (${tpPips.toFixed(0)}p)</span>`; }
+  if(sl && tp && sl!==entry){ const rrVal = (Math.abs(tp-entry)/Math.abs(sl-entry)).toFixed(2); html+=`<span style="color:var(--gold2);">R:R 1:${rrVal}</span>`; }
+  prev.style.display = 'flex';
+  prev.innerHTML = html;
+}
+
+function addOpenPosition(){
+  const par   = qs('op-par').value;
+  const dir   = qs('op-dir').value;
+  const entry = parseFloat(qs('op-entry').value);
+  const lot   = parseFloat(qs('op-lot').value) || 0.1;
+  const sl    = parseFloat(qs('op-sl').value) || 0;
+  const tp    = parseFloat(qs('op-tp').value) || 0;
+  const cur   = parseFloat(qs('op-cur').value) || entry;
+  if(!entry){ return; }
+  openPositions.push({
+    id: Date.now(), par, dir, entry, lot, sl, tp,
+    curPrice: cur, time: new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'}),
+    date: todayStr()
+  });
+  try{ localStorage.setItem('ng_openpos', JSON.stringify(openPositions)); }catch(e){}
+  qs('op-entry').value=''; qs('op-cur').value=''; qs('op-sl').value=''; qs('op-tp').value='';
+  qs('op-preview').style.display='none';
+  renderOpenPositions();
+}
+
+function updateOpenPrice(id, newPrice){
+  const op = openPositions.find(p=>p.id===id);
+  if(op){ op.curPrice = parseFloat(newPrice)||op.entry; }
+  try{ localStorage.setItem('ng_openpos', JSON.stringify(openPositions)); }catch(e){}
+  renderOpenPositions();
+}
+
+function closeOpenPos(id, outcome){
+  const op = openPositions.find(p=>p.id===id);
+  if(!op) return;
+  const {pnl} = calcPnLOpenPos(op, op.curPrice);
+  // Auto-add to diary
+  trades.push({
+    id: Date.now(), date: todayStr(), par: op.par, dir: op.dir,
+    sess: getSession(new Date().toLocaleTimeString('pt-BR')),
+    entry: op.entry, sl: op.sl, tp: op.tp,
+    res: outcome==='BE' ? 0 : pnl,
+    riskp: 0, rr: op.sl && op.tp ? parseFloat((Math.abs(op.tp-op.entry)/Math.abs(op.sl-op.entry)).toFixed(2)) : 0,
+    out: outcome || (pnl>0?'WIN':pnl<0?'LOSS':'BE'),
+    setup: 'Manual Close', emo: '—', less: '', source: 'manual', volume: op.lot
+  });
+  openPositions = openPositions.filter(p=>p.id!==id);
+  try{ localStorage.setItem('ng_openpos', JSON.stringify(openPositions)); }catch(e){}
+  saveData(); renderAll();
+}
+
+function removeOpenPos(id){
+  openPositions = openPositions.filter(p=>p.id!==id);
+  try{ localStorage.setItem('ng_openpos', JSON.stringify(openPositions)); }catch(e){}
+  renderOpenPositions();
+}
+
+function renderOpenPositions(){
+  const el = qs('open-pos-list');
+  const cnt = qs('open-pos-count');
+  if(!el) return;
+  if(cnt) cnt.textContent = openPositions.length + ' aberta' + (openPositions.length!==1?'s':'');
+
+  if(!openPositions.length){
+    el.innerHTML = '<div class="empty" style="padding:16px;">Sem posições abertas. Adiciona acima.</div>';
+    return;
+  }
+
+  let totalUnrealized = 0;
+  const rows = openPositions.map(op=>{
+    const {pnl, pips} = calcPnLOpenPos(op, op.curPrice);
+    totalUnrealized += pnl;
+    const pip   = OP_PIP[op.par] || 0.0001;
+    const lotUSD= OP_LOT_USD[op.par] || 10;
+    const isPos = pnl >= 0;
+    const dc    = op.dir==='BUY' ? 'var(--grn)' : 'var(--red)';
+    const pc    = isPos ? 'var(--grn)' : 'var(--red)';
+    const slPips= op.sl ? (op.dir==='BUY'?(op.entry-op.sl)/pip:(op.sl-op.entry)/pip).toFixed(0) : '—';
+    const tpPips= op.tp ? (op.dir==='BUY'?(op.tp-op.entry)/pip:(op.entry-op.tp)/pip).toFixed(0) : '—';
+    const slUSD = op.sl ? (Math.abs(op.sl-op.entry)/pip*lotUSD*op.lot).toFixed(2) : '—';
+    const tpUSD = op.tp ? (Math.abs(op.tp-op.entry)/pip*lotUSD*op.lot).toFixed(2) : '—';
+    const rr    = op.sl && op.tp ? (Math.abs(op.tp-op.entry)/Math.abs(op.sl-op.entry)).toFixed(2) : '—';
+
+    return `<div style="background:rgba(255,255,255,.02);border:1px solid ${isPos?'rgba(16,185,129,.15)':'rgba(239,68,68,.15)'};border-radius:10px;padding:10px 12px;margin-bottom:8px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;color:var(--gold2);">${op.par}</span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:${dc};font-weight:700;">${op.dir==='BUY'?'▲':'▼'} ${op.dir}</span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t2);">${op.lot}L · ${op.time}</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:700;color:${pc};">${pnl>=0?'+':''}$${pnl.toFixed(2)}</span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:${pc};">(${pips>=0?'+':''}${pips}p)</span>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:8px;">
+        <div style="background:rgba(255,255,255,.02);border-radius:6px;padding:5px 8px;text-align:center;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:7px;letter-spacing:1px;color:var(--t3);text-transform:uppercase;margin-bottom:2px;">Entrada</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;color:var(--t0);">${op.entry}</div>
+        </div>
+        <div style="background:rgba(255,255,255,.02);border-radius:6px;padding:5px 8px;text-align:center;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:7px;letter-spacing:1px;color:var(--t3);text-transform:uppercase;margin-bottom:2px;">Actual</div>
+          <input type="number" step="any" value="${op.curPrice||''}" onchange="updateOpenPrice(${op.id},this.value)" placeholder="Preço" style="font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;color:${pc};background:transparent;border:none;width:100%;text-align:center;outline:none;padding:0;">
+        </div>
+        <div style="background:rgba(239,68,68,.06);border-radius:6px;padding:5px 8px;text-align:center;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:7px;letter-spacing:1px;color:var(--t3);text-transform:uppercase;margin-bottom:2px;">SL</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--red);">${op.sl||'—'} <span style="color:var(--t3);font-size:9px;">${op.sl?'(-$'+slUSD+' / '+slPips+'p)':''}</span></div>
+        </div>
+        <div style="background:rgba(16,185,129,.06);border-radius:6px;padding:5px 8px;text-align:center;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:7px;letter-spacing:1px;color:var(--t3);text-transform:uppercase;margin-bottom:2px;">TP / R:R</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--grn);">${op.tp||'—'} <span style="color:var(--gold2);font-size:9px;">${rr!=='—'?'1:'+rr:''}</span></div>
+        </div>
+      </div>
+      <div style="display:flex;gap:6px;">
+        <button onclick="closeOpenPos(${op.id},'WIN')" style="flex:1;padding:5px 0;background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.25);color:var(--grn);border-radius:6px;font-size:11px;cursor:pointer;font-weight:700;">✅ WIN</button>
+        <button onclick="closeOpenPos(${op.id},'LOSS')" style="flex:1;padding:5px 0;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.25);color:var(--red);border-radius:6px;font-size:11px;cursor:pointer;font-weight:700;">❌ LOSS</button>
+        <button onclick="closeOpenPos(${op.id},'BE')" style="flex:1;padding:5px 0;background:rgba(139,92,246,.08);border:1px solid rgba(139,92,246,.25);color:var(--pur2);border-radius:6px;font-size:11px;cursor:pointer;font-weight:700;">🔄 BE</button>
+        <button onclick="removeOpenPos(${op.id})" style="padding:5px 10px;background:rgba(255,255,255,.03);border:1px solid var(--b0);color:var(--t2);border-radius:6px;font-size:11px;cursor:pointer;">✕</button>
+      </div>
+    </div>`;
+  }).join('');
+
+  const totalColor = totalUnrealized>=0 ? 'var(--grn)' : 'var(--red)';
+  el.innerHTML = rows + `<div style="font-family:'JetBrains Mono',monospace;font-size:11px;text-align:right;color:${totalColor};padding-top:4px;border-top:1px solid var(--b0);">Total não realizado: <strong>${totalUnrealized>=0?'+':''}$${totalUnrealized.toFixed(2)}</strong></div>`;
+}
+
+// ═══════════════════════════════════════════════════════════
+//  ADVANCED PERFORMANCE STATS
+// ═══════════════════════════════════════════════════════════
+function renderAdvStats(){
+  const el = qs('adv-stats');
+  if(!el) return;
+  if(trades.length < 2){ el.innerHTML='<div class="empty" style="padding:20px;">Regista pelo menos 2 operações para ver as estatísticas avançadas.</div>'; return; }
+
+  // ── Best / Worst asset by P&L ──
+  const byPar = {};
+  for(const t of trades){
+    if(!byPar[t.par]) byPar[t.par]={par:t.par,ops:0,w:0,l:0,pnl:0,rrSum:0,rrN:0};
+    byPar[t.par].ops++; byPar[t.par].pnl+=t.res;
+    if(t.out==='WIN') byPar[t.par].w++;
+    else if(t.out==='LOSS') byPar[t.par].l++;
+    if(t.rr>0){byPar[t.par].rrSum+=t.rr;byPar[t.par].rrN++;}
+  }
+  const parArr = Object.values(byPar).sort((a,b)=>b.pnl-a.pnl);
+  const bestPar = parArr[0], worstPar = parArr[parArr.length-1];
+
+  // ── Best / Worst session ──
+  const bySess = {};
+  for(const t of trades){
+    const s = t.sess||'Outros';
+    if(!bySess[s]) bySess[s]={sess:s,ops:0,pnl:0,w:0};
+    bySess[s].ops++; bySess[s].pnl+=t.res;
+    if(t.out==='WIN') bySess[s].w++;
+  }
+  const sessArr = Object.values(bySess).sort((a,b)=>b.pnl-a.pnl);
+
+  // ── Best / Worst day of week ──
+  const byDow = {Mon:0,Tue:0,Wed:0,Thu:0,Fri:0};
+  const byDowOps = {Mon:0,Tue:0,Wed:0,Thu:0,Fri:0};
+  const dowNames = {0:'Sun',1:'Mon',2:'Tue',3:'Wed',4:'Thu',5:'Fri',6:'Sat'};
+  for(const t of trades){
+    const d = new Date(t.date+'T12:00:00');
+    const dk = dowNames[d.getDay()];
+    if(byDow[dk]!==undefined){ byDow[dk]+=t.res; byDowOps[dk]++; }
+  }
+  const dowArr = Object.keys(byDow).map(k=>({d:k,pnl:byDow[k],ops:byDowOps[k]})).filter(d=>d.ops>0).sort((a,b)=>b.pnl-a.pnl);
+  const ptBR = {Mon:'Seg',Tue:'Ter',Wed:'Qua',Thu:'Qui',Fri:'Sex'};
+
+  // ── Profit Factor ──
+  const grossWin  = trades.filter(t=>t.res>0).reduce((s,t)=>s+t.res,0);
+  const grossLoss = Math.abs(trades.filter(t=>t.res<0).reduce((s,t)=>s+t.res,0));
+  const pf = grossLoss > 0 ? (grossWin/grossLoss).toFixed(2) : '∞';
+  const pfColor = parseFloat(pf)>=1.5 ? 'var(--grn)' : parseFloat(pf)>=1 ? 'var(--gold)' : 'var(--red)';
+
+  // ── Average Win / Average Loss ──
+  const winTrades  = trades.filter(t=>t.res>0);
+  const lossTrades = trades.filter(t=>t.res<0);
+  const avgWin     = winTrades.length  ? winTrades.reduce((s,t)=>s+t.res,0)/winTrades.length   : 0;
+  const avgLoss    = lossTrades.length ? Math.abs(lossTrades.reduce((s,t)=>s+t.res,0)/lossTrades.length) : 0;
+  const ew         = avgWin > 0 && avgLoss > 0 ? (avgWin/avgLoss).toFixed(2) : '—';
+
+  // ── Consecutive wins / losses ──
+  const sorted = trades.slice().sort((a,b)=>new Date(a.date)-new Date(b.date));
+  let maxWinStreak=0,maxLossStreak=0,curW=0,curL=0;
+  for(const t of sorted){
+    if(t.out==='WIN'){curW++;curL=0;if(curW>maxWinStreak)maxWinStreak=curW;}
+    else if(t.out==='LOSS'){curL++;curW=0;if(curL>maxLossStreak)maxLossStreak=curL;}
+    else{curW=0;curL=0;}
+  }
+
+  // ── Expectancy (per trade) ──
+  const n = trades.length;
+  const wr = n ? trades.filter(t=>t.out==='WIN').length/n : 0;
+  const expectancy = ((wr*avgWin) - ((1-wr)*avgLoss)).toFixed(2);
+  const expColor = parseFloat(expectancy)>0 ? 'var(--grn)' : 'var(--red)';
+
+  // ── Recovery Factor ──
+  let peak2=0,maxDD2=0,cumR=0;
+  for(const t of sorted){cumR+=t.res;if(cumR>peak2)peak2=cumR;const d=peak2-cumR;if(d>maxDD2)maxDD2=d;}
+  const totalPnL = trades.reduce((s,t)=>s+t.res,0);
+  const recovFactor = maxDD2 > 0 ? (totalPnL/maxDD2).toFixed(2) : '—';
+
+  // ── Setup performance ──
+  const bySetup = {};
+  for(const t of trades){
+    const s = t.setup||'Sem Setup';
+    if(!bySetup[s]) bySetup[s]={s,ops:0,pnl:0,w:0};
+    bySetup[s].ops++; bySetup[s].pnl+=t.res;
+    if(t.out==='WIN') bySetup[s].w++;
+  }
+  const setupArr = Object.values(bySetup).filter(s=>s.ops>=2).sort((a,b)=>b.pnl-a.pnl);
+
+  const statBlock = (label,val,sub,color='var(--t0)') => `
+    <div style="background:rgba(255,255,255,.02);border:1px solid var(--b0);border-radius:9px;padding:9px 11px;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:var(--t3);margin-bottom:4px;">${label}</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:700;color:${color};">${val}</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t2);margin-top:2px;">${sub}</div>
+    </div>`;
+
+  let html = `<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px;">
+    ${statBlock('Profit Factor', pf, grossWin>0?'Bruto: +$'+grossWin.toFixed(0):'sem wins', pfColor)}
+    ${statBlock('Expectancy', (parseFloat(expectancy)>=0?'+':'')+expectancy+'$', 'por operação', expColor)}
+    ${statBlock('Avg Win', '+$'+avgWin.toFixed(2), 'vs loss $'+avgLoss.toFixed(2), 'var(--grn)')}
+    ${statBlock('Win Streak', maxWinStreak, 'max consecutivos', 'var(--grn)')}
+    ${statBlock('Loss Streak', maxLossStreak, 'max consecutivos', 'var(--red)')}
+    ${statBlock('Recovery Factor', recovFactor, 'P&L ÷ MaxDD', parseFloat(recovFactor)>1?'var(--grn)':parseFloat(recovFactor)>0?'var(--gold)':'var(--red)')}
+  </div>`;
+
+  // Best/Worst assets
+  if(parArr.length > 0){
+    html += `<div style="font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--t3);margin-bottom:8px;">Performance por Ativo</div>`;
+    html += `<div style="display:flex;flex-direction:column;gap:5px;margin-bottom:12px;">`;
+    for(const p of parArr.slice(0,5)){
+      const wr2 = p.ops?(p.w/p.ops*100).toFixed(0):0;
+      const barW = parArr[0].pnl !== 0 ? Math.abs(p.pnl/parArr[0].pnl*100) : 0;
+      const isP  = p.pnl >= 0;
+      html += `<div style="display:flex;align-items:center;gap:8px;">
+        <span style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:var(--gold2);min-width:72px;">${p.par}</span>
+        <div style="flex:1;height:5px;background:rgba(255,255,255,.04);border-radius:3px;overflow:hidden;"><div style="height:100%;width:${barW}%;background:${isP?'var(--grn)':'var(--red)'};border-radius:3px;"></div></div>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:${isP?'var(--grn)':'var(--red)'};min-width:72px;text-align:right;">${isP?'+':''}$${p.pnl.toFixed(2)}</span>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t2);min-width:32px;">${wr2}%</span>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t3);">${p.ops}ops</span>
+      </div>`;
+    }
+    html += `</div>`;
+  }
+
+  // Best sessions
+  if(sessArr.length > 0){
+    html += `<div style="font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--t3);margin-bottom:8px;">Performance por Sessão</div>`;
+    html += `<div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;">`;
+    for(const s of sessArr){
+      const isP = s.pnl>=0;
+      const wr3 = s.ops?(s.w/s.ops*100).toFixed(0):0;
+      html += `<div style="background:${isP?'rgba(16,185,129,.06)':'rgba(239,68,68,.06)'};border:1px solid ${isP?'rgba(16,185,129,.2)':'rgba(239,68,68,.2)'};border-radius:8px;padding:8px 12px;flex:1;min-width:80px;text-align:center;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t2);margin-bottom:3px;">${s.sess}</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;color:${isP?'var(--grn)':'var(--red)'};">${isP?'+':''}$${s.pnl.toFixed(0)}</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t2);margin-top:2px;">${wr3}% · ${s.ops}ops</div>
+      </div>`;
+    }
+    html += `</div>`;
+  }
+
+  // Best day of week
+  if(dowArr.length > 0){
+    html += `<div style="font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--t3);margin-bottom:8px;">Performance por Dia da Semana</div>`;
+    html += `<div style="display:flex;gap:6px;flex-wrap:wrap;">`;
+    for(const d of dowArr){
+      const isP=d.pnl>=0;
+      html+=`<div style="background:${isP?'rgba(16,185,129,.05)':'rgba(239,68,68,.05)'};border:1px solid ${isP?'rgba(16,185,129,.15)':'rgba(239,68,68,.15)'};border-radius:8px;padding:7px 10px;flex:1;min-width:48px;text-align:center;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t2);font-weight:700;">${ptBR[d.d]||d.d}</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;color:${isP?'var(--grn)':'var(--red)'};">${isP?'+':''}$${d.pnl.toFixed(0)}</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--t3);">${d.ops}ops</div>
+      </div>`;
+    }
+    html += `</div>`;
+  }
+
+  el.innerHTML = html;
+}
+
+// Load open positions from localStorage
+function loadOpenPositions(){
+  try{ const raw=localStorage.getItem('ng_openpos'); if(raw) openPositions=JSON.parse(raw); }catch(e){}
 }
 
 // ── CANVAS FIX: draw only when element has real width ──
@@ -667,10 +1049,11 @@ qs('f-date').value=todayStr();
 qs('f-bal').value=curBal;
 qs('rc-bal').value=curBal;
 qs('f-rr').addEventListener('input',()=>{_rrManual=true;});
-window.addEventListener('beforeunload',()=>{saveData();});
-setInterval(()=>{if(trades.length)saveData();},60000);
+window.addEventListener('beforeunload',()=>{ if(!_wasReset) saveData(); });
+setInterval(()=>{if(trades.length && !_wasReset)saveData();},60000);
 // Check localStorage
 (function(){try{localStorage.setItem('ng_test','1');localStorage.removeItem('ng_test');}catch(e){const w=document.createElement('div');w.style.cssText='position:fixed;bottom:14px;left:50%;transform:translateX(-50%);z-index:9999;background:#ef4444;color:#fff;font-size:12px;padding:10px 20px;border-radius:8px;font-family:monospace;letter-spacing:1px;';w.textContent='⚠️ localStorage bloqueado — dados não serão guardados! Abre em modo normal.';document.body.appendChild(w);}})();
+loadOpenPositions();
 renderAll();
 renderFirms();
 // Draw charts after layout settles
